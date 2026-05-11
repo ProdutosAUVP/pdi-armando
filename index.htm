@@ -33,6 +33,9 @@
               DEFAULT: '#38805A',
               light: '#E2E8E4',
             }
+          },
+          screens: {
+            'xs': '400px',
           }
         }
       }
@@ -62,9 +65,9 @@
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
     }
 
-    .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+    .custom-scrollbar::-webkit-scrollbar { width: 4px; height: 4px; }
     .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
-    .custom-scrollbar::-webkit-scrollbar-thumb { background: #d4d4d8; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: #d4d4d8; border-radius: 4px; }
     html.dark .custom-scrollbar::-webkit-scrollbar-thumb { background: #3f3f46; }
 
     /* Animações de UI */
@@ -99,28 +102,28 @@
 
   <!-- Navbar -->
   <nav class="sticky top-0 z-50 bg-paper/90 dark:bg-[#121212]/90 backdrop-blur-sm border-b border-paper-dark dark:border-white/10 transition-colors duration-500">
-    <div class="max-w-[1000px] mx-auto px-6 py-3 flex justify-between items-center">
-      <div class="flex items-center gap-2 md:gap-3 shrink-0">
-        <img src="https://raw.githubusercontent.com/ProdutosAUVP/reviewdesign/main/olho-branco%20(2).svg" alt="Olho AUVP" class="h-4 md:h-6 w-auto invert dark:invert-0 opacity-90 transition-all duration-500" />
+    <div class="max-w-[1000px] mx-auto px-4 sm:px-6 py-3 flex justify-between items-center gap-2">
+      <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+        <img src="https://raw.githubusercontent.com/ProdutosAUVP/reviewdesign/main/olho-branco%20(2).svg" alt="Olho AUVP" class="h-4 sm:h-5 md:h-6 w-auto invert dark:invert-0 opacity-90 transition-all duration-500 shrink-0" />
         <div class="flex flex-col">
-          <span class="text-base md:text-xl font-black tracking-tighter uppercase text-ink dark:text-white leading-[0.85] font-satoshi mt-0.5 whitespace-nowrap">
+          <span class="text-sm sm:text-base md:text-xl font-black tracking-tighter uppercase text-ink dark:text-white leading-[0.85] font-satoshi mt-0.5 whitespace-nowrap">
             PDI <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-[#72A68C] italic font-light tracking-tight">Armando.</span>
           </span>
         </div>
       </div>
       
-      <div class="flex items-center gap-2 sm:gap-4 md:gap-6">
-        <button id="btn-nav-presentation" onclick="switchView('presentation')" class="btn-nav text-[10px] uppercase tracking-widest font-bold border-b-2 border-accent text-ink dark:text-white transition-all duration-300 py-1">
+      <div class="flex items-center gap-2 sm:gap-4 md:gap-6 overflow-x-auto custom-scrollbar pb-1 sm:pb-0">
+        <button id="btn-nav-presentation" onclick="switchView('presentation')" class="btn-nav text-[9px] sm:text-[10px] uppercase tracking-widest font-bold border-b-2 border-accent text-ink dark:text-white transition-all duration-300 py-1 shrink-0">
           PDI
         </button>
-        <button id="btn-nav-tracking" onclick="switchView('tracking')" class="btn-nav text-[10px] uppercase tracking-widest font-medium border-b-2 border-transparent text-ink-light hover:text-ink dark:text-white/50 dark:hover:text-white transition-all duration-300 py-1">
+        <button id="btn-nav-tracking" onclick="switchView('tracking')" class="btn-nav text-[9px] sm:text-[10px] uppercase tracking-widest font-medium border-b-2 border-transparent text-ink-light hover:text-ink dark:text-white/50 dark:hover:text-white transition-all duration-300 py-1 shrink-0">
           Cronograma
         </button>
-        <button id="btn-nav-manifesto" onclick="switchView('manifesto')" class="btn-nav text-[10px] uppercase tracking-widest font-medium border-b-2 border-transparent text-ink-light hover:text-ink dark:text-white/50 dark:hover:text-white transition-all duration-300 py-1">
+        <button id="btn-nav-manifesto" onclick="switchView('manifesto')" class="btn-nav text-[9px] sm:text-[10px] uppercase tracking-widest font-medium border-b-2 border-transparent text-ink-light hover:text-ink dark:text-white/50 dark:hover:text-white transition-all duration-300 py-1 shrink-0">
           Manifesto
         </button>
-        <div class="w-[1px] h-3 bg-paper-dark dark:bg-white/10"></div>
-        <button onclick="toggleTheme()" class="text-ink-light hover:text-ink dark:text-white/50 dark:hover:text-white transition-all duration-300" aria-label="Alternar Tema">
+        <div class="w-[1px] h-3 bg-paper-dark dark:bg-white/10 shrink-0"></div>
+        <button onclick="toggleTheme()" class="text-ink-light hover:text-ink dark:text-white/50 dark:hover:text-white transition-all duration-300 shrink-0" aria-label="Alternar Tema">
           <svg id="icon-sun" class="hidden dark:block" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
           <svg id="icon-moon" class="block dark:hidden" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
         </button>
@@ -129,18 +132,18 @@
   </nav>
 
   <!-- VIEW 1: Apresentação PDI -->
-  <main id="view-presentation" class="w-full max-w-[1000px] mx-auto px-4 py-8 md:py-12 view-enter block">
+  <main id="view-presentation" class="w-full max-w-[1000px] mx-auto px-4 sm:px-6 py-8 md:py-12 view-enter block">
     
-    <!-- Cabeçalho (Limpo) -->
-    <div class="flex flex-col md:flex-row justify-between items-end gap-6 border-b border-paper-dark dark:border-white/10 pb-6 mb-8">
+    <!-- Cabeçalho (Limpo e Responsivo) -->
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 border-b border-paper-dark dark:border-white/10 pb-6 mb-8">
       <div>
         <h1 class="text-4xl md:text-5xl font-black tracking-tighter uppercase text-ink dark:text-white leading-[0.85] font-satoshi mb-2">
-          Plano de <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-[#72A68C] italic font-light tracking-tight">Desenvolvimento.</span>
+          Plano de <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-[#72A68C] italic font-light tracking-tight break-words">Desenvolvimento.</span>
         </h1>
         <p class="text-sm text-ink-light dark:text-white/60 font-medium">Ciclo 2026 • Assumindo o Leme</p>
       </div>
       
-      <div class="flex gap-x-8 gap-y-4 text-[10px] uppercase tracking-widest font-bold text-ink-light dark:text-white/50 mb-0.5">
+      <div class="flex gap-x-6 sm:gap-x-8 gap-y-4 text-[10px] uppercase tracking-widest font-bold text-ink-light dark:text-white/50 mb-0.5">
         <div class="flex flex-col items-start whitespace-nowrap">
           <span class="opacity-50 mb-0.5">Pirata:</span>
           <span class="text-ink dark:text-white">Armando</span>
@@ -153,10 +156,10 @@
     </div>
 
     <!-- Contexto e Mapeamento -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-10 items-start">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-10 items-stretch">
       
       <!-- Contexto -->
-      <div class="bg-white dark:bg-[#1A1A1A] border border-paper-dark dark:border-white/5 p-6 relative flex flex-col justify-start h-full">
+      <div class="bg-white dark:bg-[#1A1A1A] border border-paper-dark dark:border-white/5 p-5 sm:p-6 relative flex flex-col justify-start h-full">
         <div class="absolute top-0 left-0 w-1 h-full bg-accent"></div>
         <h2 class="text-[10px] uppercase tracking-widest font-bold text-ink-light dark:text-white/50 mb-3">Contexto e Autoconhecimento</h2>
         <p class="text-sm leading-relaxed text-ink dark:text-white/90">
@@ -168,47 +171,47 @@
       </div>
 
       <!-- Mapeamento 4 Dimensões -->
-      <div class="bg-white dark:bg-[#1A1A1A] border border-paper-dark dark:border-white/5 p-6 h-full">
+      <div class="bg-white dark:bg-[#1A1A1A] border border-paper-dark dark:border-white/5 p-5 sm:p-6 h-full flex flex-col">
         <h2 class="text-[10px] uppercase tracking-widest font-bold text-ink-light dark:text-white/50 mb-4">Mapeamento: 4 Dimensões</h2>
         
-        <div class="grid grid-cols-2 gap-3 h-full pb-6">
+        <div class="grid grid-cols-1 xs:grid-cols-2 gap-3 flex-1">
           <!-- Fortaleza 1 -->
-          <div class="border border-paper-dark/60 dark:border-white/10 p-3 bg-paper/30 dark:bg-white/5 rounded-sm">
-            <div class="flex items-center gap-1 mb-1">
-              <div class="w-1.5 h-1.5 rounded-full bg-accent"></div>
+          <div class="border border-paper-dark/60 dark:border-white/10 p-3 bg-paper/30 dark:bg-white/5 rounded-sm flex flex-col">
+            <div class="flex items-center gap-1 mb-1 shrink-0">
+              <div class="w-1.5 h-1.5 rounded-full bg-accent shrink-0"></div>
               <span class="text-[9px] uppercase font-bold text-accent dark:text-accent-light">Fortaleza</span>
             </div>
-            <h3 class="font-bold text-sm text-ink dark:text-white">⚙️ Operação</h3>
+            <h3 class="font-bold text-sm text-ink dark:text-white shrink-0">⚙️ Operação</h3>
             <p class="text-[10px] text-ink-light dark:text-white/60 mt-1 leading-tight">Facilidade com processos, Inteligência Artificial e padronização.</p>
           </div>
           
           <!-- Fortaleza 2 -->
-          <div class="border border-paper-dark/60 dark:border-white/10 p-3 bg-paper/30 dark:bg-white/5 rounded-sm">
-            <div class="flex items-center gap-1 mb-1">
-              <div class="w-1.5 h-1.5 rounded-full bg-accent"></div>
+          <div class="border border-paper-dark/60 dark:border-white/10 p-3 bg-paper/30 dark:bg-white/5 rounded-sm flex flex-col">
+            <div class="flex items-center gap-1 mb-1 shrink-0">
+              <div class="w-1.5 h-1.5 rounded-full bg-accent shrink-0"></div>
               <span class="text-[9px] uppercase font-bold text-accent dark:text-accent-light">Fortaleza</span>
             </div>
-            <h3 class="font-bold text-sm text-ink dark:text-white">🎯 Performance</h3>
-            <p class="text-[10px] text-ink-light dark:text-white/60 mt-1 leading-tight">Capacidade técnica de entregar demandas de alta complexidade em pouco tempo convertendo esforço em resultado.</p>
+            <h3 class="font-bold text-sm text-ink dark:text-white shrink-0">🎯 Performance</h3>
+            <p class="text-[10px] text-ink-light dark:text-white/60 mt-1 leading-tight">Capacidade técnica de entregar demandas complexas em pouco tempo, convertendo esforço em resultado.</p>
           </div>
 
           <!-- Desenvolvimento 1 -->
-          <div class="border border-paper-dark/60 dark:border-white/10 p-3 bg-paper/30 dark:bg-white/5 rounded-sm">
-            <div class="flex items-center gap-1 mb-1">
-              <div class="w-1.5 h-1.5 rounded-full bg-amber-500"></div>
+          <div class="border border-paper-dark/60 dark:border-white/10 p-3 bg-paper/30 dark:bg-white/5 rounded-sm flex flex-col">
+            <div class="flex items-center gap-1 mb-1 shrink-0">
+              <div class="w-1.5 h-1.5 rounded-full bg-amber-500 shrink-0"></div>
               <span class="text-[9px] uppercase font-bold text-amber-600 dark:text-amber-400">Desenvolvimento</span>
             </div>
-            <h3 class="font-bold text-sm text-ink dark:text-white">📣 Influência</h3>
+            <h3 class="font-bold text-sm text-ink dark:text-white shrink-0">📣 Influência</h3>
             <p class="text-[10px] text-ink-light dark:text-white/60 mt-1 leading-tight">Necessidade de atuar de forma mais proativa junto a outras áreas após a entrega.</p>
           </div>
 
           <!-- Desenvolvimento 2 -->
-          <div class="border border-paper-dark/60 dark:border-white/10 p-3 bg-paper/30 dark:bg-white/5 rounded-sm">
-            <div class="flex items-center gap-1 mb-1">
-              <div class="w-1.5 h-1.5 rounded-full bg-amber-500"></div>
+          <div class="border border-paper-dark/60 dark:border-white/10 p-3 bg-paper/30 dark:bg-white/5 rounded-sm flex flex-col">
+            <div class="flex items-center gap-1 mb-1 shrink-0">
+              <div class="w-1.5 h-1.5 rounded-full bg-amber-500 shrink-0"></div>
               <span class="text-[9px] uppercase font-bold text-amber-600 dark:text-amber-400">Desenvolvimento</span>
             </div>
-            <h3 class="font-bold text-sm text-ink dark:text-white">🏴‍☠️ Cultura</h3>
+            <h3 class="font-bold text-sm text-ink dark:text-white shrink-0">🏴‍☠️ Cultura</h3>
             <p class="text-[10px] text-ink-light dark:text-white/60 mt-1 leading-tight">Sustentar o padrão visual e comportamental do "Bom Designer" até o final do processo.</p>
           </div>
         </div>
@@ -217,14 +220,14 @@
 
     <h2 class="text-2xl font-black tracking-tighter uppercase text-ink dark:text-white mb-6">Plano de Ação (Modelo 70-20-10)</h2>
 
-    <!-- Modelo 70/20/10 Grid - Adequado ao Guia de Ação -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 items-stretch">
+    <!-- Modelo 70/20/10 Grid - Alinhado pelo Topo e Responsivo -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-12 items-stretch">
       
       <!-- 70% No Convés -->
       <div class="bg-white dark:bg-[#1A1A1A] border border-paper-dark dark:border-white/5 flex flex-col h-full">
-        <div class="p-6 border-b border-paper-dark dark:border-white/5">
+        <div class="p-5 sm:p-6 border-b border-paper-dark dark:border-white/5 shrink-0">
           <div class="flex items-center gap-2 mb-4">
-            <span class="inline-block py-1 px-2 text-[11px] font-bold tracking-widest bg-ink text-white dark:bg-white dark:text-ink uppercase">70%</span>
+            <span class="inline-block py-1 px-2 text-[11px] font-bold tracking-widest bg-ink text-white dark:bg-white dark:text-ink uppercase rounded-sm">70%</span>
             <span class="text-sm font-bold uppercase tracking-widest text-ink dark:text-white">No Convés</span>
           </div>
           <p class="text-[11px] text-ink-light dark:text-white/60 italic leading-tight">Aplicação na rotina, assumindo entregas e aplicando novos comportamentos.</p>
@@ -232,27 +235,27 @@
         <div class="p-5 bg-paper/30 dark:bg-black/20 flex-1 flex flex-col gap-5">
           
           <!-- Lista de Ações -->
-          <div class="space-y-4">
-            <div class="border-l-2 border-accent pl-3">
+          <div class="space-y-5">
+            <div class="border-l-2 border-accent pl-3 flex flex-col items-start">
               <h4 class="text-[10px] uppercase font-bold text-ink-light dark:text-white/50 mb-1">Ação</h4>
               <p class="text-sm font-bold text-ink dark:text-white mb-1">Automação de Revisão</p>
               <p class="text-[11px] text-ink-light dark:text-white/70 mb-2">Criar automação (ClickUp) que gera subtarefa de revisão técnica 3 dias após a liberação da entrega.</p>
-              <span class="inline-block px-2 py-0.5 bg-paper-dark dark:bg-white/10 text-ink dark:text-white text-[9px] uppercase tracking-widest font-bold rounded-sm">Prazo: 15/07/2026</span>
+              <span class="inline-block px-2 py-0.5 bg-paper-dark dark:bg-white/10 text-ink dark:text-white text-[9px] uppercase tracking-widest font-bold rounded-sm mt-auto">Prazo: 15/07/2026</span>
             </div>
             
-            <div class="border-l-2 border-accent pl-3">
+            <div class="border-l-2 border-accent pl-3 flex flex-col items-start">
               <h4 class="text-[10px] uppercase font-bold text-ink-light dark:text-white/50 mb-1">Ação</h4>
               <p class="text-sm font-bold text-ink dark:text-white mb-1">Processo de Revisão de Design</p>
               <p class="text-[11px] text-ink-light dark:text-white/70 mb-2">Instituir a área de design como validadora final de peças elaboradas por outras áreas com e sem inteligências artificiais, estruturando um sistema de audição de design.</p>
-              <span class="inline-block px-2 py-0.5 bg-paper-dark dark:bg-white/10 text-ink dark:text-white text-[9px] uppercase tracking-widest font-bold rounded-sm">Prazo: 15/07/2026</span>
+              <span class="inline-block px-2 py-0.5 bg-paper-dark dark:bg-white/10 text-ink dark:text-white text-[9px] uppercase tracking-widest font-bold rounded-sm mt-auto">Prazo: 15/07/2026</span>
             </div>
           </div>
 
           <!-- Impacto e Medição do Bloco -->
-          <div class="mt-auto bg-white dark:bg-[#1A1A1A] border border-paper-dark dark:border-white/10 p-3 rounded-sm space-y-3">
+          <div class="mt-auto bg-white dark:bg-[#1A1A1A] border border-paper-dark dark:border-white/10 p-3 sm:p-4 rounded-sm space-y-3">
             <div>
               <h4 class="text-[10px] uppercase font-bold text-accent dark:text-accent-light mb-1">Impacto esperado do bloco</h4>
-              <p class="text-[11px] text-ink dark:text-white/80 leading-relaxed">Sustentação da cultura da marca, melhoria na qualidade do trabalho publicado pelas áreas e aumento da influência da equipe de design (garantindo que o resultado final acompanhe o projeto).</p>
+              <p class="text-[11px] text-ink dark:text-white/80 leading-relaxed">Sustentação da cultura da marca, melhoria na qualidade do trabalho publicado e aumento da influência da equipe de design (garantindo que o resultado acompanhe o projeto).</p>
             </div>
             <div class="border-t border-paper-dark/50 dark:border-white/5 pt-2">
               <h4 class="text-[10px] uppercase font-bold text-accent dark:text-accent-light mb-1">Medição do bloco</h4>
@@ -265,9 +268,9 @@
 
       <!-- 20% Na Confraria -->
       <div class="bg-white dark:bg-[#1A1A1A] border border-paper-dark dark:border-white/5 flex flex-col h-full">
-        <div class="p-6 border-b border-paper-dark dark:border-white/5">
+        <div class="p-5 sm:p-6 border-b border-paper-dark dark:border-white/5 shrink-0">
           <div class="flex items-center gap-2 mb-4">
-            <span class="inline-block py-1 px-2 text-[11px] font-bold tracking-widest bg-ink text-white dark:bg-white dark:text-ink uppercase">20%</span>
+            <span class="inline-block py-1 px-2 text-[11px] font-bold tracking-widest bg-ink text-white dark:bg-white dark:text-ink uppercase rounded-sm">20%</span>
             <span class="text-sm font-bold uppercase tracking-widest text-ink dark:text-white">Na Confraria</span>
           </div>
           <p class="text-[11px] text-ink-light dark:text-white/60 italic leading-tight">Conexão, avaliação de pares, troca de experiências e influência.</p>
@@ -275,27 +278,27 @@
         <div class="p-5 bg-paper/30 dark:bg-black/20 flex-1 flex flex-col gap-5">
           
           <!-- Lista de Ações -->
-          <div class="space-y-4">
-            <div class="border-l-2 border-accent pl-3">
+          <div class="space-y-5">
+            <div class="border-l-2 border-accent pl-3 flex flex-col items-start">
               <h4 class="text-[10px] uppercase font-bold text-ink-light dark:text-white/50 mb-1">Ação</h4>
               <p class="text-sm font-bold text-ink dark:text-white mb-1">Aplicação da Pesquisa Interna</p>
               <p class="text-[11px] text-ink-light dark:text-white/70 mb-2">Incorporar o <a href="https://produtosauvp.github.io/reviewdesign/" target="_blank" class="text-accent dark:text-accent-light underline hover:opacity-80">formulário de satisfação</a> no fluxo de entrega das demandas para colher avaliações dos demandantes.</p>
-              <span class="inline-block px-2 py-0.5 bg-paper-dark dark:bg-white/10 text-ink dark:text-white text-[9px] uppercase tracking-widest font-bold rounded-sm">Prazo: 15/05/2026</span>
+              <span class="inline-block px-2 py-0.5 bg-paper-dark dark:bg-white/10 text-ink dark:text-white text-[9px] uppercase tracking-widest font-bold rounded-sm mt-auto">Prazo: 15/05/2026</span>
             </div>
             
-            <div class="border-l-2 border-accent pl-3">
+            <div class="border-l-2 border-accent pl-3 flex flex-col items-start">
               <h4 class="text-[10px] uppercase font-bold text-ink-light dark:text-white/50 mb-1">Ação</h4>
               <p class="text-sm font-bold text-ink dark:text-white mb-1">Treinamento de IA (Equipe)</p>
               <p class="text-[11px] text-ink-light dark:text-white/70 mb-2">Apresentar ao time formas práticas de usar inteligência artificial na criação ágil de materiais.</p>
-              <span class="inline-block px-2 py-0.5 bg-paper-dark dark:bg-white/10 text-ink dark:text-white text-[9px] uppercase tracking-widest font-bold rounded-sm">Prazo: 15/07/2026</span>
+              <span class="inline-block px-2 py-0.5 bg-paper-dark dark:bg-white/10 text-ink dark:text-white text-[9px] uppercase tracking-widest font-bold rounded-sm mt-auto">Prazo: 15/07/2026</span>
             </div>
           </div>
 
           <!-- Impacto e Medição do Bloco -->
-          <div class="mt-auto bg-white dark:bg-[#1A1A1A] border border-paper-dark dark:border-white/10 p-3 rounded-sm space-y-3">
+          <div class="mt-auto bg-white dark:bg-[#1A1A1A] border border-paper-dark dark:border-white/10 p-3 sm:p-4 rounded-sm space-y-3">
             <div>
               <h4 class="text-[10px] uppercase font-bold text-accent dark:text-accent-light mb-1">Impacto esperado do bloco</h4>
-              <p class="text-[11px] text-ink dark:text-white/80 leading-relaxed">Melhoria extrema na organização do processo de avaliação de pares e aumento da autonomia tecnológica da equipe (relação positiva e baseada em dados com o time).</p>
+              <p class="text-[11px] text-ink dark:text-white/80 leading-relaxed">Melhoria extrema na organização do processo de avaliação de pares e aumento da autonomia tecnológica da equipe (relação positiva baseada em dados com o time).</p>
             </div>
             <div class="border-t border-paper-dark/50 dark:border-white/5 pt-2">
               <h4 class="text-[10px] uppercase font-bold text-accent dark:text-accent-light mb-1">Medição do bloco</h4>
@@ -308,9 +311,9 @@
 
       <!-- 10% No Mapa -->
       <div class="bg-white dark:bg-[#1A1A1A] border border-paper-dark dark:border-white/5 flex flex-col h-full">
-        <div class="p-6 border-b border-paper-dark dark:border-white/5">
+        <div class="p-5 sm:p-6 border-b border-paper-dark dark:border-white/5 shrink-0">
           <div class="flex items-center gap-2 mb-4">
-            <span class="inline-block py-1 px-2 text-[11px] font-bold tracking-widest bg-ink text-white dark:bg-white dark:text-ink uppercase">10%</span>
+            <span class="inline-block py-1 px-2 text-[11px] font-bold tracking-widest bg-ink text-white dark:bg-white dark:text-ink uppercase rounded-sm">10%</span>
             <span class="text-sm font-bold uppercase tracking-widest text-ink dark:text-white">No Mapa</span>
           </div>
           <p class="text-[11px] text-ink-light dark:text-white/60 italic leading-tight">A base: Estudo, estruturação técnica, manuais e análise de dados brutos.</p>
@@ -318,27 +321,27 @@
         <div class="p-5 bg-paper/30 dark:bg-black/20 flex-1 flex flex-col gap-5">
           
           <!-- Lista de Ações -->
-          <div class="space-y-4">
-            <div class="border-l-2 border-accent pl-3">
+          <div class="space-y-5">
+            <div class="border-l-2 border-accent pl-3 flex flex-col items-start">
               <h4 class="text-[10px] uppercase font-bold text-ink-light dark:text-white/50 mb-1">Ação</h4>
               <p class="text-sm font-bold text-ink dark:text-white mb-1">Design System Integrado</p>
-              <p class="text-[11px] text-ink-light dark:text-white/70 mb-2">Estruturar e documentar a base visual técnica utilizando o Lovable, com componentes em React e HTML, com base em bibliotecas open source.</p>
-              <span class="inline-block px-2 py-0.5 bg-paper-dark dark:bg-white/10 text-ink dark:text-white text-[9px] uppercase tracking-widest font-bold rounded-sm">Prazo: 14/10/2026</span>
+              <p class="text-[11px] text-ink-light dark:text-white/70 mb-2">Estruturar e documentar a base visual técnica utilizando o Lovable, com componentes em React e HTML, fugindo da dependência do Figma.</p>
+              <span class="inline-block px-2 py-0.5 bg-paper-dark dark:bg-white/10 text-ink dark:text-white text-[9px] uppercase tracking-widest font-bold rounded-sm mt-auto">Prazo: 14/10/2026</span>
             </div>
             
-            <div class="border-l-2 border-accent pl-3">
+            <div class="border-l-2 border-accent pl-3 flex flex-col items-start">
               <h4 class="text-[10px] uppercase font-bold text-ink-light dark:text-white/50 mb-1">Ação</h4>
               <p class="text-sm font-bold text-ink dark:text-white mb-1">Análise de Dados de Acesso</p>
               <p class="text-[11px] text-ink-light dark:text-white/70 mb-2">Criar rotina de estudo dos mapas de calor nas páginas e estruturar testes comparativos focados em conversão.</p>
-              <span class="inline-block px-2 py-0.5 bg-paper-dark dark:bg-white/10 text-ink dark:text-white text-[9px] uppercase tracking-widest font-bold rounded-sm">Prazo: 14/10/2026</span>
+              <span class="inline-block px-2 py-0.5 bg-paper-dark dark:bg-white/10 text-ink dark:text-white text-[9px] uppercase tracking-widest font-bold rounded-sm mt-auto">Prazo: 14/10/2026</span>
             </div>
           </div>
 
           <!-- Impacto e Medição do Bloco -->
-          <div class="mt-auto bg-white dark:bg-[#1A1A1A] border border-paper-dark dark:border-white/10 p-3 rounded-sm space-y-3">
+          <div class="mt-auto bg-white dark:bg-[#1A1A1A] border border-paper-dark dark:border-white/10 p-3 sm:p-4 rounded-sm space-y-3">
             <div>
               <h4 class="text-[10px] uppercase font-bold text-accent dark:text-accent-light mb-1">Impacto esperado do bloco</h4>
-              <p class="text-[11px] text-ink dark:text-white/80 leading-relaxed">Organização escalável do processo de marca, reduzindo a dependência para pequenos ajustes e mudando o foco das entregas de puramente estéticas para conversão.</p>
+              <p class="text-[11px] text-ink dark:text-white/80 leading-relaxed">Organização escalável da marca, reduzindo a dependência para pequenos ajustes e mudando o foco das entregas de estética para conversão.</p>
             </div>
             <div class="border-t border-paper-dark/50 dark:border-white/5 pt-2">
               <h4 class="text-[10px] uppercase font-bold text-accent dark:text-accent-light mb-1">Medição do bloco</h4>
@@ -353,19 +356,19 @@
   </main>
 
   <!-- VIEW 2: Cronograma e Acompanhamento Pessoal -->
-  <main id="view-tracking" class="w-full max-w-[800px] mx-auto px-4 py-8 md:py-12 view-enter hidden">
+  <main id="view-tracking" class="w-full max-w-[800px] mx-auto px-4 sm:px-6 py-8 md:py-12 view-enter hidden">
     
-    <div class="flex flex-col md:flex-row justify-between items-end gap-6 border-b border-paper-dark dark:border-white/10 pb-6 mb-8">
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 border-b border-paper-dark dark:border-white/10 pb-6 mb-8">
       <div>
         <h1 class="text-4xl md:text-5xl font-black tracking-tighter uppercase text-ink dark:text-white leading-[0.85] font-satoshi mb-2">
-          Meu <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-[#72A68C] italic font-light tracking-tight">Cronograma.</span>
+          Meu <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-[#72A68C] italic font-light tracking-tight break-words">Cronograma.</span>
         </h1>
         <p class="text-sm text-ink-light dark:text-white/60 font-medium">Ciclos de Performance 2026</p>
       </div>
     </div>
 
     <!-- Barra de Progresso Geral -->
-    <div class="bg-white dark:bg-[#1A1A1A] border border-paper-dark dark:border-white/5 p-6 mb-8 flex flex-col md:flex-row items-center gap-6 shadow-sm">
+    <div class="bg-white dark:bg-[#1A1A1A] border border-paper-dark dark:border-white/5 p-5 sm:p-6 mb-8 flex flex-col md:flex-row items-center gap-6 shadow-sm">
       <div class="w-full flex-1">
         <div class="flex justify-between items-end mb-2">
           <span class="text-[9px] uppercase font-bold tracking-widest text-ink-light dark:text-white/50">Progresso Geral do PDI</span>
@@ -376,9 +379,9 @@
         </div>
       </div>
       <div class="flex items-center gap-3 shrink-0">
-        <div class="text-right">
+        <div class="text-center md:text-right w-full md:w-auto mt-4 md:mt-0">
           <div class="text-[9px] uppercase font-bold tracking-widest text-ink-light dark:text-white/50">Ações Concluídas</div>
-          <div class="text-xl font-medium text-ink dark:text-white leading-none"><span id="tasks-completed">0</span><span class="text-sm text-ink-light dark:text-white/30">/<span id="tasks-total">13</span></span></div>
+          <div class="text-xl font-medium text-ink dark:text-white leading-none mt-1"><span id="tasks-completed">0</span><span class="text-sm text-ink-light dark:text-white/30">/<span id="tasks-total">13</span></span></div>
         </div>
       </div>
     </div>
@@ -391,20 +394,20 @@
   </main>
 
   <!-- VIEW 3: Manifesto de Design -->
-  <main id="view-manifesto" class="w-full max-w-[1000px] mx-auto px-4 py-8 md:py-12 view-enter hidden">
+  <main id="view-manifesto" class="w-full max-w-[1000px] mx-auto px-4 sm:px-6 py-8 md:py-12 view-enter hidden">
     
-    <div class="flex flex-col md:flex-row justify-between items-end gap-6 border-b border-paper-dark dark:border-white/10 pb-6 mb-8">
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 border-b border-paper-dark dark:border-white/10 pb-6 mb-8">
       <div>
         <h1 class="text-4xl md:text-5xl font-black tracking-tighter uppercase text-ink dark:text-white leading-[0.85] font-satoshi mb-2">
-          Manifesto de <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-[#72A68C] italic font-light tracking-tight">Design.</span>
+          Manifesto de <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-[#72A68C] italic font-light tracking-tight break-words">Design.</span>
         </h1>
-        <p class="text-sm text-ink-light dark:text-white/60 font-medium max-w-2xl">
+        <p class="text-sm text-ink-light dark:text-white/60 font-medium max-w-2xl mt-2">
           A Essência do Bom Designer. Este é o nosso guia de conduta, postura e excelência técnica para atuar no barco da AUVP.
         </p>
       </div>
     </div>
 
-    <div class="grid grid-cols-1 gap-8" id="manifesto-container">
+    <div class="grid grid-cols-1 gap-6 sm:gap-8" id="manifesto-container">
       <!-- Injetado por JS na inicialização -->
     </div>
   </main>
@@ -417,7 +420,7 @@
         focus: "1º Ciclo Completo",
         tasks: [
           { id: "action_1", text: "Implementar automações de lembretes no ClickUp para acompanhamento de qualidade." },
-          { id: "action_2", text: "Disponibilizar e iniciar o uso prático do <a href='https://produtosauvp.github.io/reviewdesign/' target='_blank' onclick='event.stopPropagation()' class='text-accent dark:text-accent-light underline hover:opacity-80'>formulário de pesquisa de satisfação</a> interna nas entregas diárias." }
+          { id: "action_2", text: "Disponibilizar e iniciar o uso prático do <a href='https://produtosauvp.github.io/reviewdesign/' target='_blank' onclick='event.stopPropagation()' class='text-accent dark:text-accent-light underline hover:opacity-80 break-words'>formulário de pesquisa de satisfação</a> interna nas entregas diárias." }
         ]
       },
       {
@@ -469,7 +472,7 @@
         focus: "2º Ciclo Completo",
         tasks: [
           { id: "action_9", text: "Executar o primeiro teste comparativo documentado com base em dados de acesso reais." },
-          { id: "action_10", text: "Implementar melhorias no processo com base no histórico colhido da <a href='https://produtosauvp.github.io/reviewdesign/' target='_blank' onclick='event.stopPropagation()' class='text-accent dark:text-accent-light underline hover:opacity-80'>pesquisa de satisfação</a>." }
+          { id: "action_10", text: "Implementar melhorias no processo com base no histórico colhido da <a href='https://produtosauvp.github.io/reviewdesign/' target='_blank' onclick='event.stopPropagation()' class='text-accent dark:text-accent-light underline hover:opacity-80 break-words'>pesquisa de satisfação</a>." }
         ]
       },
       {
@@ -566,8 +569,8 @@
         if (el) el.classList.add('hidden');
       });
       
-      const activeClass = "btn-nav text-[10px] uppercase tracking-widest font-bold border-b-2 border-accent text-ink dark:text-white transition-all duration-300 py-1";
-      const inactiveClass = "btn-nav text-[10px] uppercase tracking-widest font-medium border-b-2 border-transparent text-ink-light hover:text-ink dark:text-white/50 dark:hover:text-white transition-all duration-300 py-1";
+      const activeClass = "btn-nav text-[9px] sm:text-[10px] uppercase tracking-widest font-bold border-b-2 border-accent text-ink dark:text-white transition-all duration-300 py-1 shrink-0";
+      const inactiveClass = "btn-nav text-[9px] sm:text-[10px] uppercase tracking-widest font-medium border-b-2 border-transparent text-ink-light hover:text-ink dark:text-white/50 dark:hover:text-white transition-all duration-300 py-1 shrink-0";
 
       document.getElementById('btn-nav-presentation').className = (viewName === 'presentation') ? activeClass : inactiveClass;
       document.getElementById('btn-nav-tracking').className = (viewName === 'tracking') ? activeClass : inactiveClass;
@@ -624,14 +627,14 @@
           const textCompletedClass = savedProgress[task.id] ? 'completed' : '';
 
           tasksHtml += `
-            <label class="flex items-start gap-4 p-4 hover:bg-paper-dark/30 dark:hover:bg-white/5 transition-colors cursor-pointer group border-b border-paper-dark/50 dark:border-white/5 last:border-0">
-              <div class="relative flex items-start mt-0.5">
+            <label class="flex items-start gap-3 sm:gap-4 p-4 sm:p-5 hover:bg-paper-dark/30 dark:hover:bg-white/5 transition-colors cursor-pointer group border-b border-paper-dark/50 dark:border-white/5 last:border-0">
+              <div class="relative flex items-start mt-0.5 shrink-0">
                 <input type="checkbox" class="task-checkbox opacity-0 absolute h-0 w-0" onchange="toggleTask('${task.id}')" ${isChecked}>
                 <div class="w-5 h-5 border-2 border-paper-dark dark:border-white/20 rounded-[4px] flex items-center justify-center transition-all group-hover:border-accent">
-                  <svg class="w-3.5 h-3.5 text-white opacity-0 transform scale-50 transition-all duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                  <svg class="w-3.5 h-3.5 text-white opacity-0 transform scale-50 transition-all duration-200 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
                 </div>
               </div>
-              <span id="text-${task.id}" class="task-text text-sm text-ink dark:text-white/90 leading-relaxed transition-all duration-300 ${textCompletedClass}">
+              <span id="text-${task.id}" class="task-text text-sm text-ink dark:text-white/90 leading-relaxed transition-all duration-300 w-full ${textCompletedClass}">
                 ${task.text}
               </span>
             </label>
@@ -641,10 +644,10 @@
         html += `
           <div class="bg-white dark:bg-[#1A1A1A] border border-paper-dark dark:border-white/5 relative overflow-hidden">
             <div class="absolute left-0 top-0 w-1 h-full bg-paper-dark dark:bg-white/10"></div>
-            <div class="px-6 py-4 border-b border-paper-dark dark:border-white/5 bg-paper/50 dark:bg-[#151515]">
-              <div class="flex items-baseline justify-between">
-                <h3 class="text-lg md:text-xl font-bold tracking-tight text-ink dark:text-white">${monthGroup.month}</h3>
-                <span class="text-[9px] uppercase tracking-widest font-bold text-accent dark:text-accent-light bg-accent/10 px-2 py-0.5">${monthGroup.focus}</span>
+            <div class="px-4 sm:px-6 py-4 border-b border-paper-dark dark:border-white/5 bg-paper/50 dark:bg-[#151515]">
+              <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 sm:gap-0">
+                <h3 class="text-lg md:text-xl font-bold tracking-tight text-ink dark:text-white leading-tight">${monthGroup.month}</h3>
+                <span class="text-[9px] uppercase tracking-widest font-bold text-accent dark:text-accent-light bg-accent/10 px-2 py-0.5 rounded-sm w-fit">${monthGroup.focus}</span>
               </div>
             </div>
             <div class="flex flex-col">
@@ -671,26 +674,26 @@
         html += `
           <div class="bg-white dark:bg-[#1A1A1A] border border-paper-dark dark:border-white/5 flex flex-col md:flex-row overflow-hidden group shadow-sm hover:border-paper-dark/80 dark:hover:border-white/20 transition-colors">
             <!-- Coluna de Numeração/Título -->
-            <div class="md:w-1/3 bg-paper/50 dark:bg-white/5 p-6 md:p-8 flex flex-col justify-start border-b md:border-b-0 md:border-r border-paper-dark dark:border-white/5">
+            <div class="md:w-1/3 bg-paper/50 dark:bg-white/5 p-5 sm:p-6 md:p-8 flex flex-col justify-start border-b md:border-b-0 md:border-r border-paper-dark dark:border-white/5 shrink-0">
               <span class="text-3xl font-black text-ink-light/30 dark:text-white/20 font-satoshi leading-none mb-3">${num}.</span>
-              <h3 class="text-lg font-bold text-ink dark:text-white leading-tight uppercase tracking-wide">${item.title}</h3>
+              <h3 class="text-base sm:text-lg font-bold text-ink dark:text-white leading-tight uppercase tracking-wide break-words">${item.title}</h3>
             </div>
             
             <!-- Conteúdo Principal -->
-            <div class="md:w-2/3 flex flex-col">
-              <div class="p-6 md:p-8 flex-1">
+            <div class="md:w-2/3 flex flex-col min-w-0">
+              <div class="p-5 sm:p-6 md:p-8 flex-1">
                 <div class="flex items-center gap-2 mb-3">
-                  <div class="w-2 h-2 rounded-full bg-accent"></div>
-                  <span class="text-[10px] uppercase tracking-widest font-bold text-accent dark:text-accent-light">O Bom Designer</span>
+                  <div class="w-2 h-2 rounded-full bg-accent shrink-0"></div>
+                  <span class="text-[9px] uppercase tracking-widest font-bold text-accent dark:text-accent-light">O Bom Designer</span>
                 </div>
                 <p class="text-sm leading-relaxed text-ink dark:text-white/90">${item.bom}</p>
               </div>
               
               ${item.mau ? `
-                <div class="p-6 md:p-8 border-t border-paper-dark/50 dark:border-white/5 bg-red-50/30 dark:bg-red-900/10">
+                <div class="p-5 sm:p-6 md:p-8 border-t border-paper-dark/50 dark:border-white/5 bg-red-50/30 dark:bg-red-900/10">
                   <div class="flex items-center gap-2 mb-3">
-                    <div class="w-2 h-2 rounded-full bg-red-400 dark:bg-red-500/50"></div>
-                    <span class="text-[10px] uppercase tracking-widest font-bold text-red-500 dark:text-red-400">O Mau Designer</span>
+                    <div class="w-2 h-2 rounded-full bg-red-400 dark:bg-red-500/50 shrink-0"></div>
+                    <span class="text-[9px] uppercase tracking-widest font-bold text-red-500 dark:text-red-400">O Mau Designer</span>
                   </div>
                   <p class="text-sm leading-relaxed text-ink-light dark:text-white/70 italic">"${item.mau}"</p>
                 </div>
