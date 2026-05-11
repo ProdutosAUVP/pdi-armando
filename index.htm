@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PDI Armando - AUVP</title>
+  
+  <!-- Font -->
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,300,400&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Tailwind Config -->
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            satoshi: ['Satoshi', 'sans-serif'],
+          },
+          colors: {
+            paper: {
+              DEFAULT: '#F9F8F6',
+              dark: '#EAE7E0',
+            },
+            ink: {
+              DEFAULT: '#1C1C1C',
+              light: '#595959',
+            },
+            accent: {
+              DEFAULT: '#38805A',
+              light: '#E2E8E4',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body { font-family: 'Satoshi', sans-serif; }
+
+    /* Background Grid Decorativo */
+    .bg-grid {
+      background-size: 40px 40px;
+      background-image: linear-gradient(to right, rgba(28, 28, 28, 0.04) 1px, transparent 1px),
+                        linear-gradient(to bottom, rgba(28, 28, 28, 0.04) 1px, transparent 1px);
+    }
+    html.dark .bg-grid {
+      background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    }
+    
+    /* Textura de ruído simulando papel/impressão */
+    .paper-texture {
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
+    }
+    
+    html.dark .paper-texture {
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
+    }
+
+    .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: #d4d4d8; }
+    html.dark .custom-scrollbar::-webkit-scrollbar-thumb { background: #3f3f46; }
+
+    /* Animações de UI */
+    .view-enter {
+      animation: fadeIn 0.4s ease-out forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Checkbox customizado */
+    .task-checkbox:checked + div {
+      background-color: #38805A;
+      border-color: #38805A;
+    }
+    .task-checkbox:checked + div svg {
+      opacity: 1;
+      transform: scale(1);
+    }
+    .task-text.completed {
+      text-decoration: line-through;
+      opacity: 0.5;
+    }
+  </style>
+</head>
+<body class="bg-paper dark:bg-[#121212] text-ink dark:text-[#E0E0E0] transition-colors duration-500 relative overflow-x-hidden selection:bg-accent/20">
+
+  <!-- Background Textures -->
+  <div class="fixed inset-0 z-[-1] paper-texture bg-grid pointer-events-none"></div>
+
+  <!-- Navbar -->
+  <nav class="sticky top-0 z-50 bg-paper/90 dark:bg-[#121212]/90 backdrop-blur-sm border-b border-paper-dark dark:border-white/10 transition-colors duration-500">
+    <div class="max-w-[1000px] mx-auto px-6 py-3 flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <img src="https://raw.githubusercontent.com/ProdutosAUVP/reviewdesign/main/olho-branco%20(2).svg" alt="Olho AUVP" class="h-5 md:h-6 w-auto invert dark:invert-0 opacity-90 transition-all duration-500" />
+        <div class="flex flex-col">
+          <span class="text-xl font-black tracking-tighter uppercase text-ink dark:text-white leading-[0.85] font-satoshi mt-0.5">
+            PDI <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-[#72A68C] italic font-light tracking-tight">Armando.</span>
+          </span>
+        </div>
+      </div>
+      
+      <div class="flex items-center gap-4 md:gap-6">
+        <button id="btn-nav-presentation" onclick="switchView('presentation')" class="btn-nav text-[10px] uppercase tracking-widest font-bold border-b-2 border-accent text-ink dark:text-white transition-all duration-300 py-1">
+          PDI
+        </button>
+        <button id="btn-nav-tracking" onclick="switchView('tracking')" class="btn-nav text-[10px] uppercase tracking-widest font-medium border-b-2 border-transparent text-ink-light hover:text-ink dark:text-white/50 dark:hover:text-white transition-all duration-300 py-1">
+          Cronograma
+        </button>
+        <button id="btn-nav-manifesto" onclick="switchView('manifesto')" class="btn-nav text-[10px] uppercase tracking-widest font-medium border-b-2 border-transparent text-ink-light hover:text-ink dark:text-white/50 dark:hover:text-white transition-all duration-300 py-1">
+          Manifesto
+        </button>
+        <div class="w-[1px] h-3 bg-paper-dark dark:bg-white/10"></div>
+        <button onclick="toggleTheme()" class="text-ink-light hover:text-ink dark:text-white/50 dark:hover:text-white transition-all duration-300" aria-label="Alternar Tema">
+          <svg id="icon-sun" class="hidden dark:block" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+          <svg id="icon-moon" class="block dark:hidden" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- VIEW 1: Apresentação PDI -->
+  <main id="view-presentation" class="w-full max-w-[1000px] mx-auto px-4 py-8 md:py-12 view-enter block">
+    
+    <!-- Cabeçalho (Limpo) -->
+    <div class="flex flex-col md:flex-row justify-between items-end gap-6 border-b border-paper-dark dark:border-white/10 pb-6 mb-8">
+      <div>
+        <h1 class="text-4xl md:text-5xl font-black tracking-tighter uppercase text-ink dark:text-white leading-[0.85] font-satoshi mb-2">
+          Plano de <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-[#72A68C] italic font-light tracking-tight">Desenvolvimento.</span>
+        </h1>
+        <p class="text-sm text-ink-light dark:text-white/60 font-medium">Ciclo 2026 • Assumindo o Leme</p>
+      </div>
+      
+      <div class="flex gap-x-8 gap-y-4 text-[10px] uppercase tracking-widest font-bold text-ink-light dark:text-white/50 mb-0.5">
+        <div class="flex flex-col items-start whitespace-nowrap">
+          <span class="opacity-50 mb-0.5">Pirata:</span>
+          <span class="text-ink dark:text-white">Armando</span>
+        </div>
+        <div class="flex flex-col items-start whitespace-nowrap">
+          <span class="opacity-50 mb-0.5">Líder:</span>
+          <span class="text-ink dark:text-white">Daniel Machado</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contexto e Mapeamento -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-10 items-start">
+      
+      <!-- Contexto -->
+      <div class="bg-white dark:bg-[#1A1A1A] border border-paper-dark dark:border-white/5 p-6 relative flex flex-col justify-start h-full">
+        <div class="absolute top-0 left-0 w-1 h-full bg-accent"></div>
+        <h2 class="text-[10px] uppercase tracking-widest font-bold text-ink-light dark:text-white/50 mb-3">Contexto e Autoconhecimento</h2>
+        <p class="text-sm leading-relaxed text-ink dark:text-white/90">
+          Refletindo sobre meu principal ponto forte (<span class="font-bold text-accent dark:text-accent-light">facilidade com tecnologia e Inteligência Artificial</span>) e meu principal ponto de atenção (<span class="font-bold text-accent dark:text-accent-light">o distanciamento da demanda após a conclusão da criação</span>). 
+        </p>
+        <p class="text-sm leading-relaxed text-ink dark:text-white/90 mt-2">
+          Decidi estruturar meu PDI usando minhas fortalezas para desenvolver minhas áreas de melhoria, garantindo mais previsibilidade, consistência e baseando as decisões em dados concretos.
+        </p>
+      </div>
+
+      <!-- Mapeamento 4 Dimensões -->
+      <div class="bg-white dark:bg-[#1A1A1A] border border-paper-dark dark:border-white/5 p-6 h-full">
+        <h2 class="text-[10px] uppercase tracking-widest font-bold text-ink-light dark:text-white/50 mb-4">Mapeamento: 4 Dimensões</h2>
+        
+        <div class="grid grid-cols-2 gap-3 h-full pb-6">
+          <!-- Fortaleza 1 -->
+          <div class="border border-paper-dark/60 dark:border-white/10 p-3 bg-paper/30 dark:bg-white/5 rounded-sm">
+            <div class="flex items-center gap-1 mb-1">
+              <div class="w-1.5 h-1.5 rounded-full bg-accent"></div>
+              <span class="text-[9px] uppercase font-bold text-accent dark:text-accent-light">Fortaleza</span>
+            </div>
+            <h3 class="font-bold text-sm text-ink dark:text-white">⚙️ Operação</h3>
+            <p class="text-[10px] text-ink-light dark:text-white/60 mt-1 leading-tight">Facilidade com processos, Inteligência Artificial e padronização.</p>
+          </div>
+          
+          <!-- Fortaleza 2 -->
+          <div class="border border-paper-dark/60 dark:border-white/10 p-3 bg-paper/30 dark:bg-white/5 rounded-sm">
+            <div class="flex items-center gap-1 mb-1">
+              <div class="w-1.5 h-1.5 rounded-full bg-accent"></div>
+              <span class="text-[9px] uppercase font-bold text-accent dark:text-accent-light">Fortaleza</span>
+            </div>
+            <h3 class="font-bold text-sm text-ink dark:text-white">🎯 Performance</h3>
+            <p class="text-[10px] text-ink-light dark:text-white/60 mt-1 leading-tight">Capacidade técnica de entregar demandas de alta complexidade em pouco tempo convertendo esforço em resultado.</p>
+          </div>
+
+          <!-- Desenvolvimento 1 -->
+          <div class="border border-paper-dark/60 dark:border-white/10 p-3 bg-paper/30 dark:bg-white/5 rounded-sm">
+            <div class="flex items-center gap-1 mb-1">
+              <div class="w-1.5 h-1.5 rounded-full bg-amber-500"></div>
+              <span class="text-[9px] uppercase font-bold text-amber-600 dark:text-amber-400">Desenvolvimento</span>
+            </div>
+            <h3 class="font-bold text-sm text-ink dark:text-white">📣 Influência</h3>
+            <p class="text-[10px] text-ink-light dark:text-white/60 mt-1 leading-tight">Necessidade de atuar de forma mais proativa junto a outras áreas após a entrega.</p>
+          </div>
+
+          <!-- Desenvolvimento 2 -->
+          <div class="border border-paper-dark/60 dark:border-white/10 p-3 bg-paper/30 dark:bg-white/5 rounded-sm">
+            <div class="flex items-center gap-1 mb-1">
+              <div class="w-1.5 h-1.5 rounded-full bg-amber-500"></div>
+              <span class="text-[9px] uppercase font-bold text-amber-600 dark:text-amber-400">Desenvolvimento</span>
+            </div>
+            <h3 class="font-bold text-sm text-ink dark:text-white">🏴‍☠️ Cultura</h3>
+            <p class="text-[10px] text-ink-light dark:text-white/60 mt-1 leading-tight">Sustentar o padrão visual e comportamental do "Bom Designer" até o final do processo.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="text-2xl font-black tracking-tighter uppercase text-ink dark:text-white mb-6">Plano de Ação (Modelo 70-20-10)</h2>
+
+    <!-- Modelo 70/20/10 Grid - Adequado ao Guia de Ação -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 items-stretch">
+      
+      <!-- 70% No Convés -->
+      <div class="bg-white dark:bg-[#1A1A1A] border border-paper-dark dark:border-white/5 flex flex-col h-full">
+        <div class="p-6 border-b border-paper-dark dark:border-white/5">
+          <div class="flex items-center gap-2 mb-4">
+            <span class="inline-block py-1 px-2 text-[11px] font-bold tracking-widest bg-ink text-white dark:bg-white dark:text-ink uppercase">70%</span>
+            <span class="text-sm font-bold uppercase tracking-widest text-ink dark:text-white">No Convés</span>
+          </div>
+          <p class="text-[11px] text-ink-light dark:text-white/60 italic leading-tight">Aplicação na rotina, assumindo entregas e aplicando novos comportamentos.</p>
+        </div>
+        <div class="p-5 bg-paper/30 dark:bg-black/20 flex-1 flex flex-col gap-5">
+          
+          <!-- Lista de Ações -->
+          <div class="space-y-4">
+            <div class="border-l-2 border-accent pl-3">
+              <h4 class="text-[10px] uppercase font-bold text-ink-light dark:text-white/50 mb-1">Ação</h4>
+              <p class="text-sm font-bold text-ink dark:text-white mb-1">Automação de Revisão</p>
+              <p class="text-[11px] text-ink-light dark:text-white/70 mb-2">Criar automação (ClickUp) que gera subtarefa de revisão técnica 3 dias após a liberação da entrega.</p>
+              <span class="inline-block px-2 py-0.5 bg-paper-dark dark:bg-white/10 text-ink dark:text-white text-[9px] uppercase tracking-widest font-bold rounded-sm">Prazo: 15/07/2026</span>
+            </div>
+            
+            <div class="border-l-2 border-accent pl-3">
+              <h4 class="text-[10px] uppercase font-bold text-ink-light dark:text-white/50 mb-1">Ação</h4>
+              <p class="text-sm font-bold text-ink dark:text-white mb-1">Processo de Revisão de Design</p>
+              <p class="text-[11px] text-ink-light dark:text-white/70 mb-2">Instituir a área de design como validadora final de peças elaboradas por outras áreas com e sem inteligências artificiais, estruturando um sistema de audição de design.</p>
+              <span class="inline-block px-2 py-0.5 bg-paper-dark dark:bg-white/10 text-ink dark:text-white text-[9px] uppercase tracking-widest font-bold rounded-sm">Prazo: 15/07/2026</span>
+            </div>
+          </div>
+
+          <!-- Impacto e Medição do Bloco -->
+          <div class="mt-auto bg-white dark:bg-[#1A1A1A] border border-paper-dark dark:border-white/10 p-3 rounded-sm space-y-3">
+            <div>
+              <h4 class="text-[10px] uppercase font-bold text-accent dark:text-accent-light mb-1">Impacto esperado do bloco</h4>
+              <p class="text-[11px] text-ink dark:text-white/80 leading-relaxed">Sustentação da cultura da marca, melhoria na qualidade do trabalho publicado pelas áreas e aumento da influência da equipe de design (garantindo que o resultado final acompanhe o projeto).</p>
+            </div>
+            <div class="border-t border-paper-dark/50 dark:border-white/5 pt-2">
+              <h4 class="text-[10px] uppercase font-bold text-accent dark:text-accent-light mb-1">Medição do bloco</h4>
+              <p class="text-[11px] text-ink dark:text-white/80 leading-relaxed">Evidência prática através da redução de retrabalho pós-lançamento e aprovação formal do fluxo de avaliação interna.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 20% Na Confraria -->
+      <div class="bg-white dark:bg-[#1A1A1A] border border-paper-dark dark:border-white/5 flex flex-col h-full">
+        <div class="p-6 border-b border-paper-dark dark:border-white/5">
+          <div class="flex items-center gap-2 mb-4">
+            <span class="inline-block py-1 px-2 text-[11px] font-bold tracking-widest bg-ink text-white dark:bg-white dark:text-ink uppercase">20%</span>
+            <span class="text-sm font-bold uppercase tracking-widest text-ink dark:text-white">Na Confraria</span>
+          </div>
+          <p class="text-[11px] text-ink-light dark:text-white/60 italic leading-tight">Conexão, avaliação de pares, troca de experiências e influência.</p>
+        </div>
+        <div class="p-5 bg-paper/30 dark:bg-black/20 flex-1 flex flex-col gap-5">
+          
+          <!-- Lista de Ações -->
+          <div class="space-y-4">
+            <div class="border-l-2 border-accent pl-3">
+              <h4 class="text-[10px] uppercase font-bold text-ink-light dark:text-white/50 mb-1">Ação</h4>
+              <p class="text-sm font-bold text-ink dark:text-white mb-1">Aplicação da Pesquisa Interna</p>
+              <p class="text-[11px] text-ink-light dark:text-white/70 mb-2">Incorporar o <a href="https://produtosauvp.github.io/reviewdesign/" target="_blank" class="text-accent dark:text-accent-light underline hover:opacity-80">formulário de satisfação</a> no fluxo de entrega das demandas para colher avaliações dos demandantes.</p>
+              <span class="inline-block px-2 py-0.5 bg-paper-dark dark:bg-white/10 text-ink dark:text-white text-[9px] uppercase tracking-widest font-bold rounded-sm">Prazo: 15/05/2026</span>
+            </div>
+            
+            <div class="border-l-2 border-accent pl-3">
+              <h4 class="text-[10px] uppercase font-bold text-ink-light dark:text-white/50 mb-1">Ação</h4>
+              <p class="text-sm font-bold text-ink dark:text-white mb-1">Treinamento de IA (Equipe)</p>
+              <p class="text-[11px] text-ink-light dark:text-white/70 mb-2">Apresentar ao time formas práticas de usar inteligência artificial na criação ágil de materiais.</p>
+              <span class="inline-block px-2 py-0.5 bg-paper-dark dark:bg-white/10 text-ink dark:text-white text-[9px] uppercase tracking-widest font-bold rounded-sm">Prazo: 15/07/2026</span>
+            </div>
+          </div>
+
+          <!-- Impacto e Medição do Bloco -->
+          <div class="mt-auto bg-white dark:bg-[#1A1A1A] border border-paper-dark dark:border-white/10 p-3 rounded-sm space-y-3">
+            <div>
+              <h4 class="text-[10px] uppercase font-bold text-accent dark:text-accent-light mb-1">Impacto esperado do bloco</h4>
+              <p class="text-[11px] text-ink dark:text-white/80 leading-relaxed">Melhoria extrema na organização do processo de avaliação de pares e aumento da autonomia tecnológica da equipe (relação positiva e baseada em dados com o time).</p>
+            </div>
+            <div class="border-t border-paper-dark/50 dark:border-white/5 pt-2">
+              <h4 class="text-[10px] uppercase font-bold text-accent dark:text-accent-light mb-1">Medição do bloco</h4>
+              <p class="text-[11px] text-ink dark:text-white/80 leading-relaxed">Média superior a 4.5 nas avaliações colhidas e redução comprovada do tempo médio de conclusão das tarefas do setor.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 10% No Mapa -->
+      <div class="bg-white dark:bg-[#1A1A1A] border border-paper-dark dark:border-white/5 flex flex-col h-full">
+        <div class="p-6 border-b border-paper-dark dark:border-white/5">
+          <div class="flex items-center gap-2 mb-4">
+            <span class="inline-block py-1 px-2 text-[11px] font-bold tracking-widest bg-ink text-white dark:bg-white dark:text-ink uppercase">10%</span>
+            <span class="text-sm font-bold uppercase tracking-widest text-ink dark:text-white">No Mapa</span>
+          </div>
+          <p class="text-[11px] text-ink-light dark:text-white/60 italic leading-tight">A base: Estudo, estruturação técnica, manuais e análise de dados brutos.</p>
+        </div>
+        <div class="p-5 bg-paper/30 dark:bg-black/20 flex-1 flex flex-col gap-5">
+          
+          <!-- Lista de Ações -->
+          <div class="space-y-4">
+            <div class="border-l-2 border-accent pl-3">
+              <h4 class="text-[10px] uppercase font-bold text-ink-light dark:text-white/50 mb-1">Ação</h4>
+              <p class="text-sm font-bold text-ink dark:text-white mb-1">Design System Integrado</p>
+              <p class="text-[11px] text-ink-light dark:text-white/70 mb-2">Estruturar e documentar a base visual técnica utilizando o Lovable, com componentes em React e HTML, com base em bibliotecas open source.</p>
+              <span class="inline-block px-2 py-0.5 bg-paper-dark dark:bg-white/10 text-ink dark:text-white text-[9px] uppercase tracking-widest font-bold rounded-sm">Prazo: 14/10/2026</span>
+            </div>
+            
+            <div class="border-l-2 border-accent pl-3">
+              <h4 class="text-[10px] uppercase font-bold text-ink-light dark:text-white/50 mb-1">Ação</h4>
+              <p class="text-sm font-bold text-ink dark:text-white mb-1">Análise de Dados de Acesso</p>
+              <p class="text-[11px] text-ink-light dark:text-white/70 mb-2">Criar rotina de estudo dos mapas de calor nas páginas e estruturar testes comparativos focados em conversão.</p>
+              <span class="inline-block px-2 py-0.5 bg-paper-dark dark:bg-white/10 text-ink dark:text-white text-[9px] uppercase tracking-widest font-bold rounded-sm">Prazo: 14/10/2026</span>
+            </div>
+          </div>
+
+          <!-- Impacto e Medição do Bloco -->
+          <div class="mt-auto bg-white dark:bg-[#1A1A1A] border border-paper-dark dark:border-white/10 p-3 rounded-sm space-y-3">
+            <div>
+              <h4 class="text-[10px] uppercase font-bold text-accent dark:text-accent-light mb-1">Impacto esperado do bloco</h4>
+              <p class="text-[11px] text-ink dark:text-white/80 leading-relaxed">Organização escalável do processo de marca, reduzindo a dependência para pequenos ajustes e mudando o foco das entregas de puramente estéticas para conversão.</p>
+            </div>
+            <div class="border-t border-paper-dark/50 dark:border-white/5 pt-2">
+              <h4 class="text-[10px] uppercase font-bold text-accent dark:text-accent-light mb-1">Medição do bloco</h4>
+              <p class="text-[11px] text-ink dark:text-white/80 leading-relaxed">Lançamento oficial da primeira versão do Design System e execução bem-sucedida do primeiro teste de conversão.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- VIEW 2: Cronograma e Acompanhamento Pessoal -->
+  <main id="view-tracking" class="w-full max-w-[800px] mx-auto px-4 py-8 md:py-12 view-enter hidden">
+    
+    <div class="flex flex-col md:flex-row justify-between items-end gap-6 border-b border-paper-dark dark:border-white/10 pb-6 mb-8">
+      <div>
+        <h1 class="text-4xl md:text-5xl font-black tracking-tighter uppercase text-ink dark:text-white leading-[0.85] font-satoshi mb-2">
+          Meu <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-[#72A68C] italic font-light tracking-tight">Cronograma.</span>
+        </h1>
+        <p class="text-sm text-ink-light dark:text-white/60 font-medium">Ciclos de Performance 2026</p>
+      </div>
+    </div>
+
+    <!-- Barra de Progresso Geral -->
+    <div class="bg-white dark:bg-[#1A1A1A] border border-paper-dark dark:border-white/5 p-6 mb-8 flex flex-col md:flex-row items-center gap-6 shadow-sm">
+      <div class="w-full flex-1">
+        <div class="flex justify-between items-end mb-2">
+          <span class="text-[9px] uppercase font-bold tracking-widest text-ink-light dark:text-white/50">Progresso Geral do PDI</span>
+          <span id="overall-progress-text" class="text-sm font-bold text-ink dark:text-white">0%</span>
+        </div>
+        <div class="w-full h-2 bg-paper-dark dark:bg-white/10 relative overflow-hidden rounded-full">
+          <div id="overall-progress-bar" class="absolute top-0 left-0 h-full bg-accent transition-all duration-700 ease-out" style="width: 0%"></div>
+        </div>
+      </div>
+      <div class="flex items-center gap-3 shrink-0">
+        <div class="text-right">
+          <div class="text-[9px] uppercase font-bold tracking-widest text-ink-light dark:text-white/50">Ações Concluídas</div>
+          <div class="text-xl font-medium text-ink dark:text-white leading-none"><span id="tasks-completed">0</span><span class="text-sm text-ink-light dark:text-white/30">/<span id="tasks-total">13</span></span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lista de Tarefas (Gerada via JS) -->
+    <div id="roadmap-container" class="flex flex-col gap-8">
+      <!-- Injetado por JS -->
+    </div>
+
+  </main>
+
+  <!-- VIEW 3: Manifesto de Design -->
+  <main id="view-manifesto" class="w-full max-w-[1000px] mx-auto px-4 py-8 md:py-12 view-enter hidden">
+    
+    <div class="flex flex-col md:flex-row justify-between items-end gap-6 border-b border-paper-dark dark:border-white/10 pb-6 mb-8">
+      <div>
+        <h1 class="text-4xl md:text-5xl font-black tracking-tighter uppercase text-ink dark:text-white leading-[0.85] font-satoshi mb-2">
+          Manifesto de <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-[#72A68C] italic font-light tracking-tight">Design.</span>
+        </h1>
+        <p class="text-sm text-ink-light dark:text-white/60 font-medium max-w-2xl">
+          A Essência do Bom Designer. Este é o nosso guia de conduta, postura e excelência técnica para atuar no barco da AUVP.
+        </p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 gap-8" id="manifesto-container">
+      <!-- Injetado por JS na inicialização -->
+    </div>
+  </main>
+
+  <script>
+    // --- ESTADO DA APLICAÇÃO (CRONOGRAMA DETALHADO POR SEMANAS) ---
+    const roadmapTasks = [
+      {
+        month: "Maio • Semanas 3 e 4",
+        focus: "1º Ciclo Completo",
+        tasks: [
+          { id: "action_1", text: "Implementar automações de lembretes no ClickUp para acompanhamento de qualidade." },
+          { id: "action_2", text: "Disponibilizar e iniciar o uso prático do <a href='https://produtosauvp.github.io/reviewdesign/' target='_blank' onclick='event.stopPropagation()' class='text-accent dark:text-accent-light underline hover:opacity-80'>formulário de pesquisa de satisfação</a> interna nas entregas diárias." }
+        ]
+      },
+      {
+        month: "Junho • Semanas 1 e 2",
+        focus: "1º Ciclo Completo",
+        tasks: [
+          { id: "action_3", text: "Conclusão da primeira versão da biblioteca visual do Design System (Lovable/React/HTML)." }
+        ]
+      },
+      {
+        month: "Junho • Semanas 3 e 4",
+        focus: "1º Ciclo Completo",
+        tasks: [
+          { id: "action_4", text: "Oficialização do fluxo de 'Revisão de Design' para validar o trabalho de outros setores." }
+        ]
+      },
+      {
+        month: "Julho • Semanas 1 e 2",
+        focus: "1º Ciclo Completo",
+        tasks: [
+          { id: "action_5", text: "Apresentar para a equipe as possibilidades de uso de inteligência artificial em materiais." }
+        ]
+      },
+      {
+        month: "Julho • Semanas 3 e 4",
+        focus: "1º Ciclo Completo",
+        tasks: [
+          { id: "action_6", text: "Apresentação Trimestral ao Coordenador (Reunião de acompanhamento de progresso)." }
+        ]
+      },
+      {
+        month: "Agosto • Semanas 1 e 2",
+        focus: "2º Ciclo Completo",
+        tasks: [
+          { id: "action_7", text: "Criar e documentar um sistema formal de audição de design." },
+          { id: "action_8", text: "Iniciar a rotina de análise estruturada dos mapas de calor nas páginas." }
+        ]
+      },
+      {
+        month: "Agosto (Sem 3-4) e Setembro",
+        focus: "2º Ciclo Completo",
+        tasks: [
+          { id: "action_9", text: "Executar o primeiro teste comparativo documentado com base em dados de acesso reais." },
+          { id: "action_10", text: "Implementar melhorias no processo com base no histórico colhido da <a href='https://produtosauvp.github.io/reviewdesign/' target='_blank' onclick='event.stopPropagation()' class='text-accent dark:text-accent-light underline hover:opacity-80'>pesquisa de satisfação</a>." }
+        ]
+      },
+      {
+        month: "Outubro • Semanas 1 e 2",
+        focus: "2º Ciclo Completo",
+        tasks: [
+          { id: "action_11", text: "Apresentação Trimestral ao Coordenador (Entrega e debate dos resultados dos ciclos)." },
+          { id: "action_12", text: "14/10: Prazo final formal para entrega de todas as ações estabelecidas no PDI." }
+        ]
+      },
+      {
+        month: "Outubro (Sem 3-4) a Dezembro",
+        focus: "Ciclo de Solidez",
+        tasks: [
+          { id: "action_13", text: "15/10: Início oficial da Avaliação de Desempenho da empresa." },
+          { id: "action_14", text: "Manter a consistência, garantindo impacto operacional e sustentação da cultura do Manifesto." }
+        ]
+      }
+    ];
+
+    // --- DADOS DO MANIFESTO ---
+    const manifestoData = [
+      {
+        title: "Fundamentos do bom designer",
+        bom: "O bom designer entende que o design não é apenas sobre estética, mas sobre como as coisas funcionam e resolvem problemas. Ele traduz a estratégia de produto em soluções visuais tangíveis e funcionais, seja na diagramação de uma apostila, na clareza de um mapa mental, na apresentação de um produto físico ou na interface de websites, ferramentas e aplicativos. O bom designer opera com intencionalidade, dados e profundo entendimento do usuário e da empresa.",
+        mau: "O mau designer foca apenas em deixar as coisas 'bonitas'. Ele ignora o contexto, culpa o briefing por suas falhas e projeta para o próprio portfólio ou gosto pessoal, esquecendo-se do cliente e do negócio."
+      },
+      {
+        title: "Atitude e colaboração com o time",
+        bom: "O bom designer trabalha lado a lado e de forma integrada com o restante do time de Produto e as demais áreas da empresa. Ele entende o 'o quê' (definido pela estratégia do produto) e assume a responsabilidade de ser o mestre do 'como' isso vai ser veiculado. Ele propõe soluções visuais e interativas ativamente para diversas áreas da empresa e recebe feedbacks com maturidade.",
+        mau: "O mau designer atua como um artista isolado em sua torre de marfim. Leva críticas profissionais para o lado pessoal, cria atritos desnecessários com o resto da equipe se apega a tradicionalismos e trava a operação por puro preciosismo."
+      },
+      {
+        title: "Clareza, comunicação e documentação",
+        bom: "O bom designer documenta suas decisões visuais e organiza seu ambiente de trabalho. Ele utiliza nosso Design System, segue as diretrizes do nosso manual de marca, estrutura arquivos seguindo os padrões e faz entregas impecáveis, seja para quem vai programar um aplicativo, para a gráfica que vai imprimir um material físico ou para o aluno que vai ler a apostila. Ele sabe explicar o 'porquê' por trás de cada escolha.",
+        mau: "O mau designer tem arquivos caóticos. Ele joga elementos e layouts sem contexto, não padroniza componentes e espera que o outro adivinhe como a interação ou a impressão deve acontecer, gerando um ciclo infinito de ruído e retrabalho."
+      },
+      {
+        title: "Capacidade de escalar o design",
+        bom: "O bom designer constrói bibliotecas, templates, guias de estilo e padrões visuais. Ele organiza a informação e os ativos gráficos para que o time e a empresa possam produzir materiais e evoluir o produto sem depender dele para cada micro-ajuste. Ele entende que padronizar o simples libera tempo para focar no complexo.",
+        mau: "O mau designer centraliza tudo. Ele reclama que passa o dia inteiro fazendo alterações pequenas e respondendo dúvidas, mas nunca cria um sistema para evitar esses gargalos. Ele resolve a tela, mas não resolve o processo."
+      },
+      {
+        title: "Antecipação e viabilidade técnica",
+        bom: "O bom designer antecipa problemas. Se projeta uma ferramenta digital, pensa nos erros, na responsividade e na acessibilidade. Se projeta um produto físico, entende as margens, espaçamentos, custos de impressão e limitações de material e tecnologia. Ele propõe soluções viáveis que cabem na realidade técnica e nos prazos da empresa.",
+        mau: "O mau designer cria layouts que são impossíveis de programar ou caros demais para produzir. Ele só descobre as limitações quando o projeto já está quebrado nas mãos dos desenvolvedores ou da gráfica."
+      },
+      {
+        title: "Foco em usabilidade e resultado",
+        bom: "O bom designer equilibra forma e função. Ele usa o design para guiar o olhar, facilitar o aprendizado e mais importante, aumentar a conversão. Ele sabe que a interface e o material físico são os pontos de contato direto com o usuário e mede seu sucesso pela experiência final fluida.",
+        mau: "O mau designer sacrifica a usabilidade em prol da 'arte' ou das tendências. Ele usa fontes ilegíveis ou cria fluxos confusos apenas para inovar ou se diferenciar, distanciando-se do valor real que deveria entregar."
+      },
+      {
+        title: "Pensamento estrutural e narrativa visual",
+        bom: "O bom designer entende que cada tela, cada página impressa e cada produto conta uma história. Ele usa a hierarquia visual (tipografia, cores, espaços) para estruturar a informação e destacar o que é prioritário. Ele pega problemas complexos e os traduz em soluções visuais simples e digeríveis.",
+        mau: "O mau designer polui o espaço. Ele tenta dar destaque a tudo ao mesmo tempo, resultando em layouts confusos onde nada chama a atenção e a narrativa do produto se perde."
+      },
+      {
+        title: "Disciplina, prazos e autogestão",
+        bom: "O bom designer respeita prazos e processos, e os reforça para os seus pares. Ele sabe que a criatividade é importante, mas a disciplina é o que entrega o projeto. Ele gerencia seu próprio tempo, divide grandes entregas em partes menores, reporta o status do seu trabalho e é um parceiro previsível.",
+        mau: "O mau designer não prioriza sua esteira de trabalho e usa o 'bloqueio criativo' como desculpa para o atraso. Ele se perde nas prioridades, precisa de microgestão constante e trata os cronogramas da empresa como meras sugestões."
+      },
+      {
+        title: "A essência do bom designer",
+        bom: "O bom designer entende que ele é o guardião do padrão visual da AUVP. Ele sabe que a estética é o primeiro contato do cliente com a marca e que uma interface mal cuidada destrói a confiança antes mesmo do produto ser usado. O bom designer equilibra forma e função: ele sabe que design não é só sobre estética, mas também não é só sobre funcionalidade, é a intersecção perfeita entre os dois.",
+        mau: null
+      }
+    ];
+
+    // Carrega progresso salvo no localStorage
+    let savedProgress = JSON.parse(localStorage.getItem('pdi_armando_v3')) || {};
+
+    // --- FUNÇÕES DE UI E TEMA ---
+    function applySystemTheme() {
+      if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    }
+
+    applySystemTheme();
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applySystemTheme);
+
+    function toggleTheme() {
+      document.documentElement.classList.toggle('dark');
+    }
+
+    function switchView(viewName) {
+      const views = ['presentation', 'tracking', 'manifesto'];
+      
+      views.forEach(v => {
+        const el = document.getElementById(`view-${v}`);
+        if (el) el.classList.add('hidden');
+      });
+      
+      const activeClass = "btn-nav text-[10px] uppercase tracking-widest font-bold border-b-2 border-accent text-ink dark:text-white transition-all duration-300 py-1";
+      const inactiveClass = "btn-nav text-[10px] uppercase tracking-widest font-medium border-b-2 border-transparent text-ink-light hover:text-ink dark:text-white/50 dark:hover:text-white transition-all duration-300 py-1";
+
+      document.getElementById('btn-nav-presentation').className = (viewName === 'presentation') ? activeClass : inactiveClass;
+      document.getElementById('btn-nav-tracking').className = (viewName === 'tracking') ? activeClass : inactiveClass;
+      document.getElementById('btn-nav-manifesto').className = (viewName === 'manifesto') ? activeClass : inactiveClass;
+
+      const targetView = document.getElementById(`view-${viewName}`);
+      if (targetView) {
+        targetView.classList.remove('hidden');
+      }
+    }
+
+    // --- FUNÇÕES DO CRONOGRAMA ---
+    function toggleTask(taskId) {
+      savedProgress[taskId] = !savedProgress[taskId];
+      localStorage.setItem('pdi_armando_v3', JSON.stringify(savedProgress));
+      updateProgressUI();
+      
+      const textEl = document.getElementById(`text-${taskId}`);
+      if(textEl) {
+        if(savedProgress[taskId]) textEl.classList.add('completed');
+        else textEl.classList.remove('completed');
+      }
+    }
+
+    function updateProgressUI() {
+      let totalTasks = 0;
+      let completedTasks = 0;
+
+      roadmapTasks.forEach(month => {
+        month.tasks.forEach(task => {
+          totalTasks++;
+          if (savedProgress[task.id]) completedTasks++;
+        });
+      });
+
+      const percentage = totalTasks === 0 ? 0 : Math.round((completedTasks / totalTasks) * 100);
+
+      document.getElementById('overall-progress-text').innerText = `${percentage}%`;
+      document.getElementById('overall-progress-bar').style.width = `${percentage}%`;
+      document.getElementById('tasks-completed').innerText = completedTasks;
+      
+      const tasksTotalEl = document.getElementById('tasks-total');
+      if(tasksTotalEl) tasksTotalEl.innerText = totalTasks;
+    }
+
+    function renderRoadmap() {
+      const container = document.getElementById('roadmap-container');
+      let html = '';
+
+      roadmapTasks.forEach((monthGroup, index) => {
+        let tasksHtml = '';
+        monthGroup.tasks.forEach(task => {
+          const isChecked = savedProgress[task.id] ? 'checked' : '';
+          const textCompletedClass = savedProgress[task.id] ? 'completed' : '';
+
+          tasksHtml += `
+            <label class="flex items-start gap-4 p-4 hover:bg-paper-dark/30 dark:hover:bg-white/5 transition-colors cursor-pointer group border-b border-paper-dark/50 dark:border-white/5 last:border-0">
+              <div class="relative flex items-start mt-0.5">
+                <input type="checkbox" class="task-checkbox opacity-0 absolute h-0 w-0" onchange="toggleTask('${task.id}')" ${isChecked}>
+                <div class="w-5 h-5 border-2 border-paper-dark dark:border-white/20 rounded-[4px] flex items-center justify-center transition-all group-hover:border-accent">
+                  <svg class="w-3.5 h-3.5 text-white opacity-0 transform scale-50 transition-all duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                </div>
+              </div>
+              <span id="text-${task.id}" class="task-text text-sm text-ink dark:text-white/90 leading-relaxed transition-all duration-300 ${textCompletedClass}">
+                ${task.text}
+              </span>
+            </label>
+          `;
+        });
+
+        html += `
+          <div class="bg-white dark:bg-[#1A1A1A] border border-paper-dark dark:border-white/5 relative overflow-hidden">
+            <div class="absolute left-0 top-0 w-1 h-full bg-paper-dark dark:bg-white/10"></div>
+            <div class="px-6 py-4 border-b border-paper-dark dark:border-white/5 bg-paper/50 dark:bg-[#151515]">
+              <div class="flex items-baseline justify-between">
+                <h3 class="text-lg md:text-xl font-bold tracking-tight text-ink dark:text-white">${monthGroup.month}</h3>
+                <span class="text-[9px] uppercase tracking-widest font-bold text-accent dark:text-accent-light bg-accent/10 px-2 py-0.5">${monthGroup.focus}</span>
+              </div>
+            </div>
+            <div class="flex flex-col">
+              ${tasksHtml}
+            </div>
+          </div>
+        `;
+      });
+
+      container.innerHTML = html;
+      updateProgressUI();
+    }
+
+    // --- FUNÇÕES DO MANIFESTO ---
+    function renderManifesto() {
+      const container = document.getElementById('manifesto-container');
+      if (!container) return;
+      
+      let html = '';
+
+      manifestoData.forEach((item, index) => {
+        const num = String(index + 1).padStart(2, '0');
+        
+        html += `
+          <div class="bg-white dark:bg-[#1A1A1A] border border-paper-dark dark:border-white/5 flex flex-col md:flex-row overflow-hidden group shadow-sm hover:border-paper-dark/80 dark:hover:border-white/20 transition-colors">
+            <!-- Coluna de Numeração/Título -->
+            <div class="md:w-1/3 bg-paper/50 dark:bg-white/5 p-6 md:p-8 flex flex-col justify-start border-b md:border-b-0 md:border-r border-paper-dark dark:border-white/5">
+              <span class="text-3xl font-black text-ink-light/30 dark:text-white/20 font-satoshi leading-none mb-3">${num}.</span>
+              <h3 class="text-lg font-bold text-ink dark:text-white leading-tight uppercase tracking-wide">${item.title}</h3>
+            </div>
+            
+            <!-- Conteúdo Principal -->
+            <div class="md:w-2/3 flex flex-col">
+              <div class="p-6 md:p-8 flex-1">
+                <div class="flex items-center gap-2 mb-3">
+                  <div class="w-2 h-2 rounded-full bg-accent"></div>
+                  <span class="text-[10px] uppercase tracking-widest font-bold text-accent dark:text-accent-light">O Bom Designer</span>
+                </div>
+                <p class="text-sm leading-relaxed text-ink dark:text-white/90">${item.bom}</p>
+              </div>
+              
+              ${item.mau ? `
+                <div class="p-6 md:p-8 border-t border-paper-dark/50 dark:border-white/5 bg-red-50/30 dark:bg-red-900/10">
+                  <div class="flex items-center gap-2 mb-3">
+                    <div class="w-2 h-2 rounded-full bg-red-400 dark:bg-red-500/50"></div>
+                    <span class="text-[10px] uppercase tracking-widest font-bold text-red-500 dark:text-red-400">O Mau Designer</span>
+                  </div>
+                  <p class="text-sm leading-relaxed text-ink-light dark:text-white/70 italic">"${item.mau}"</p>
+                </div>
+              ` : ''}
+            </div>
+          </div>
+        `;
+      });
+
+      container.innerHTML = html;
+    }
+
+    // Inicialização ao carregar a página
+    document.addEventListener('DOMContentLoaded', () => {
+      renderRoadmap();
+      renderManifesto();
+      switchView('presentation');
+    });
+
+  </script>
+</body>
+</html>
