@@ -1173,7 +1173,7 @@
       
       const bubble = document.getElementById('assistant-bubble');
       const msg = document.getElementById('assistant-message');
-      msg.innerText = text;
+      msg.innerHTML = text;
       bubble.classList.remove('hidden');
       
       clearTimeout(bubbleTimeout);
@@ -1297,6 +1297,13 @@
     setTimeout(() => {
       window.showAssistantMessage("Olá! Sou o Clippy, o seu assistente de PDI. Clique em mim se precisar de organizar as suas metas! 📎");
     }, 2000);
+
+    // Lembrete periódico de inatividade
+    setInterval(() => {
+      if (!isChatOpen) {
+        window.showAssistantMessage("Psiu! Não se esqueça de mandar o <a href='https://produtosauvp.github.io/reviewdesign/' target='_blank' onclick='event.stopPropagation()' class='text-accent dark:text-accent-light underline font-bold hover:opacity-80'>formulário de satisfação</a> para o pessoal! 📎");
+      }
+    }, 60000); // Dispara a cada 60 segundos
 
   </script>
 </body>
