@@ -170,15 +170,13 @@
     .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
     .table-scroll table { min-width: 640px; }
 
-    /* Documentação: item ativo do menu lateral */
+    /* Documentação: item ativo do menu lateral (discreto) */
     .doc-side-link.active {
       color: #38805A;
-      background: rgba(56, 128, 90, 0.08);
       border-left-color: #38805A;
     }
     html.dark .doc-side-link.active {
       color: #ffffff;
-      background: rgba(255, 255, 255, 0.06);
       border-left-color: #38805A;
     }
   </style>
@@ -881,21 +879,18 @@
 
     <div class="flex flex-col md:flex-row w-full">
 
-      <!-- Menu lateral: navegação entre as documentações -->
-      <aside class="md:w-60 md:shrink-0 md:sticky md:top-14 md:self-start border-b md:border-b-0 md:border-r border-paper-dark dark:border-white/10 bg-white/60 dark:bg-white/[0.02] backdrop-blur-sm z-10">
-        <div class="px-4 sm:px-6 py-4 md:py-8">
-          <p class="text-[9px] uppercase tracking-widest font-bold text-ink-light/70 dark:text-white/40 mb-4 px-2 hidden md:block">Documentação</p>
-          <nav class="flex md:flex-col gap-1 overflow-x-auto custom-scrollbar">
-            <button data-tab="discovery" id="tab-btn-discovery" onclick="switchTab('discovery')" class="doc-side-link active flex items-center gap-3 px-3 py-2.5 rounded-[3px] text-[10px] md:text-[11px] uppercase tracking-widest font-bold text-ink-light dark:text-white/50 hover:text-ink dark:hover:text-white transition-colors whitespace-nowrap border-l-2 border-transparent">
-              <i class="fa-solid fa-compass w-4 text-center"></i>
-              <span>Discovery</span>
-            </button>
-            <button data-tab="executiva" id="tab-btn-executiva" onclick="switchTab('executiva')" class="doc-side-link flex items-center gap-3 px-3 py-2.5 rounded-[3px] text-[10px] md:text-[11px] uppercase tracking-widest font-bold text-ink-light dark:text-white/50 hover:text-ink dark:hover:text-white transition-colors whitespace-nowrap border-l-2 border-transparent">
-              <i class="fa-solid fa-briefcase w-4 text-center"></i>
-              <span class="hidden sm:inline">Apresentação Executiva</span><span class="sm:hidden">Executiva</span>
-            </button>
-          </nav>
-        </div>
+      <!-- Menu lateral: navegação entre as documentações (discreto, alinhado ao topo do card) -->
+      <aside class="md:w-48 md:shrink-0 md:sticky md:top-14 md:self-start">
+        <nav class="flex md:flex-col gap-0.5 overflow-x-auto custom-scrollbar px-3 sm:px-4 md:pl-6 md:pr-2 pt-4 md:pt-10 pb-2 md:pb-0 border-b md:border-b-0 border-paper-dark/60 dark:border-white/10">
+          <button data-tab="discovery" id="tab-btn-discovery" onclick="switchTab('discovery')" class="doc-side-link active flex items-center gap-2.5 px-3 py-2 rounded-[3px] text-[10px] md:text-[11px] uppercase tracking-widest font-bold text-ink-light/70 dark:text-white/40 hover:text-ink dark:hover:text-white transition-colors whitespace-nowrap border-l-2 border-transparent">
+            <i class="fa-solid fa-compass text-[11px] w-3.5 text-center opacity-70"></i>
+            <span>Discovery</span>
+          </button>
+          <button data-tab="executiva" id="tab-btn-executiva" onclick="switchTab('executiva')" class="doc-side-link flex items-center gap-2.5 px-3 py-2 rounded-[3px] text-[10px] md:text-[11px] uppercase tracking-widest font-bold text-ink-light/70 dark:text-white/40 hover:text-ink dark:hover:text-white transition-colors whitespace-nowrap border-l-2 border-transparent">
+            <i class="fa-solid fa-briefcase text-[11px] w-3.5 text-center opacity-70"></i>
+            <span class="hidden sm:inline">Apresentação Executiva</span><span class="sm:hidden">Executiva</span>
+          </button>
+        </nav>
       </aside>
 
       <!-- Conteúdo das documentações -->
@@ -2069,7 +2064,7 @@
         intro: "Tracker de First Time Yield (FTY) e Ciclos de Refação.",
         content: `
           <p class="text-sm text-ink-light dark:text-white/70 leading-relaxed max-w-2xl mb-2">
-            Preencha esta tabela após a entrega de <strong>cada projeto</strong> para medir o impacto prático do seu PDI.
+            Modelo de tracker para medir o impacto prático do seu PDI a cada entrega. Abaixo, um <strong>exemplo ilustrativo</strong> de como um projeto pode ser registrado.
           </p>
           <div class="table-scroll w-full border border-paper-dark dark:border-white/10 rounded-[2px]">
             <table class="w-full text-left border-collapse">
@@ -2084,29 +2079,16 @@
               </thead>
               <tbody class="text-[13px] text-ink-light dark:text-white/80">
                 <tr class="bg-accent/5">
-                  <td class="p-4 border-b border-paper-dark dark:border-white/10 font-bold text-ink dark:text-white">Ex: Redesign do Checkout Flow</td>
-                  <td class="p-4 border-b border-paper-dark dark:border-white/10"><span class="text-[10px] uppercase font-bold text-accent bg-accent/10 border border-accent/20 rounded-full px-3 py-1">Sim</span></td>
-                  <td class="p-4 border-b border-paper-dark dark:border-white/10 font-bold">0</td>
-                  <td class="p-4 border-b border-paper-dark dark:border-white/10">Framework IDEAS</td>
-                  <td class="p-4 border-b border-paper-dark dark:border-white/10">Focar no ROI e no tempo de conversão evitou discussões subjetivas sobre estética.</td>
-                </tr>
-                <tr>
-                  <td class="p-4 border-b border-paper-dark dark:border-white/10 text-ink-light/40 dark:text-white/20 italic">Próximo projeto...</td>
-                  <td class="p-4 border-b border-paper-dark dark:border-white/10"></td>
-                  <td class="p-4 border-b border-paper-dark dark:border-white/10"></td>
-                  <td class="p-4 border-b border-paper-dark dark:border-white/10"></td>
-                  <td class="p-4 border-b border-paper-dark dark:border-white/10"></td>
-                </tr>
-                <tr>
-                  <td class="p-4 text-ink-light/40 dark:text-white/20 italic">Próximo projeto...</td>
-                  <td class="p-4"></td>
-                  <td class="p-4"></td>
-                  <td class="p-4"></td>
-                  <td class="p-4"></td>
+                  <td class="p-4 font-bold text-ink dark:text-white">Ex: Redesign do Checkout Flow</td>
+                  <td class="p-4"><span class="text-[10px] uppercase font-bold text-accent bg-accent/10 border border-accent/20 rounded-full px-3 py-1">Sim</span></td>
+                  <td class="p-4 font-bold">0</td>
+                  <td class="p-4">Framework IDEAS</td>
+                  <td class="p-4">Focar no ROI e no tempo de conversão evitou discussões subjetivas sobre estética.</td>
                 </tr>
               </tbody>
             </table>
           </div>
+          <p class="text-[11px] text-ink-light/70 dark:text-white/40 mt-3 italic">Exemplo ilustrativo — os valores acima servem apenas de referência.</p>
         `
       },
       {
