@@ -879,16 +879,16 @@
 
     <div class="flex flex-col md:flex-row w-full">
 
-      <!-- Menu lateral: navegação entre as documentações (discreto, alinhado ao topo do card) -->
-      <aside class="md:w-48 md:shrink-0 md:sticky md:top-14 md:self-start">
-        <nav class="flex md:flex-col gap-0.5 overflow-x-auto custom-scrollbar px-3 sm:px-4 md:pl-6 md:pr-2 pt-4 md:pt-10 pb-2 md:pb-0 border-b md:border-b-0 border-paper-dark/60 dark:border-white/10">
-          <button data-tab="discovery" id="tab-btn-discovery" onclick="switchTab('discovery')" class="doc-side-link active flex items-center gap-2.5 px-3 py-2 rounded-[3px] text-[10px] md:text-[11px] uppercase tracking-widest font-bold text-ink-light/70 dark:text-white/40 hover:text-ink dark:hover:text-white transition-colors whitespace-nowrap border-l-2 border-transparent">
-            <i class="fa-solid fa-compass text-[11px] w-3.5 text-center opacity-70"></i>
+      <!-- Menu lateral: navegação vertical entre as documentações (discreto, alinhado ao topo do card) -->
+      <aside class="md:w-52 md:shrink-0 md:sticky md:top-14 md:self-start">
+        <nav class="flex flex-col gap-0.5 px-3 sm:px-4 md:pl-6 md:pr-3 pt-4 md:pt-10">
+          <button data-tab="discovery" id="tab-btn-discovery" onclick="switchTab('discovery')" class="doc-side-link active flex items-start gap-2.5 px-3 py-2 rounded-[3px] text-[10px] md:text-[11px] uppercase tracking-widest font-bold text-ink-light/70 dark:text-white/40 hover:text-ink dark:hover:text-white transition-colors border-l-2 border-transparent text-left">
+            <i class="fa-solid fa-compass text-[11px] w-3.5 text-center opacity-70 shrink-0 mt-0.5"></i>
             <span>Discovery</span>
           </button>
-          <button data-tab="executiva" id="tab-btn-executiva" onclick="switchTab('executiva')" class="doc-side-link flex items-center gap-2.5 px-3 py-2 rounded-[3px] text-[10px] md:text-[11px] uppercase tracking-widest font-bold text-ink-light/70 dark:text-white/40 hover:text-ink dark:hover:text-white transition-colors whitespace-nowrap border-l-2 border-transparent">
-            <i class="fa-solid fa-briefcase text-[11px] w-3.5 text-center opacity-70"></i>
-            <span class="hidden sm:inline">Apresentação Executiva</span><span class="sm:hidden">Executiva</span>
+          <button data-tab="executiva" id="tab-btn-executiva" onclick="switchTab('executiva')" class="doc-side-link flex items-start gap-2.5 px-3 py-2 rounded-[3px] text-[10px] md:text-[11px] uppercase tracking-widest font-bold text-ink-light/70 dark:text-white/40 hover:text-ink dark:hover:text-white transition-colors border-l-2 border-transparent text-left">
+            <i class="fa-solid fa-briefcase text-[11px] w-3.5 text-center opacity-70 shrink-0 mt-0.5"></i>
+            <span>Apresentação Executiva</span>
           </button>
         </nav>
       </aside>
@@ -1666,20 +1666,26 @@
         title: "Como chegamos aqui",
         intro: "O fluxo viciado que gera estresse e correria.",
         content: `
-          <div class="flex flex-col gap-3 mt-4 max-w-md">
-            <div class="p-4 border border-paper-dark dark:border-white/10 rounded-[2px] flex items-center bg-white dark:bg-[#1A1A1A]">
-              <span class="w-6 text-center font-bold text-ink-light">1</span>
-              <span class="text-sm font-medium ml-2">Demanda (Top-Down)</span>
+          <div class="flex flex-col md:flex-row md:items-stretch gap-3 md:gap-2 mt-4 w-full">
+            <div class="flex-1 p-5 border border-paper-dark dark:border-white/10 rounded-[2px] flex items-center gap-3 bg-white dark:bg-[#1A1A1A]">
+              <span class="w-7 h-7 rounded-full bg-paper-dark/40 dark:bg-white/10 flex items-center justify-center font-bold text-ink-light shrink-0">1</span>
+              <span class="text-sm font-medium">Demanda (Top-Down)</span>
             </div>
-            <div class="flex justify-center text-ink-light"><i class="fa-solid fa-arrow-down"></i></div>
-            <div class="p-4 border border-danger/50 bg-danger/5 rounded-[2px] flex items-center">
-              <span class="w-6 text-center font-bold text-danger">2</span>
-              <span class="text-sm font-bold text-danger ml-2">Direto para a execução</span>
+            <div class="flex justify-center items-center text-ink-light shrink-0">
+              <i class="fa-solid fa-arrow-down md:hidden"></i>
+              <i class="fa-solid fa-arrow-right hidden md:block"></i>
             </div>
-            <div class="flex justify-center text-ink-light"><i class="fa-solid fa-arrow-down"></i></div>
-            <div class="p-4 border border-paper-dark dark:border-white/10 rounded-[2px] flex items-center bg-white dark:bg-[#1A1A1A]">
-              <span class="w-6 text-center font-bold text-ink-light">3</span>
-              <span class="text-sm font-medium ml-2">Revisão e Ajustes Finais</span>
+            <div class="flex-1 p-5 border border-danger/50 bg-danger/5 rounded-[2px] flex items-center gap-3">
+              <span class="w-7 h-7 rounded-full bg-danger/15 text-danger flex items-center justify-center font-bold shrink-0">2</span>
+              <span class="text-sm font-bold text-danger">Direto para a execução</span>
+            </div>
+            <div class="flex justify-center items-center text-ink-light shrink-0">
+              <i class="fa-solid fa-arrow-down md:hidden"></i>
+              <i class="fa-solid fa-arrow-right hidden md:block"></i>
+            </div>
+            <div class="flex-1 p-5 border border-paper-dark dark:border-white/10 rounded-[2px] flex items-center gap-3 bg-white dark:bg-[#1A1A1A]">
+              <span class="w-7 h-7 rounded-full bg-paper-dark/40 dark:bg-white/10 flex items-center justify-center font-bold text-ink-light shrink-0">3</span>
+              <span class="text-sm font-medium">Revisão e Ajustes Finais</span>
             </div>
           </div>
         `
