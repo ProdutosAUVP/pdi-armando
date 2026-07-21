@@ -225,6 +225,9 @@
         <button id="btn-nav-manifesto" onclick="window.switchView('manifesto')" class="btn-nav text-[9px] sm:text-[10px] uppercase tracking-widest font-medium border-b-2 border-transparent text-ink-light hover:text-ink dark:text-white/50 dark:hover:text-white transition-all duration-300 py-1 shrink-0">
           Manifesto
         </button>
+        <button id="btn-nav-documentacao" onclick="window.switchView('documentacao')" class="btn-nav text-[9px] sm:text-[10px] uppercase tracking-widest font-medium border-b-2 border-transparent text-ink-light hover:text-ink dark:text-white/50 dark:hover:text-white transition-all duration-300 py-1 shrink-0">
+          Documentação
+        </button>
         <a href="https://produtosauvp.github.io/reviewdesign/" target="_blank" rel="noopener noreferrer" class="btn-nav text-[9px] sm:text-[10px] uppercase tracking-widest font-medium border-b-2 border-transparent text-ink-light hover:text-ink dark:text-white/50 dark:hover:text-white transition-all duration-300 py-1 shrink-0 flex items-center gap-1" title="Abrir formulário de satisfação">
           Formulário
           <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
@@ -807,6 +810,11 @@
     </div>
   </main>
 
+  <!-- VIEW 4: Documentação -->
+  <main id="view-documentacao" class="w-full view-enter hidden">
+    <iframe src="documentacao.html" title="Documentação PDI Armando" class="w-full border-0 block" style="height: calc(100vh - 57px);" loading="lazy"></iframe>
+  </main>
+
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
     import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
@@ -987,19 +995,20 @@
     };
 
     window.switchView = function(viewName) {
-      const views = ['presentation', 'tracking', 'manifesto'];
-      
+      const views = ['presentation', 'tracking', 'manifesto', 'documentacao'];
+
       views.forEach(v => {
         const el = document.getElementById(`view-${v}`);
         if (el) el.classList.add('hidden');
       });
-      
+
       const activeClass = "btn-nav text-[9px] sm:text-[10px] uppercase tracking-widest font-bold border-b-2 border-accent text-ink dark:text-white transition-all duration-300 py-1 shrink-0";
       const inactiveClass = "btn-nav text-[9px] sm:text-[10px] uppercase tracking-widest font-medium border-b-2 border-transparent text-ink-light hover:text-ink dark:text-white/50 dark:hover:text-white transition-all duration-300 py-1 shrink-0";
 
-      document.getElementById('btn-nav-presentation').className = (viewName === 'presentation') ? activeClass : inactiveClass;
-      document.getElementById('btn-nav-tracking').className = (viewName === 'tracking') ? activeClass : inactiveClass;
-      document.getElementById('btn-nav-manifesto').className = (viewName === 'manifesto') ? activeClass : inactiveClass;
+      views.forEach(v => {
+        const btn = document.getElementById(`btn-nav-${v}`);
+        if (btn) btn.className = (viewName === v) ? activeClass : inactiveClass;
+      });
 
       const targetView = document.getElementById(`view-${viewName}`);
       if (targetView) {
