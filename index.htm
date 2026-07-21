@@ -169,6 +169,18 @@
     /* Documentação: tabelas responsivas dentro dos slides */
     .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
     .table-scroll table { min-width: 640px; }
+
+    /* Documentação: item ativo do menu lateral */
+    .doc-side-link.active {
+      color: #38805A;
+      background: rgba(56, 128, 90, 0.08);
+      border-left-color: #38805A;
+    }
+    html.dark .doc-side-link.active {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.06);
+      border-left-color: #38805A;
+    }
   </style>
 </head>
 <body class="bg-paper dark:bg-[#121212] text-ink dark:text-[#E0E0E0] transition-colors duration-500 relative overflow-x-hidden selection:bg-accent/20">
@@ -269,8 +281,8 @@
         <button id="btn-nav-manifesto" onclick="window.switchView('manifesto')" class="btn-nav text-[9px] sm:text-[10px] uppercase tracking-widest font-medium border-b-2 border-transparent text-ink-light hover:text-ink dark:text-white/50 dark:hover:text-white transition-all duration-300 py-1 shrink-0">
           Manifesto
         </button>
-        <button id="btn-nav-documentacao" onclick="window.switchView('documentacao')" class="btn-nav text-[9px] sm:text-[10px] uppercase tracking-widest font-medium border-b-2 border-transparent text-ink-light hover:text-ink dark:text-white/50 dark:hover:text-white transition-all duration-300 py-1 shrink-0">
-          Documentação
+        <button id="btn-nav-documentacao" onclick="window.toggleDocDropdown(event)" aria-haspopup="true" class="btn-nav text-[9px] sm:text-[10px] uppercase tracking-widest font-medium border-b-2 border-transparent text-ink-light hover:text-ink dark:text-white/50 dark:hover:text-white transition-all duration-300 py-1 shrink-0">
+          Documentação<svg class="inline-block ml-1 align-middle w-2 h-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
         <a href="https://produtosauvp.github.io/reviewdesign/" target="_blank" rel="noopener noreferrer" class="btn-nav text-[9px] sm:text-[10px] uppercase tracking-widest font-medium border-b-2 border-transparent text-ink-light hover:text-ink dark:text-white/50 dark:hover:text-white transition-all duration-300 py-1 shrink-0 flex items-center gap-1" title="Abrir formulário de satisfação">
           Formulário
@@ -284,6 +296,16 @@
       </div>
     </div>
   </nav>
+
+  <!-- Dropdown do item "Documentação" da navbar (posicionado via JS para escapar do overflow da navbar) -->
+  <div id="doc-dropdown" class="hidden fixed z-[60] min-w-[210px] bg-white dark:bg-[#1A1A1A] border border-paper-dark dark:border-white/10 shadow-xl rounded-sm py-1 animate-fade-in">
+    <button onclick="window.openDoc('discovery')" class="w-full text-left px-4 py-2.5 text-[10px] uppercase tracking-widest font-bold text-ink-light hover:text-ink hover:bg-paper dark:text-white/60 dark:hover:text-white dark:hover:bg-white/5 transition-colors flex items-center gap-2.5">
+      <i class="fa-solid fa-compass w-4 text-center text-accent"></i> Discovery
+    </button>
+    <button onclick="window.openDoc('executiva')" class="w-full text-left px-4 py-2.5 text-[10px] uppercase tracking-widest font-bold text-ink-light hover:text-ink hover:bg-paper dark:text-white/60 dark:hover:text-white dark:hover:bg-white/5 transition-colors flex items-center gap-2.5">
+      <i class="fa-solid fa-briefcase w-4 text-center text-accent"></i> Apresentação Executiva
+    </button>
+  </div>
 
   <!-- VIEW 1: Apresentação PDI -->
   <main id="view-presentation" class="w-full max-w-[1000px] mx-auto px-4 sm:px-6 py-8 md:py-12 view-enter block">
@@ -857,23 +879,32 @@
   <!-- VIEW 4: Documentação (conteúdo integrado nativamente) -->
   <main id="view-documentacao" class="w-full view-enter hidden">
 
-    <!-- Seletor de sub-abas da documentação (inline, não é uma segunda navbar) -->
-    <div class="w-full max-w-[1000px] mx-auto px-4 sm:px-6 pt-8 flex justify-center">
-      <div class="inline-flex items-center gap-4 sm:gap-6 border border-paper-dark dark:border-white/10 rounded-full px-5 sm:px-6 py-2 bg-white/70 dark:bg-white/5 backdrop-blur-sm shadow-sm">
-        <button id="tab-btn-discovery" onclick="switchTab('discovery')" class="btn-nav text-[9px] md:text-[10px] uppercase tracking-widest font-bold border-b-2 border-accent text-ink dark:text-white transition-all duration-300 py-1">
-          Discovery
-        </button>
-        <div class="w-[1px] h-3 bg-paper-dark dark:bg-white/10"></div>
-        <button id="tab-btn-executiva" onclick="switchTab('executiva')" class="btn-nav text-[9px] md:text-[10px] uppercase tracking-widest font-medium border-b-2 border-transparent text-ink-light hover:text-ink dark:text-white/50 dark:hover:text-white transition-all duration-300 py-1">
-          <span class="hidden sm:inline">Apresentação Executiva</span><span class="sm:hidden">Executiva</span>
-        </button>
-      </div>
-    </div>
+    <div class="flex flex-col md:flex-row w-full">
+
+      <!-- Menu lateral: navegação entre as documentações -->
+      <aside class="md:w-60 md:shrink-0 md:sticky md:top-14 md:self-start border-b md:border-b-0 md:border-r border-paper-dark dark:border-white/10 bg-white/60 dark:bg-white/[0.02] backdrop-blur-sm z-10">
+        <div class="px-4 sm:px-6 py-4 md:py-8">
+          <p class="text-[9px] uppercase tracking-widest font-bold text-ink-light/70 dark:text-white/40 mb-4 px-2 hidden md:block">Documentação</p>
+          <nav class="flex md:flex-col gap-1 overflow-x-auto custom-scrollbar">
+            <button data-tab="discovery" id="tab-btn-discovery" onclick="switchTab('discovery')" class="doc-side-link active flex items-center gap-3 px-3 py-2.5 rounded-[3px] text-[10px] md:text-[11px] uppercase tracking-widest font-bold text-ink-light dark:text-white/50 hover:text-ink dark:hover:text-white transition-colors whitespace-nowrap border-l-2 border-transparent">
+              <i class="fa-solid fa-compass w-4 text-center"></i>
+              <span>Discovery</span>
+            </button>
+            <button data-tab="executiva" id="tab-btn-executiva" onclick="switchTab('executiva')" class="doc-side-link flex items-center gap-3 px-3 py-2.5 rounded-[3px] text-[10px] md:text-[11px] uppercase tracking-widest font-bold text-ink-light dark:text-white/50 hover:text-ink dark:hover:text-white transition-colors whitespace-nowrap border-l-2 border-transparent">
+              <i class="fa-solid fa-briefcase w-4 text-center"></i>
+              <span class="hidden sm:inline">Apresentação Executiva</span><span class="sm:hidden">Executiva</span>
+            </button>
+          </nav>
+        </div>
+      </aside>
+
+      <!-- Conteúdo das documentações -->
+      <div class="flex-1 min-w-0">
 
   <div id="tab-content-discovery" class="tab-content block">
 
     <!-- VIEW INTRO (Capa da Apresentação Discovery) -->
-    <main id="discovery-view-intro" class="w-full px-4 py-10 flex flex-col items-center justify-center min-h-[calc(100vh-80px)] block">
+    <main id="discovery-view-intro" class="w-full px-4 py-10 flex flex-col items-center justify-start min-h-[calc(100vh-80px)] block">
       <div class="w-full max-w-[650px] bg-white dark:bg-[#1A1A1A] border border-paper-dark dark:border-white/5 shadow-xl shadow-black/5 dark:shadow-white/5 p-8 md:p-12 flex flex-col relative rounded-[4px] animate-fade-in-up overflow-visible">
 
         <!-- Ilustração Abstrata Fundo Intro -->
@@ -923,7 +954,7 @@
     </main>
 
     <!-- VIEW SLIDES (Apresentação interativa Discovery) -->
-    <main id="discovery-view-slides" class="w-full px-4 py-6 md:py-10 flex flex-col items-center justify-center min-h-[calc(100vh-80px)] hidden">
+    <main id="discovery-view-slides" class="w-full px-4 py-6 md:py-10 flex flex-col items-center justify-start min-h-[calc(100vh-80px)] hidden">
 
       <div class="w-full max-w-[1000px] bg-white dark:bg-[#1A1A1A] border border-paper-dark dark:border-white/5 shadow-xl shadow-black/5 dark:shadow-white/5 p-6 md:p-10 flex flex-col rounded-[4px] relative overflow-visible">
 
@@ -999,7 +1030,7 @@
   <div id="tab-content-executiva" class="tab-content hidden">
 
     <!-- VIEW INTRO (Capa do Playbook Executivo) -->
-    <main id="executiva-view-intro" class="w-full px-4 py-10 flex flex-col items-center justify-center min-h-[calc(100vh-80px)] block">
+    <main id="executiva-view-intro" class="w-full px-4 py-10 flex flex-col items-center justify-start min-h-[calc(100vh-80px)] block">
       <div class="w-full max-w-[650px] bg-white dark:bg-[#1A1A1A] border border-paper-dark dark:border-white/5 shadow-xl shadow-black/5 dark:shadow-white/5 p-8 md:p-12 flex flex-col relative rounded-[4px] animate-fade-in-up overflow-visible">
 
         <!-- Ilustração Abstrata Fundo Intro -->
@@ -1049,7 +1080,7 @@
     </main>
 
     <!-- VIEW SLIDES (Playbook interativo Executiva) -->
-    <main id="executiva-view-slides" class="w-full px-4 py-6 md:py-10 flex flex-col items-center justify-center min-h-[calc(100vh-80px)] hidden">
+    <main id="executiva-view-slides" class="w-full px-4 py-6 md:py-10 flex flex-col items-center justify-start min-h-[calc(100vh-80px)] hidden">
 
       <div class="w-full max-w-[1000px] bg-white dark:bg-[#1A1A1A] border border-paper-dark dark:border-white/5 shadow-xl shadow-black/5 dark:shadow-white/5 p-6 md:p-10 flex flex-col rounded-[4px] relative overflow-visible">
 
@@ -1117,6 +1148,9 @@
       </p>
     </main>
   </div> <!-- Fim Aba Executiva -->
+
+      </div> <!-- Fim do conteúdo das documentações -->
+    </div> <!-- Fim do layout com menu lateral -->
   </main>
 
   <script type="module">
@@ -2172,9 +2206,9 @@
                <i class="fa-solid fa-book"></i> Base Teórica do Playbook
              </h4>
              <ul class="text-[11px] text-ink-light dark:text-white/50 space-y-2 font-medium leading-relaxed">
-               <li><strong class="text-ink dark:text-white/80">Articulating Design Decisions</strong> — Tom Greever.</li>
-               <li><strong class="text-ink dark:text-white/80">Never Split the Difference</strong> — Chris Voss.</li>
-               <li><strong class="text-ink dark:text-white/80">Crucial Conversations</strong> — Kerry Patterson et al.</li>
+               <li><a href="https://www.google.com/search?q=Articulating+Design+Decisions+Tom+Greever" target="_blank" rel="noopener noreferrer" class="text-ink dark:text-white/80 font-bold underline decoration-dotted underline-offset-2 hover:text-accent dark:hover:text-accent-light transition-colors">Articulating Design Decisions</a> — <a href="https://www.google.com/search?q=Tom+Greever" target="_blank" rel="noopener noreferrer" class="underline decoration-dotted underline-offset-2 hover:text-accent dark:hover:text-accent-light transition-colors">Tom Greever</a>.</li>
+               <li><a href="https://www.google.com/search?q=Never+Split+the+Difference+Chris+Voss" target="_blank" rel="noopener noreferrer" class="text-ink dark:text-white/80 font-bold underline decoration-dotted underline-offset-2 hover:text-accent dark:hover:text-accent-light transition-colors">Never Split the Difference</a> — <a href="https://www.google.com/search?q=Chris+Voss+negotiation" target="_blank" rel="noopener noreferrer" class="underline decoration-dotted underline-offset-2 hover:text-accent dark:hover:text-accent-light transition-colors">Chris Voss</a>.</li>
+               <li><a href="https://www.google.com/search?q=Crucial+Conversations+Kerry+Patterson" target="_blank" rel="noopener noreferrer" class="text-ink dark:text-white/80 font-bold underline decoration-dotted underline-offset-2 hover:text-accent dark:hover:text-accent-light transition-colors">Crucial Conversations</a> — <a href="https://www.google.com/search?q=Kerry+Patterson+author" target="_blank" rel="noopener noreferrer" class="underline decoration-dotted underline-offset-2 hover:text-accent dark:hover:text-accent-light transition-colors">Kerry Patterson</a> et al.</li>
              </ul>
              <p class="text-[11px] text-ink-light dark:text-white/50 mt-3 leading-relaxed">Utilize esta base teórica para revisitar conceitos sempre que for estruturar a defesa de um projeto complexo.</p>
           </div>
@@ -2208,15 +2242,51 @@
         targetContent.classList.add('animate-fade-in');
       }
 
-      // Estados dos botões da navegação (mesmo mecanismo do header editorial)
-      const activeClass = "btn-nav text-[9px] md:text-[10px] uppercase tracking-widest font-bold border-b-2 border-accent text-ink dark:text-white transition-all duration-300 py-1";
-      const inactiveClass = "btn-nav text-[9px] md:text-[10px] uppercase tracking-widest font-medium border-b-2 border-transparent text-ink-light hover:text-ink dark:text-white/50 dark:hover:text-white transition-all duration-300 py-1";
-
-      const btnDiscovery = document.getElementById('tab-btn-discovery');
-      const btnExecutiva = document.getElementById('tab-btn-executiva');
-      if (btnDiscovery) btnDiscovery.className = tabId === 'discovery' ? activeClass : inactiveClass;
-      if (btnExecutiva) btnExecutiva.className = tabId === 'executiva' ? activeClass : inactiveClass;
+      // Estado ativo dos itens do menu lateral
+      document.querySelectorAll('.doc-side-link').forEach(link => {
+        link.classList.toggle('active', link.dataset.tab === tabId);
+      });
     }
+
+    // --- DROPDOWN DO ITEM "DOCUMENTAÇÃO" NA NAVBAR ---
+    window.toggleDocDropdown = function(e) {
+      if (e) e.stopPropagation();
+      const dd = document.getElementById('doc-dropdown');
+      const btn = document.getElementById('btn-nav-documentacao');
+      if (!dd || !btn) return;
+      if (dd.classList.contains('hidden')) {
+        const r = btn.getBoundingClientRect();
+        dd.style.top = (r.bottom + 6) + 'px';
+        // mantém o menu dentro da viewport à direita
+        const left = Math.min(r.left, window.innerWidth - dd.offsetWidth - 8);
+        dd.style.left = Math.max(8, left) + 'px';
+        dd.classList.remove('hidden');
+      } else {
+        dd.classList.add('hidden');
+      }
+    };
+
+    window.hideDocDropdown = function() {
+      const dd = document.getElementById('doc-dropdown');
+      if (dd) dd.classList.add('hidden');
+    };
+
+    // Abre a aba Documentação já na documentação escolhida
+    window.openDoc = function(tabId) {
+      window.hideDocDropdown();
+      if (typeof window.switchView === 'function') window.switchView('documentacao');
+      switchTab(tabId);
+    };
+
+    // Fecha o dropdown ao clicar fora, rolar ou redimensionar
+    document.addEventListener('click', (e) => {
+      const dd = document.getElementById('doc-dropdown');
+      const btn = document.getElementById('btn-nav-documentacao');
+      if (!dd || dd.classList.contains('hidden')) return;
+      if (!dd.contains(e.target) && btn && !btn.contains(e.target)) window.hideDocDropdown();
+    });
+    window.addEventListener('scroll', window.hideDocDropdown, true);
+    window.addEventListener('resize', window.hideDocDropdown);
 
     function startDeck(deckId) {
       decks[deckId].current = 0;
