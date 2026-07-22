@@ -303,6 +303,9 @@
     <button onclick="window.openDoc('executiva')" class="w-full text-left px-4 py-2.5 text-[10px] uppercase tracking-widest font-bold text-ink-light hover:text-ink hover:bg-paper dark:text-white/60 dark:hover:text-white dark:hover:bg-white/5 transition-colors flex items-center gap-2.5">
       <i class="fa-solid fa-briefcase w-4 text-center text-accent"></i> Apresentação Executiva
     </button>
+    <button onclick="window.openDoc('ia')" class="w-full text-left px-4 py-2.5 text-[10px] uppercase tracking-widest font-bold text-ink-light hover:text-ink hover:bg-paper dark:text-white/60 dark:hover:text-white dark:hover:bg-white/5 transition-colors flex items-center gap-2.5">
+      <i class="fa-solid fa-wand-magic-sparkles w-4 text-center text-accent"></i> Bons Usos de IA
+    </button>
   </div>
 
   <!-- VIEW 1: Apresentação PDI -->
@@ -890,6 +893,10 @@
             <i class="fa-solid fa-briefcase text-[11px] w-3.5 text-center opacity-70 shrink-0 mt-0.5"></i>
             <span>Apresentação Executiva</span>
           </button>
+          <button data-tab="ia" id="tab-btn-ia" onclick="switchTab('ia')" class="doc-side-link flex items-start gap-2.5 px-3 py-2 rounded-[3px] text-[10px] md:text-[11px] uppercase tracking-widest font-bold text-ink-light/70 dark:text-white/40 hover:text-ink dark:hover:text-white transition-colors border-l-2 border-transparent text-left">
+            <i class="fa-solid fa-wand-magic-sparkles text-[11px] w-3.5 text-center opacity-70 shrink-0 mt-0.5"></i>
+            <span>Bons Usos de IA</span>
+          </button>
         </nav>
       </aside>
 
@@ -922,6 +929,10 @@
             <p class="text-base text-ink-light dark:text-white/70 font-medium mt-6 font-satoshi max-w-md leading-relaxed">
               Um kit de Discovery Lean para times de produto que vivem sob pressão de prazo — sem burocracia, com resultado mensurável.
             </p>
+            <div class="mt-5 flex items-center gap-2 justify-center sm:justify-start flex-wrap">
+              <span class="text-[9px] uppercase tracking-widest font-bold text-ink-light/70 dark:text-white/40">Ação do PDI:</span>
+              <button onclick="window.switchView('tracking')" class="text-[10px] font-bold py-1 px-2.5 rounded bg-paper-dark text-ink dark:bg-white/10 dark:text-white hover:opacity-80 transition-opacity" title="Ver no cronograma">⚙️ OPE.3 — Novos métodos para o processo de Discovery (Junho)</button>
+            </div>
           </div>
 
           <div class="border-b border-paper-dark dark:border-white/10 mb-8 mt-10"></div>
@@ -1048,6 +1059,10 @@
             <p class="text-base text-ink-light dark:text-white/70 font-medium mt-6 font-satoshi max-w-md leading-relaxed">
               Conhecimentos obtidos nos estudos de técnicas de comunicação executiva, para que as entregas de produto e design tenham mais autoridade sobre suas decisões. A ideia é aumentar nosso <strong>First Time Yield</strong> — produtos sem defeitos logo na primeira execução.
             </p>
+            <div class="mt-5 flex items-center gap-2 justify-center sm:justify-start flex-wrap">
+              <span class="text-[9px] uppercase tracking-widest font-bold text-ink-light/70 dark:text-white/40">Ação do PDI:</span>
+              <button onclick="window.switchView('tracking')" class="text-[10px] font-bold py-1 px-2.5 rounded bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-500 hover:opacity-80 transition-opacity" title="Ver no cronograma">📣 INF.3 — Estudo de Negociação e Apresentação Executiva (Junho)</button>
+            </div>
           </div>
 
           <div class="border-b border-paper-dark dark:border-white/10 mb-8 mt-10"></div>
@@ -1143,6 +1158,136 @@
       </p>
     </main>
   </div> <!-- Fim Aba Executiva -->
+
+  <!-- ========================================================================= -->
+  <!-- CONTEÚDO DA ABA: BONS USOS DE IA                                          -->
+  <!-- ========================================================================= -->
+  <div id="tab-content-ia" class="tab-content hidden">
+
+    <!-- VIEW INTRO (Capa do Guia de IA) -->
+    <main id="ia-view-intro" class="w-full px-4 py-10 flex flex-col items-center justify-start min-h-[calc(100vh-80px)] block">
+      <div class="w-full max-w-[650px] bg-white dark:bg-[#1A1A1A] border border-paper-dark dark:border-white/5 shadow-xl shadow-black/5 dark:shadow-white/5 p-8 md:p-12 flex flex-col relative rounded-[4px] animate-fade-in-up overflow-visible">
+
+        <!-- Ilustração Abstrata Fundo Intro -->
+        <div class="absolute top-[-50px] right-[-50px] opacity-10 dark:opacity-5 pointer-events-none animate-spin-slow">
+          <svg width="300" height="300" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" class="overflow-visible">
+            <polygon points="100,15 185,160 15,160" stroke="#38805A" stroke-width="2" stroke-dasharray="10 10"/>
+            <path d="M100 0 L100 200 M0 100 L200 100" stroke="#38805A" stroke-width="1"/>
+            <polygon points="100,60 150,145 50,145" stroke="#38805A" stroke-width="4"/>
+          </svg>
+        </div>
+
+        <div class="relative z-10">
+          <div class="text-center sm:text-left">
+            <span class="inline-block py-0.5 px-3 border border-accent/20 text-[10px] font-bold tracking-widest bg-accent/10 text-accent dark:bg-white/5 dark:text-white/70 uppercase w-max mb-4 rounded-full">
+              GUIA PRÁTICO DE IA
+            </span>
+            <h1 class="text-4xl md:text-6xl font-black tracking-tighter uppercase text-ink dark:text-white leading-[0.85] font-satoshi mt-2">
+              IA não é mágica. É <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-[#72A68C] italic font-light tracking-tight">ferramenta.</span>
+            </h1>
+            <p class="text-base text-ink-light dark:text-white/70 font-medium mt-6 font-satoshi max-w-md leading-relaxed">
+              Um guia direto sobre bons usos de IA no dia a dia: qual plataforma e modelo escolher, como escrever prompts que funcionam e os fundamentos de GitHub (repositório, branch, PR e Pages) para publicar seu trabalho.
+            </p>
+            <div class="mt-5 flex items-center gap-2 justify-center sm:justify-start flex-wrap">
+              <span class="text-[9px] uppercase tracking-widest font-bold text-ink-light/70 dark:text-white/40">Ações do PDI:</span>
+              <button onclick="window.switchView('tracking')" class="text-[10px] font-bold py-1 px-2.5 rounded bg-paper-dark text-ink dark:bg-white/10 dark:text-white hover:opacity-80 transition-opacity" title="Ver no cronograma">⚙️ OPE.1 — IA na rotina e acervo de comandos (Julho)</button>
+              <button onclick="window.switchView('tracking')" class="text-[10px] font-bold py-1 px-2.5 rounded bg-paper-dark text-ink dark:bg-white/10 dark:text-white hover:opacity-80 transition-opacity" title="Ver no cronograma">⚙️ OPE.2 — Apresentar usos práticos de IA à equipe (Julho)</button>
+            </div>
+          </div>
+
+          <div class="border-b border-paper-dark dark:border-white/10 mb-8 mt-10"></div>
+        </div>
+
+        <div class="relative z-10 flex flex-col gap-6 w-full">
+          <div class="w-full flex flex-col sm:flex-row gap-4 items-center justify-between">
+            <div class="flex gap-4">
+               <div class="text-center sm:text-left">
+                 <span class="block text-2xl font-black text-ink dark:text-white">2</span>
+                 <span class="text-[9px] uppercase tracking-widest font-bold text-ink-light">Plataformas</span>
+               </div>
+               <div class="w-px h-10 bg-paper-dark dark:bg-white/10"></div>
+               <div class="text-center sm:text-left">
+                 <span class="block text-2xl font-black text-ink dark:text-white">10</span>
+                 <span class="text-[9px] uppercase tracking-widest font-bold text-ink-light">Slides Táticos</span>
+               </div>
+            </div>
+            <button onclick="startDeck('ia')" class="w-full sm:w-auto justify-center px-8 py-4 bg-ink text-paper dark:bg-white dark:text-[#121212] text-[10px] uppercase tracking-widest font-bold hover:bg-ink-light dark:hover:bg-white/80 transition-all hover:shadow-lg hover:-translate-y-1 flex items-center gap-2 rounded-[2px]">
+              Abrir Guia <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- VIEW SLIDES (Guia interativo de IA) -->
+    <main id="ia-view-slides" class="w-full px-4 py-6 md:py-10 flex flex-col items-center justify-start min-h-[calc(100vh-80px)] hidden">
+
+      <div class="w-full max-w-[1000px] bg-white dark:bg-[#1A1A1A] border border-paper-dark dark:border-white/5 shadow-xl shadow-black/5 dark:shadow-white/5 p-6 md:p-10 flex flex-col rounded-[4px] relative overflow-visible">
+
+        <!-- Top Bar do Slide -->
+        <div class="flex flex-col md:flex-row md:items-end justify-between border-b border-paper-dark dark:border-white/10 pb-4 mb-8 gap-4 md:gap-6 relative z-10">
+          <div class="relative w-full md:w-auto text-center md:text-left cursor-pointer group" onclick="backToIntro('ia')">
+            <h1 class="text-xl md:text-2xl font-black tracking-tighter uppercase text-ink dark:text-white leading-[0.85] font-satoshi mt-2 md:mt-0 flex items-center gap-3 transition-transform group-hover:-translate-x-1">
+               <span class="text-ink-light text-sm"><i class="fa-solid fa-arrow-left"></i></span>
+               Bons Usos <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-[#72A68C] italic font-light tracking-tight ml-1">de IA.</span>
+            </h1>
+          </div>
+
+          <div class="w-full md:w-1/3 flex flex-col justify-end block mt-4 md:mt-0">
+            <div class="flex justify-between items-end mb-2">
+              <span class="text-[9px] uppercase font-bold tracking-widest text-ink-light dark:text-white/50">Progresso do Guia</span>
+              <span id="ia-slide-counter" class="text-xs font-bold text-ink dark:text-white">01/10</span>
+            </div>
+            <div class="w-full h-[2px] bg-paper-dark dark:bg-white/10 relative overflow-hidden rounded-full">
+              <div id="ia-progress-bar" class="absolute top-0 left-0 h-full bg-accent transition-all duration-500 ease-out" style="width: 0%"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Grid do Slide -->
+        <div id="ia-slide-grid" class="grid grid-cols-1 w-full items-start min-h-[400px] relative z-10">
+
+          <div class="flex flex-col justify-start min-w-0 flex-1 pt-2 md:pt-0 w-full h-full items-center md:items-start mx-auto md:mx-0">
+
+            <span id="ia-slide-badge" class="header-item inline-block py-1 px-3 border border-accent/20 text-[9px] font-bold tracking-widest bg-accent/10 text-accent dark:bg-white/5 dark:text-white/70 uppercase w-max mb-4 rounded-full shadow-sm">
+              SLIDE_01
+            </span>
+
+            <h2 id="ia-slide-title" class="text-3xl md:text-4xl font-bold mb-4 text-ink dark:text-white leading-tight"></h2>
+
+            <p id="ia-slide-intro" class="text-base md:text-lg text-ink-light dark:text-white/70 leading-relaxed mb-8 font-medium border-l-4 border-accent pl-4 py-1"></p>
+
+            <div id="ia-slide-content" class="w-full flex flex-col gap-4 text-left">
+              <!-- Injetado via JS -->
+            </div>
+
+            <div id="ia-slide-reference" class="w-full mt-8 hidden">
+              <p id="ia-slide-reference-text" class="text-[10px] text-ink-light/80 dark:text-white/40 border-t border-paper-dark dark:border-white/10 pt-3 font-medium leading-relaxed"></p>
+            </div>
+          </div>
+
+        </div>
+
+        <div id="ia-nav-footer" class="w-full flex flex-col-reverse md:flex-row justify-between items-center mt-10 pt-6 border-t border-paper-dark dark:border-white/10 gap-4 md:gap-0 relative z-10">
+          <button id="ia-btn-prev" onclick="deckPrev('ia')" class="w-full md:w-auto justify-center md:justify-start text-[11px] uppercase tracking-widest font-bold text-ink-light hover:text-ink dark:text-white/50 dark:hover:text-white disabled:opacity-0 transition-all hover:-translate-x-1 flex items-center gap-2 py-3 md:py-0">
+            <i class="fa-solid fa-arrow-left"></i> Anterior
+          </button>
+
+          <button id="ia-btn-next" onclick="deckNext('ia')" class="w-full md:w-auto justify-center px-10 py-4 bg-ink text-paper dark:bg-white dark:text-[#121212] text-[11px] uppercase tracking-widest font-bold hover:bg-ink-light dark:hover:bg-white/80 disabled:opacity-30 transition-all hover:translate-x-1 hover:shadow-lg flex items-center gap-2 rounded-[2px]">
+            Próximo <i class="fa-solid fa-arrow-right"></i>
+          </button>
+
+          <button id="ia-btn-restart" onclick="startDeck('ia')" class="w-full md:w-auto justify-center hidden px-10 py-4 border border-paper-dark dark:border-white/20 text-ink dark:text-white text-[11px] uppercase tracking-widest font-bold hover:bg-paper-dark/10 dark:hover:bg-white/5 transition-colors rounded-[2px]">
+            <i class="fa-solid fa-rotate-left mr-2"></i> Recomeçar Guia
+          </button>
+        </div>
+      </div>
+
+      <p class="hidden md:block text-[10px] text-ink-light/70 dark:text-white/30 mt-4 font-medium tracking-wide">
+        <i class="fa-regular fa-keyboard mr-1"></i> Use as setas <span class="font-bold">←</span> e <span class="font-bold">→</span> do teclado para navegar
+      </p>
+    </main>
+  </div> <!-- Fim Aba Bons Usos de IA -->
 
       </div> <!-- Fim do conteúdo das documentações -->
     </div> <!-- Fim do layout com menu lateral -->
@@ -2204,10 +2349,317 @@
       }
     ];
 
+    // --- CONTEÚDO DOS SLIDES DA ABA BONS USOS DE IA ---
+    const iaSlides = [
+      {
+        badge: "CLAUDE × GEMINI",
+        themeKey: "default",
+        title: "Quando usar Claude e quando usar Gemini",
+        intro: "As duas plataformas são excelentes — mas cada uma brilha em cenários diferentes. Escolher certo economiza tempo e dinheiro.",
+        content: `
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
+            <div class="p-5 border border-brand-orange/30 bg-brand-orange/5 rounded-[2px] h-full">
+              <p class="text-sm font-bold text-ink dark:text-white flex items-center gap-2 mb-3"><i class="fa-solid fa-asterisk text-brand-orange"></i> Use CLAUDE (Anthropic) quando...</p>
+              <ul class="text-[13px] text-ink-light dark:text-white/70 space-y-2.5 list-none">
+                <li class="flex items-start gap-2"><i class="fa-solid fa-check text-brand-orange mt-0.5"></i> <span><strong>Programar ou automatizar:</strong> Claude Code é referência em trabalho agêntico (o modelo executa tarefas longas sozinho).</span></li>
+                <li class="flex items-start gap-2"><i class="fa-solid fa-check text-brand-orange mt-0.5"></i> <span><strong>Escrever com cuidado:</strong> textos longos, documentação e análise de documentos com instruções detalhadas.</span></li>
+                <li class="flex items-start gap-2"><i class="fa-solid fa-check text-brand-orange mt-0.5"></i> <span><strong>Seguir instruções à risca:</strong> quando o formato e as restrições da resposta importam muito.</span></li>
+              </ul>
+            </div>
+            <div class="p-5 border border-brand-blue/30 bg-brand-blue/5 rounded-[2px] h-full">
+              <p class="text-sm font-bold text-ink dark:text-white flex items-center gap-2 mb-3"><i class="fa-solid fa-star-of-life text-brand-blue"></i> Use GEMINI (Google) quando...</p>
+              <ul class="text-[13px] text-ink-light dark:text-white/70 space-y-2.5 list-none">
+                <li class="flex items-start gap-2"><i class="fa-solid fa-check text-brand-blue mt-0.5"></i> <span><strong>Pesquisar na web:</strong> integração nativa com a Busca do Google e o Deep Research para relatórios com fontes.</span></li>
+                <li class="flex items-start gap-2"><i class="fa-solid fa-check text-brand-blue mt-0.5"></i> <span><strong>Trabalhar com multimídia:</strong> entende vídeo, áudio e imagem muito bem, e se conecta ao Google Workspace (Docs, Sheets, Gmail).</span></li>
+                <li class="flex items-start gap-2"><i class="fa-solid fa-check text-brand-blue mt-0.5"></i> <span><strong>Rodar em volume:</strong> os modelos Flash são rápidos e baratos para tarefas repetitivas do dia a dia.</span></li>
+              </ul>
+            </div>
+            <div class="md:col-span-2 p-4 border-l-4 border-accent bg-accent/5">
+              <p class="text-sm text-ink dark:text-white"><strong>Regra de bolso:</strong> tarefa crítica de raciocínio, código ou escrita → <strong>Claude</strong>. Pesquisa atualizada, multimídia ou integração Google → <strong>Gemini</strong>. Na dúvida, teste o mesmo prompt nos dois e compare.</p>
+            </div>
+          </div>
+        `
+      },
+      {
+        badge: "MODELOS CLAUDE",
+        themeKey: "orange",
+        title: "Os modelos da Anthropic",
+        intro: "Do mais potente ao mais econômico: escolha pelo tamanho do problema, não pelo hábito.",
+        reference: "Referência: platform.claude.com/docs (catálogo de modelos, jul/2026).",
+        content: `
+          <div class="flex flex-col gap-3 w-full">
+            <div class="p-4 border border-paper-dark dark:border-white/10 rounded-[2px] flex flex-col md:flex-row md:items-center gap-2 md:gap-4">
+              <span class="text-xs font-black uppercase tracking-widest text-brand-orange w-32 shrink-0">Fable 5</span>
+              <p class="text-[13px] text-ink-light dark:text-white/70">O mais inteligente da linha. Para os problemas mais difíceis: raciocínio profundo e tarefas autônomas de longa duração. É também o mais caro — reserve para o que realmente exige.</p>
+            </div>
+            <div class="p-4 border border-paper-dark dark:border-white/10 rounded-[2px] flex flex-col md:flex-row md:items-center gap-2 md:gap-4">
+              <span class="text-xs font-black uppercase tracking-widest text-brand-orange w-32 shrink-0">Opus 4.8</span>
+              <p class="text-[13px] text-ink-light dark:text-white/70">O padrão para trabalho exigente: programação complexa, refatorações grandes, análises longas e agentes que rodam sem supervisão.</p>
+            </div>
+            <div class="p-4 border border-paper-dark dark:border-white/10 rounded-[2px] flex flex-col md:flex-row md:items-center gap-2 md:gap-4">
+              <span class="text-xs font-black uppercase tracking-widest text-brand-orange w-32 shrink-0">Sonnet 5</span>
+              <p class="text-[13px] text-ink-light dark:text-white/70">O equilíbrio ideal: qualidade próxima do Opus em código e escrita, com mais velocidade e menor custo. Ótimo padrão para o dia a dia.</p>
+            </div>
+            <div class="p-4 border border-paper-dark dark:border-white/10 rounded-[2px] flex flex-col md:flex-row md:items-center gap-2 md:gap-4">
+              <span class="text-xs font-black uppercase tracking-widest text-brand-orange w-32 shrink-0">Haiku 4.5</span>
+              <p class="text-[13px] text-ink-light dark:text-white/70">O rápido e econômico: classificações, resumos curtos, respostas simples e tarefas em grande volume.</p>
+            </div>
+            <div class="p-4 border-l-4 border-brand-orange bg-brand-orange/5 mt-1">
+              <p class="text-[13px] text-ink dark:text-white"><strong>Ferramentas:</strong> <strong>Claude.ai</strong> (chat, com Projects para dar contexto fixo e Artifacts para gerar páginas e protótipos) e <strong>Claude Code</strong> (o agente de programação, no terminal ou na web — a ferramenta usada para construir e manter este próprio site).</p>
+            </div>
+          </div>
+        `
+      },
+      {
+        badge: "MODELOS GEMINI",
+        themeKey: "blue",
+        title: "Os modelos do Google",
+        intro: "A família Gemini se divide em Pro (capacidade máxima) e Flash (velocidade e custo baixo).",
+        reference: "Referência: blog.google e deepmind.google/models/gemini (jul/2026).",
+        content: `
+          <div class="flex flex-col gap-3 w-full">
+            <div class="p-4 border border-paper-dark dark:border-white/10 rounded-[2px] flex flex-col md:flex-row md:items-center gap-2 md:gap-4">
+              <span class="text-xs font-black uppercase tracking-widest text-brand-blue w-32 shrink-0">3.1 Pro</span>
+              <p class="text-[13px] text-ink-light dark:text-white/70">O modelo principal para tarefas complexas: análises profundas, raciocínio e pesquisa. É o motor do Deep Research e do NotebookLM.</p>
+            </div>
+            <div class="p-4 border border-paper-dark dark:border-white/10 rounded-[2px] flex flex-col md:flex-row md:items-center gap-2 md:gap-4">
+              <span class="text-xs font-black uppercase tracking-widest text-brand-blue w-32 shrink-0">3 Deep Think</span>
+              <p class="text-[13px] text-ink-light dark:text-white/70">Modo de raciocínio estendido para problemas realmente difíceis (matemática, lógica, planejamento). Mais lento — use quando a resposta vale a espera.</p>
+            </div>
+            <div class="p-4 border border-paper-dark dark:border-white/10 rounded-[2px] flex flex-col md:flex-row md:items-center gap-2 md:gap-4">
+              <span class="text-xs font-black uppercase tracking-widest text-brand-blue w-32 shrink-0">3.6 Flash</span>
+              <p class="text-[13px] text-ink-light dark:text-white/70">O cavalo de batalha do dia a dia: rápido, barato e com bom raciocínio. Ideal para a maioria das conversas e tarefas comuns.</p>
+            </div>
+            <div class="p-4 border border-paper-dark dark:border-white/10 rounded-[2px] flex flex-col md:flex-row md:items-center gap-2 md:gap-4">
+              <span class="text-xs font-black uppercase tracking-widest text-brand-blue w-32 shrink-0">Flash-Lite</span>
+              <p class="text-[13px] text-ink-light dark:text-white/70">O mais leve e barato de todos: tarefas simples e repetitivas em altíssimo volume, onde custo importa mais que sofisticação.</p>
+            </div>
+            <div class="p-4 border-l-4 border-brand-blue bg-brand-blue/5 mt-1">
+              <p class="text-[13px] text-ink dark:text-white"><strong>Ferramentas:</strong> <strong>Deep Research</strong> (relatórios longos com fontes), <strong>NotebookLM</strong> (estude os seus próprios documentos), <strong>Canvas</strong> (documentos e apps interativos) e a integração com o <strong>Google Workspace</strong> (Docs, Sheets, Gmail, Meet).</p>
+            </div>
+          </div>
+        `
+      },
+      {
+        badge: "PROMPTS",
+        themeKey: "default",
+        title: "Prompt simples × prompt complexo",
+        intro: "O tamanho do prompt deve acompanhar o tamanho do risco: quanto mais importante a saída, mais contexto você fornece.",
+        content: `
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
+            <div class="p-5 border border-paper-dark dark:border-white/10 rounded-[2px] bg-paper-dark/20 dark:bg-white/5 h-full">
+              <p class="text-sm font-bold text-ink dark:text-white mb-3"><i class="fa-solid fa-bolt text-accent mr-2"></i>Prompt SIMPLES — use quando:</p>
+              <ul class="text-[13px] text-ink-light dark:text-white/70 space-y-2.5 list-disc pl-5">
+                <li>A tarefa é objetiva e de baixo risco ("resuma este texto", "traduza isso").</li>
+                <li>Você vai <strong>iterar em conversa</strong>: começa curto e refina com as próximas mensagens.</li>
+                <li>O erro custa pouco — dá para corrigir na resposta seguinte.</li>
+              </ul>
+              <p class="text-[11px] text-ink-light/80 dark:text-white/50 mt-4 border-t border-paper-dark dark:border-white/10 pt-3">Ex.: "Reescreva este parágrafo em tom mais formal."</p>
+            </div>
+            <div class="p-5 border border-accent/20 bg-accent/5 rounded-[2px] h-full">
+              <p class="text-sm font-bold text-ink dark:text-white mb-3"><i class="fa-solid fa-layer-group text-accent mr-2"></i>Prompt COMPLEXO — use quando:</p>
+              <ul class="text-[13px] text-ink-light dark:text-white/70 space-y-2.5 list-disc pl-5">
+                <li>A saída vai direto para um <strong>entregável</strong> (documento, código, apresentação).</li>
+                <li>Existem regras de formato, tom, público ou restrições que precisam ser respeitadas.</li>
+                <li>A tarefa é longa ou autônoma — o modelo vai trabalhar sozinho e não pode "inventar" o caminho.</li>
+              </ul>
+              <p class="text-[11px] text-ink-light/80 dark:text-white/50 mt-4 border-t border-accent/10 pt-3">Regra: se você repetiria a mesma instrução toda semana, ela merece virar um prompt estruturado (e salvo).</p>
+            </div>
+          </div>
+        `
+      },
+      {
+        badge: "PROMPTS",
+        themeKey: "default",
+        title: "Anatomia de um prompt complexo",
+        intro: "Um bom prompt estruturado tem 6 ingredientes. Você não precisa de todos sempre — mas precisa saber quais está deixando de fora.",
+        content: `
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3 w-full">
+            <div class="p-4 border border-paper-dark dark:border-white/10 rounded-[2px]">
+              <p class="text-[13px] font-bold text-ink dark:text-white mb-1">1. Papel</p>
+              <p class="text-[12px] text-ink-light dark:text-white/70">Quem a IA deve ser. "Você é um designer sênior revisando uma apresentação executiva."</p>
+            </div>
+            <div class="p-4 border border-paper-dark dark:border-white/10 rounded-[2px]">
+              <p class="text-[13px] font-bold text-ink dark:text-white mb-1">2. Contexto</p>
+              <p class="text-[12px] text-ink-light dark:text-white/70">O que ela precisa saber: público, objetivo, materiais anexados. <strong>Diga o porquê</strong> — modelos trabalham melhor entendendo a intenção.</p>
+            </div>
+            <div class="p-4 border border-paper-dark dark:border-white/10 rounded-[2px]">
+              <p class="text-[13px] font-bold text-ink dark:text-white mb-1">3. Tarefa</p>
+              <p class="text-[12px] text-ink-light dark:text-white/70">O pedido em si, específico e verificável. "Liste os 5 maiores problemas de clareza, do mais grave ao menos grave."</p>
+            </div>
+            <div class="p-4 border border-paper-dark dark:border-white/10 rounded-[2px]">
+              <p class="text-[13px] font-bold text-ink dark:text-white mb-1">4. Formato</p>
+              <p class="text-[12px] text-ink-light dark:text-white/70">Como a resposta deve sair: tabela, tópicos, tom de voz, idioma, limite de tamanho.</p>
+            </div>
+            <div class="p-4 border border-paper-dark dark:border-white/10 rounded-[2px]">
+              <p class="text-[13px] font-bold text-ink dark:text-white mb-1">5. Exemplos</p>
+              <p class="text-[12px] text-ink-light dark:text-white/70">Mostre 1 ou 2 saídas ideais. Um bom exemplo vale mais que três parágrafos de instrução.</p>
+            </div>
+            <div class="p-4 border border-paper-dark dark:border-white/10 rounded-[2px]">
+              <p class="text-[13px] font-bold text-ink dark:text-white mb-1">6. Restrições</p>
+              <p class="text-[12px] text-ink-light dark:text-white/70">O que <strong>não</strong> fazer: "não invente dados", "não mude o que não foi pedido", "se faltar informação, pergunte".</p>
+            </div>
+            <div class="md:col-span-2 p-4 border-l-4 border-accent bg-accent/5">
+              <p class="text-[13px] text-ink dark:text-white"><strong>Dica de ouro:</strong> peça para a própria IA melhorar seu prompt ("reescreva este prompt para obter um resultado melhor") antes de rodar a tarefa de verdade.</p>
+            </div>
+          </div>
+        `
+      },
+      {
+        badge: "GITHUB",
+        themeKey: "pink",
+        title: "O que é um repositório (e como criar um)",
+        intro: "Repositório é a pasta do seu projeto com superpoderes: histórico completo de tudo que mudou, quando e por quê.",
+        content: `
+          <div class="flex flex-col gap-4 w-full">
+            <div class="p-5 border border-paper-dark dark:border-white/10 rounded-[2px] bg-paper-dark/20 dark:bg-white/5">
+              <p class="text-[13px] text-ink-light dark:text-white/70 leading-relaxed">Cada alteração salva é um <strong>commit</strong> — uma "foto" do projeto naquele momento. Se algo quebrar, você volta no tempo. Se alguém perguntar "por que isso mudou?", a resposta está no histórico. É onde este próprio site (pdi-armando) vive.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-2 w-full">
+              <div class="p-4 border border-brand-pink/30 rounded-[2px]">
+                <span class="w-6 h-6 rounded-full bg-brand-pink/15 text-brand-pink flex items-center justify-center font-bold text-xs mb-2">1</span>
+                <p class="text-[12px] text-ink-light dark:text-white/70">Entre em <strong>github.com</strong> e clique no <strong>+</strong> no canto superior direito → <em>New repository</em>.</p>
+              </div>
+              <div class="p-4 border border-brand-pink/30 rounded-[2px]">
+                <span class="w-6 h-6 rounded-full bg-brand-pink/15 text-brand-pink flex items-center justify-center font-bold text-xs mb-2">2</span>
+                <p class="text-[12px] text-ink-light dark:text-white/70">Dê um nome curto e sem espaços (ex.: <em>meu-portfolio</em>) e escolha <strong>Public</strong> ou <strong>Private</strong>.</p>
+              </div>
+              <div class="p-4 border border-brand-pink/30 rounded-[2px]">
+                <span class="w-6 h-6 rounded-full bg-brand-pink/15 text-brand-pink flex items-center justify-center font-bold text-xs mb-2">3</span>
+                <p class="text-[12px] text-ink-light dark:text-white/70">Marque <strong>Add a README file</strong> para o repositório já nascer com uma página de apresentação.</p>
+              </div>
+              <div class="p-4 border border-brand-pink/30 rounded-[2px]">
+                <span class="w-6 h-6 rounded-full bg-brand-pink/15 text-brand-pink flex items-center justify-center font-bold text-xs mb-2">4</span>
+                <p class="text-[12px] text-ink-light dark:text-white/70">Clique em <strong>Create repository</strong>. Pronto — adicione arquivos pelo botão <em>Add file</em> ou peça para o Claude Code fazer isso por você.</p>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      {
+        badge: "GITHUB PAGES",
+        themeKey: "pink",
+        title: "Como publicar uma página no GitHub Pages",
+        intro: "GitHub Pages transforma um repositório em site publicado, de graça — é exatamente assim que este PDI está no ar.",
+        content: `
+          <div class="flex flex-col gap-4 w-full">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-2 w-full">
+              <div class="p-4 border border-brand-pink/30 rounded-[2px]">
+                <span class="w-6 h-6 rounded-full bg-brand-pink/15 text-brand-pink flex items-center justify-center font-bold text-xs mb-2">1</span>
+                <p class="text-[12px] text-ink-light dark:text-white/70">Coloque um arquivo <strong>index.html</strong> (ou <em>index.htm</em>) na raiz do repositório — ele será a página inicial do site.</p>
+              </div>
+              <div class="p-4 border border-brand-pink/30 rounded-[2px]">
+                <span class="w-6 h-6 rounded-full bg-brand-pink/15 text-brand-pink flex items-center justify-center font-bold text-xs mb-2">2</span>
+                <p class="text-[12px] text-ink-light dark:text-white/70">No repositório, vá em <strong>Settings → Pages</strong> e, em <em>Source</em>, escolha a branch <strong>main</strong> e a pasta raiz.</p>
+              </div>
+              <div class="p-4 border border-brand-pink/30 rounded-[2px]">
+                <span class="w-6 h-6 rounded-full bg-brand-pink/15 text-brand-pink flex items-center justify-center font-bold text-xs mb-2">3</span>
+                <p class="text-[12px] text-ink-light dark:text-white/70">Aguarde 1–2 minutos. O site fica no ar em <em>usuario.github.io/nome-do-repositorio</em>.</p>
+              </div>
+            </div>
+            <div class="p-4 border-l-4 border-brand-pink bg-brand-pink/5">
+              <p class="text-[13px] text-ink dark:text-white"><strong>A mágica:</strong> a partir daí, todo merge na branch <em>main</em> publica automaticamente. Não existe passo manual de deploy — atualizou o arquivo, atualizou o site.</p>
+            </div>
+            <div class="p-4 border border-paper-dark dark:border-white/10 rounded-[2px] bg-paper-dark/20 dark:bg-white/5">
+              <p class="text-[12px] text-ink-light dark:text-white/70"><i class="fa-solid fa-wand-magic-sparkles text-brand-pink mr-2"></i><strong>Com IA:</strong> peça a uma IA para gerar o HTML da página (o Claude gera páginas completas em um único arquivo, como este site), crie o repositório, suba o arquivo e ative o Pages. Site no ar em minutos, sem servidor.</p>
+            </div>
+          </div>
+        `
+      },
+      {
+        badge: "DOCUMENTAÇÃO",
+        themeKey: "blue",
+        title: "README × CLAUDE.md",
+        intro: "Os dois vivem no repositório, mas falam com públicos diferentes: um explica o projeto para pessoas, o outro orienta a IA.",
+        content: `
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
+            <div class="p-5 border border-paper-dark dark:border-white/10 rounded-[2px] h-full">
+              <p class="text-sm font-bold text-ink dark:text-white flex items-center gap-2 mb-3"><i class="fa-brands fa-readme text-brand-blue"></i> README.md — para humanos</p>
+              <ul class="text-[13px] text-ink-light dark:text-white/70 space-y-2.5 list-disc pl-5">
+                <li>É a <strong>capa do projeto</strong>: o GitHub o exibe automaticamente na página inicial do repositório.</li>
+                <li>Responde: o que é este projeto, para que serve, como usar ou rodar.</li>
+                <li>Escrito em <strong>Markdown</strong> (.md) — texto simples com formatação leve.</li>
+              </ul>
+            </div>
+            <div class="p-5 border border-brand-blue/30 bg-brand-blue/5 rounded-[2px] h-full">
+              <p class="text-sm font-bold text-ink dark:text-white flex items-center gap-2 mb-3"><i class="fa-solid fa-robot text-brand-blue"></i> CLAUDE.md — para a IA</p>
+              <ul class="text-[13px] text-ink-light dark:text-white/70 space-y-2.5 list-disc pl-5">
+                <li>É o <strong>manual de instruções que o Claude Code lê automaticamente</strong> ao abrir o projeto.</li>
+                <li>Documenta a arquitetura, as convenções ("todo conteúdo em pt-BR"), o que não pode ser quebrado e como testar.</li>
+                <li>Resultado: a IA erra menos, respeita os padrões do projeto e não precisa que você repita o contexto a cada sessão.</li>
+              </ul>
+            </div>
+            <div class="md:col-span-2 p-4 border-l-4 border-brand-blue bg-brand-blue/5">
+              <p class="text-[13px] text-ink dark:text-white"><strong>Este repositório tem os dois:</strong> o README apresenta o PDI para quem chega; o CLAUDE.md ensina a IA a mexer no site sem quebrar o deploy. Todo projeto em que você usar IA com frequência merece um CLAUDE.md.</p>
+            </div>
+          </div>
+        `
+      },
+      {
+        badge: "GITHUB",
+        themeKey: "pink",
+        title: "O que é uma branch e o que é um PR",
+        intro: "Branch é a sua cópia de trabalho segura; Pull Request é o pedido para juntar seu trabalho ao oficial — com revisão no meio.",
+        content: `
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
+            <div class="p-5 border border-paper-dark dark:border-white/10 rounded-[2px] h-full">
+              <p class="text-sm font-bold text-ink dark:text-white flex items-center gap-2 mb-3"><i class="fa-solid fa-code-branch text-brand-pink"></i> Branch (ramificação)</p>
+              <p class="text-[13px] text-ink-light dark:text-white/70 leading-relaxed mb-3">Uma <strong>linha do tempo paralela</strong> do projeto. A principal se chama <em>main</em> — é a versão oficial (e, com o Pages, a que está no ar). Para mexer em algo, você cria uma branch, trabalha nela à vontade e a <em>main</em> continua intacta.</p>
+              <p class="text-[11px] text-ink-light/80 dark:text-white/50 border-t border-paper-dark dark:border-white/10 pt-3">Analogia: em vez de editar o arquivo final da apresentação, você duplica, edita a cópia e só substitui o original quando estiver aprovado.</p>
+            </div>
+            <div class="p-5 border border-brand-pink/30 bg-brand-pink/5 rounded-[2px] h-full">
+              <p class="text-sm font-bold text-ink dark:text-white flex items-center gap-2 mb-3"><i class="fa-solid fa-code-pull-request text-brand-pink"></i> Pull Request (PR)</p>
+              <p class="text-[13px] text-ink-light dark:text-white/70 leading-relaxed mb-3">O <strong>pedido formal para levar as mudanças da sua branch para a main</strong>. O PR mostra exatamente o que mudou (o <em>diff</em>), permite comentários e revisão, e só entra quando alguém aprova e faz o <strong>merge</strong>.</p>
+              <p class="text-[11px] text-ink-light/80 dark:text-white/50 border-t border-brand-pink/10 pt-3">É o "envie para revisão antes de publicar" do mundo do código — o mesmo ritual de qualidade que defendemos em design.</p>
+            </div>
+            <div class="md:col-span-2 p-4 border-l-4 border-brand-pink bg-brand-pink/5">
+              <p class="text-[13px] text-ink dark:text-white"><strong>Fluxo completo:</strong> criar branch → fazer commits → abrir PR → revisar → merge na main → (com Pages) site atualizado. Agentes como o Claude Code executam esse fluxo inteiro sozinhos — você só revisa e aprova o PR.</p>
+            </div>
+          </div>
+        `
+      },
+      {
+        badge: "BOAS PRÁTICAS",
+        themeKey: "default",
+        title: "O que mais é importante saber",
+        intro: "IA amplia quem você já é: ótimos profissionais ficam melhores, descuidados erram mais rápido. Estas práticas mantêm você no primeiro grupo.",
+        reference: "Guia vivo — atualize este deck conforme os modelos e ferramentas evoluírem. Última revisão: julho/2026.",
+        content: `
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3 w-full">
+            <div class="p-4 border border-paper-dark dark:border-white/10 rounded-[2px]">
+              <p class="text-[13px] font-bold text-ink dark:text-white mb-1"><i class="fa-solid fa-magnifying-glass text-accent mr-2"></i>Revise sempre a saída</p>
+              <p class="text-[12px] text-ink-light dark:text-white/70">Modelos <strong>alucinam</strong>: inventam dados, links e fontes com total confiança. Nada gerado por IA vai para um entregável sem revisão humana — você assina o resultado, não a ferramenta.</p>
+            </div>
+            <div class="p-4 border border-paper-dark dark:border-white/10 rounded-[2px]">
+              <p class="text-[13px] font-bold text-ink dark:text-white mb-1"><i class="fa-solid fa-lock text-accent mr-2"></i>Cuidado com dados sensíveis</p>
+              <p class="text-[12px] text-ink-light dark:text-white/70">Não cole senhas, chaves de API, dados de clientes ou informações confidenciais da empresa em chats de IA. Use as contas corporativas aprovadas, nunca contas pessoais.</p>
+            </div>
+            <div class="p-4 border border-paper-dark dark:border-white/10 rounded-[2px]">
+              <p class="text-[13px] font-bold text-ink dark:text-white mb-1"><i class="fa-solid fa-rotate text-accent mr-2"></i>Itere em vez de aceitar</p>
+              <p class="text-[12px] text-ink-light dark:text-white/70">A primeira resposta raramente é a melhor. Peça alternativas, aponte o que ficou fraco e refine. Tratar a IA como par de trabalho (e não como oráculo) muda a qualidade do resultado.</p>
+            </div>
+            <div class="p-4 border border-paper-dark dark:border-white/10 rounded-[2px]">
+              <p class="text-[13px] font-bold text-ink dark:text-white mb-1"><i class="fa-solid fa-floppy-disk text-accent mr-2"></i>Salve o que funciona</p>
+              <p class="text-[12px] text-ink-light dark:text-white/70">Prompt bom é ativo da equipe: guarde os que funcionam em um lugar compartilhado (ou num CLAUDE.md). Não reescreva do zero o que já foi lapidado.</p>
+            </div>
+            <div class="p-4 border border-paper-dark dark:border-white/10 rounded-[2px]">
+              <p class="text-[13px] font-bold text-ink dark:text-white mb-1"><i class="fa-solid fa-scale-balanced text-accent mr-2"></i>Modelo certo, custo certo</p>
+              <p class="text-[12px] text-ink-light dark:text-white/70">Não use o modelo mais caro para resumir um e-mail, nem o mais barato para decidir arquitetura. Combine: rascunho no Flash/Haiku, versão final no Pro/Opus.</p>
+            </div>
+            <div class="p-4 border border-paper-dark dark:border-white/10 rounded-[2px]">
+              <p class="text-[13px] font-bold text-ink dark:text-white mb-1"><i class="fa-solid fa-graduation-cap text-accent mr-2"></i>Use IA para aprender</p>
+              <p class="text-[12px] text-ink-light dark:text-white/70">Além de executar, peça para a IA <strong>explicar</strong>: "por que você fez assim?", "o que é este conceito?". É um professor disponível 24h — use-o para reduzir sua dependência dele.</p>
+            </div>
+          </div>
+        `
+      }
+    ];
+
     // --- MOTOR GENÉRICO DE DECKS ---
     const decks = {
       discovery: { slides: discoverySlides, current: 0 },
-      executiva: { slides: executivaSlides, current: 0 }
+      executiva: { slides: executivaSlides, current: 0 },
+      ia: { slides: iaSlides, current: 0 }
     };
 
     let activeTab = 'discovery';
@@ -2237,22 +2689,44 @@
     }
 
     // --- DROPDOWN DO ITEM "DOCUMENTAÇÃO" NA NAVBAR ---
-    window.toggleDocDropdown = function(e) {
-      if (e) e.stopPropagation();
+    function showDocDropdown() {
       const dd = document.getElementById('doc-dropdown');
       const btn = document.getElementById('btn-nav-documentacao');
       if (!dd || !btn) return;
-      if (dd.classList.contains('hidden')) {
-        const r = btn.getBoundingClientRect();
-        dd.style.top = (r.bottom + 6) + 'px';
-        // mantém o menu dentro da viewport à direita
-        const left = Math.min(r.left, window.innerWidth - dd.offsetWidth - 8);
-        dd.style.left = Math.max(8, left) + 'px';
-        dd.classList.remove('hidden');
-      } else {
-        dd.classList.add('hidden');
-      }
+      const r = btn.getBoundingClientRect();
+      dd.style.top = (r.bottom + 6) + 'px';
+      // mantém o menu dentro da viewport à direita
+      const left = Math.min(r.left, window.innerWidth - dd.offsetWidth - 8);
+      dd.style.left = Math.max(8, left) + 'px';
+      dd.classList.remove('hidden');
+    }
+
+    window.toggleDocDropdown = function(e) {
+      if (e) e.stopPropagation();
+      const dd = document.getElementById('doc-dropdown');
+      if (!dd) return;
+      if (dd.classList.contains('hidden')) showDocDropdown();
+      else dd.classList.add('hidden');
     };
+
+    // Abre também no hover (apenas em dispositivos com ponteiro). O pequeno
+    // atraso no fechamento permite mover o mouse do botão até o menu.
+    if (window.matchMedia && window.matchMedia('(hover: hover)').matches) {
+      let docDropdownCloseTimer = null;
+      const navDocBtn = document.getElementById('btn-nav-documentacao');
+      const docDd = document.getElementById('doc-dropdown');
+      if (navDocBtn && docDd) {
+        const cancelClose = () => clearTimeout(docDropdownCloseTimer);
+        const scheduleClose = () => {
+          clearTimeout(docDropdownCloseTimer);
+          docDropdownCloseTimer = setTimeout(() => window.hideDocDropdown(), 250);
+        };
+        navDocBtn.addEventListener('mouseenter', () => { cancelClose(); showDocDropdown(); });
+        navDocBtn.addEventListener('mouseleave', scheduleClose);
+        docDd.addEventListener('mouseenter', cancelClose);
+        docDd.addEventListener('mouseleave', scheduleClose);
+      }
+    }
 
     window.hideDocDropdown = function() {
       const dd = document.getElementById('doc-dropdown');
