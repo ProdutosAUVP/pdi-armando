@@ -1492,6 +1492,9 @@
       if (targetView) {
         targetView.classList.remove('hidden');
       }
+
+      // Reflete a view atual na URL (roteador definido no script da Documentação)
+      if (typeof window.updateRouteHash === 'function') window.updateRouteHash(viewName);
     };
 
     window.setFilter = function(filterType) {
@@ -1658,7 +1661,9 @@
       window.applySystemTheme();
       window.renderRoadmap();
       window.renderManifesto();
-      window.switchView('presentation');
+      // Com hash na URL, respeita a rota (deep-link); sem hash, abre o PDI
+      if (location.hash && typeof window.applyRoute === 'function') window.applyRoute();
+      else window.switchView('presentation');
     });
 
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', window.applySystemTheme);
@@ -2686,6 +2691,9 @@
       document.querySelectorAll('.doc-side-link').forEach(link => {
         link.classList.toggle('active', link.dataset.tab === tabId);
       });
+
+      // Reflete a documentação atual na URL
+      if (typeof window.updateRouteHash === 'function') window.updateRouteHash('documentacao', tabId);
     }
 
     // --- DROPDOWN DO ITEM "DOCUMENTAÇÃO" NA NAVBAR ---
@@ -2733,12 +2741,44 @@
       if (dd) dd.classList.add('hidden');
     };
 
-    // Abre a aba Documentação já na documentação escolhida
+    // Abre a aba Documentação já na documentação escolhida.
+    // A troca de sub-aba vem antes da view para que a URL final
+    // (#/documentacao/<doc>) seja gravada numa única entrada do histórico.
     window.openDoc = function(tabId) {
       window.hideDocDropdown();
-      if (typeof window.switchView === 'function') window.switchView('documentacao');
       switchTab(tabId);
+      if (typeof window.switchView === 'function') window.switchView('documentacao');
     };
+
+    // --- ROTEAMENTO POR URL (hash) ---
+    // Cada ambiente tem sua própria URL (funciona no GitHub Pages e permite
+    // compartilhar links diretos): #/pdi, #/cronograma, #/manifesto e
+    // #/documentacao/<discovery|executiva|ia>.
+    const routeToView = { pdi: 'presentation', cronograma: 'tracking', manifesto: 'manifesto', documentacao: 'documentacao' };
+    const viewToRoute = { presentation: 'pdi', tracking: 'cronograma', manifesto: 'manifesto', documentacao: 'documentacao' };
+
+    window.updateRouteHash = function(viewName, tabId) {
+      const slug = viewToRoute[viewName];
+      if (!slug) return;
+      let hash = '#/' + slug;
+      if (viewName === 'documentacao') hash += '/' + (tabId || activeTab);
+      // Mantém a raiz limpa: não grava #/pdi por cima de uma URL sem hash
+      if (hash === '#/pdi' && location.hash === '') return;
+      if (location.hash !== hash) location.hash = hash;
+    };
+
+    // Lê o hash e aplica view + sub-aba. Exposta em window para a
+    // inicialização do módulo principal aplicar a rota do deep-link.
+    window.applyRoute = function() {
+      const parts = location.hash.replace(/^#\/?/, '').split('/').filter(Boolean);
+      const viewName = routeToView[parts[0]] || 'presentation';
+      // As trocas são idempotentes, então reaplicar a rota atual é inofensivo
+      if (viewName === 'documentacao') switchTab(decks[parts[1]] ? parts[1] : activeTab);
+      if (typeof window.switchView === 'function') window.switchView(viewName);
+    };
+
+    // Botões voltar/avançar do navegador
+    window.addEventListener('hashchange', window.applyRoute);
 
     // Fecha o dropdown ao clicar fora, rolar ou redimensionar
     document.addEventListener('click', (e) => {

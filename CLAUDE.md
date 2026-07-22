@@ -43,6 +43,15 @@ Ordem do arquivo:
 - **Para adicionar uma aba:** botão `#btn-nav-XYZ` com `onclick="window.switchView('XYZ')"`,
   um `<main id="view-XYZ" class="... view-enter hidden">`, e inclua `'XYZ'` no array
   `views` de `switchView`.
+- **URLs por ambiente (roteamento por hash):** cada view tem rota própria — `#/pdi`
+  (presentation), `#/cronograma` (tracking), `#/manifesto` e
+  `#/documentacao/<discovery|executiva|ia>`. O roteador vive no **script comum** (o da
+  Documentação): `window.updateRouteHash` grava a rota (chamado por `switchView` e
+  `switchTab`) e `window.applyRoute` lê o hash no `hashchange`; a rota inicial é
+  aplicada pela inicialização do módulo principal (que chama `applyRoute` quando há
+  hash na URL). Uma URL sem hash permanece limpa até a primeira navegação.
+  Ao criar uma view nova, adicione o slug em `routeToView`/`viewToRoute`; sub-abas de
+  documentação entram automaticamente ao serem registradas em `decks`.
 
 ### Aba Documentação (integração nativa)
 
