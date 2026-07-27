@@ -100,7 +100,9 @@ Ordem do arquivo:
 
 ## Convenções
 
-- **Idioma:** todo o conteúdo e os comentários são em **pt-BR**. Mantenha.
+- **Idioma:** **tudo em pt-BR** — conteúdo do site, comentários de código, mensagens de
+  commit e, obrigatoriamente, **títulos, descrições e comentários de pull request**.
+  Nenhum PR deve ser aberto (ou respondido) em inglês. Mantenha.
 - **Estilo:** classes utilitárias do Tailwind inline. Paleta do tema:
   `paper`, `ink`, `accent`, `danger`, `neutral`, `brand.{orange,blue,pink}`.
   Reaproveite essas cores em vez de introduzir hex avulsos.
@@ -109,6 +111,16 @@ Ordem do arquivo:
   precisar de algo externo (como já é feito com Tailwind/FA/Firebase).
 - Todas as funções chamadas por `onclick` no HTML precisam ser **globais**
   (`window.*` no módulo, ou `function` no script comum).
+
+## Git e Pull Requests
+
+- **Todo PR é em pt-BR** — título, corpo, checklists e respostas a revisões. Se um
+  template de PR vier em inglês, preencha o conteúdo em pt-BR mesmo assim.
+- Título curto e no imperativo, descrevendo o que muda para quem usa o site
+  (ex.: `Adiciona sub-aba "Análise Clarity" na Documentação`).
+- No corpo, explique **o que mudou** e **por quê**; como o deploy é direto para o
+  GitHub Pages, cite o que precisa ser conferido no navegador após o merge.
+- Mensagens de commit seguem a mesma regra de idioma.
 
 ## Testando alterações
 
