@@ -48,16 +48,39 @@ Ordem do arquivo:
 
 - Conteúdo trazido do repo `documenta_pdi_armando` e **embutido nativamente** (não é
   iframe — a versão com iframe foi removida por gerar uma segunda navbar/"puxadinho").
-- Vive dentro de `view-documentacao`, começando por um **seletor inline de sub-abas**
-  (`#tab-btn-discovery` / `#tab-btn-executiva`) — não é uma segunda navbar fixa.
-- Dois "decks": `discovery` e `executiva`. Cada slide é um objeto em `discoverySlides` /
-  `executivaSlides` (`badge`, `themeKey`, `title`, `intro`, `content` HTML, `reference`).
-- Funções globais do motor: `switchTab`, `startDeck`, `backToIntro`, `switchDeckView`,
-  `renderDeck`, `updateNavButtons`, `deckNext`, `deckPrev`. Estado em `decks` e `activeTab`.
+- Vive dentro de `view-documentacao`, com um **menu lateral de sub-abas**
+  (`#tab-btn-discovery`, `#tab-btn-executiva`, `#tab-btn-ia`, `#tab-btn-clarity`) —
+  não é uma segunda navbar fixa. Os mesmos itens aparecem no dropdown da navbar
+  (`#doc-dropdown`, via `window.openDoc('<tab>')`).
+- Três "decks" de slides: `discovery`, `executiva` e `ia`. Cada slide é um objeto em
+  `discoverySlides` / `executivaSlides` / `iaSlides` (`badge`, `themeKey`, `title`,
+  `intro`, `content` HTML, `reference`).
+- Funções globais do motor de decks: `switchTab`, `startDeck`, `backToIntro`,
+  `switchDeckView`, `renderDeck`, `updateNavButtons`, `deckNext`, `deckPrev`.
+  Estado em `decks` e `activeTab`.
 - Navegação por **teclado (← →)** e **swipe** só age quando `view-documentacao` está
-  visível (há um guard explícito). Preserve esse guard ao mexer nos handlers.
+  visível **e** a sub-aba ativa tem um `#<tab>-view-slides` visível (há um guard
+  explícito). Preserve esse guard ao mexer nos handlers — é ele que impede a aba
+  Clarity (que não é deck) de reagir às setas.
 - **Para editar/adicionar um slide:** altere o array correspondente. Ao trocar a
   quantidade de slides, os contadores (ex.: `01/10`) se ajustam sozinhos.
+
+### Sub-aba Análise Clarity (registro mensal)
+
+- Não é um deck: é um **arquivo recorrente** das leituras de mapa de calor do Clarity,
+  separado por **mês** e, dentro do mês, por **produto/página**.
+- Dados em `clarityReports` (script comum, junto do motor de decks): um objeto por mês
+  (`id`, `month`, `year`, `focus`, `summary`, `products[]`), do **mais recente para o
+  mais antigo**. Cada produto tem `key`, `name`, `page`, `icon` (Font Awesome),
+  `themeKey` (paleta de `colorThemes`), `metrics[]` (opcional) e as listas `behaviors[]`
+  e `conclusions[]`. Em qualquer item dessas listas, `note` é a anotação/hipótese do time
+  (renderizada como bloco recuado) e `text` aceita HTML inline (`<strong>`, `<em>`).
+- Render em `renderClarity()`; estado em `activeClarityMonth` / `activeClarityProduct`;
+  interações globais `switchClarityMonth(id)` e `filterClarityProduct(key)`.
+  Contadores da capa e do mês (meses, páginas, insights) são calculados a partir dos
+  dados — não edite números na mão.
+- **Para registrar um novo mês:** adicione um objeto no início de `clarityReports`.
+  Nada mais precisa mudar: seletor de mês, filtros por produto e estatísticas se ajustam.
 
 ### Tema (dark/light)
 
