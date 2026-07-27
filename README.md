@@ -43,6 +43,22 @@ nativamente dentro do SPA (mesma navbar, mesmo tema). Internamente ela tem um me
 lateral de sub-abas e um motor de decks com navegação por botões, teclado (setas ← →)
 e swipe no mobile.
 
+### Links diretos
+
+Toda parte do site tem URL própria, então dá para mandar o link exato do que se quer
+mostrar (o botão 🔗 na navbar copia o link da tela aberta):
+
+| Link | Abre |
+| --- | --- |
+| `.../#/pdi` | Aba PDI |
+| `.../#/cronograma/per` | Cronograma filtrado pela categoria Performance |
+| `.../#/manifesto` | Manifesto |
+| `.../#/documentacao/discovery/4` | Playbook de Discovery no slide 4 |
+| `.../#/documentacao/clarity/2026-07/pro` | Análise Clarity de julho, produto AUVP PRO |
+
+O botão **voltar** do navegador desfaz a troca de aba; navegar dentro de uma aba
+(slide, mês, filtro) só atualiza a URL.
+
 A sub-aba **Análise Clarity** foge do formato de deck: é um registro **recorrente
 mensal** das leituras de mapa de calor das nossas páginas, com um seletor de mês e
 filtro por produto. Cada página analisada traz os *comportamentos do usuário*

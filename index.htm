@@ -287,6 +287,9 @@
           <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
         </a>
         <div class="w-[1px] h-3 bg-paper-dark dark:bg-white/10 shrink-0"></div>
+        <button onclick="window.copyCurrentLink()" class="text-ink-light hover:text-ink dark:text-white/50 dark:hover:text-white transition-all duration-300 shrink-0" aria-label="Copiar link desta seção" title="Copiar o link direto desta seção">
+          <i class="fa-solid fa-link text-[13px]"></i>
+        </button>
         <button onclick="window.toggleTheme()" class="text-ink-light hover:text-ink dark:text-white/50 dark:hover:text-white transition-all duration-300 shrink-0" aria-label="Alternar Tema">
           <svg id="icon-sun" class="hidden dark:block" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
           <svg id="icon-moon" class="block dark:hidden" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
@@ -294,6 +297,9 @@
       </div>
     </div>
   </nav>
+
+  <!-- Aviso rápido de "link copiado" -->
+  <div id="link-toast" class="hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-[110] bg-white dark:bg-[#1A1A1A] border border-paper-dark dark:border-white/10 text-ink dark:text-white text-[11px] uppercase tracking-widest font-bold px-4 py-3 rounded-sm shadow-xl animate-fade-in max-w-[90vw] truncate"></div>
 
   <!-- Dropdown do item "Documentação" da navbar (posicionado via JS para escapar do overflow da navbar) -->
   <div id="doc-dropdown" class="hidden fixed z-[60] min-w-[210px] bg-white dark:bg-[#1A1A1A] border border-paper-dark dark:border-white/10 shadow-xl rounded-sm py-1 animate-fade-in">
@@ -1743,7 +1749,10 @@
       window.applySystemTheme();
       window.renderRoadmap();
       window.renderManifesto();
-      window.switchView('presentation');
+      // Abre a parte indicada na URL (#/pdi, #/cronograma, #/documentacao/...).
+      // Sem roteador disponível, cai na aba inicial.
+      if (typeof window.applyRoute === 'function') window.applyRoute();
+      else window.switchView('presentation');
     });
 
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', window.applySystemTheme);
@@ -2771,6 +2780,8 @@
       document.querySelectorAll('.doc-side-link').forEach(link => {
         link.classList.toggle('active', link.dataset.tab === tabId);
       });
+
+      syncRoute(true);
     }
 
     // --- DROPDOWN DO ITEM "DOCUMENTAÇÃO" NA NAVBAR ---
@@ -2843,6 +2854,7 @@
 
     function backToIntro(deckId) {
       switchDeckView(deckId, 'intro');
+      syncRoute(false);
     }
 
     function switchDeckView(deckId, view) {
@@ -2913,6 +2925,7 @@
       }
 
       updateNavButtons(deckId);
+      syncRoute(false);
 
       // Garante que o topo do slide fique visível ao navegar
       const slideGrid = document.getElementById(`${deckId}-slide-grid`);
@@ -3298,9 +3311,192 @@
       Array.from(reportEl.querySelectorAll('article')).forEach((el, i) => {
         el.style.animationDelay = `${0.05 + i * 0.08}s`;
       });
+
+      syncRoute(false);
     }
 
+    // =========================================================================
+    // ROTEADOR POR HASH — cada parte do PDI tem a sua própria URL
+    // =========================================================================
+    // Formato: #/<aba>[/<detalhe>[/<detalhe>]]
+    //   #/pdi                                → aba PDI
+    //   #/cronograma                         → Cronograma (todas as categorias)
+    //   #/cronograma/per                     → Cronograma filtrado por categoria
+    //   #/manifesto                          → Manifesto
+    //   #/documentacao/discovery             → capa do deck
+    //   #/documentacao/discovery/4           → deck aberto no slide 4
+    //   #/documentacao/clarity/2026-07       → Clarity no mês registrado
+    //   #/documentacao/clarity/2026-07/pro   → Clarity no mês + produto filtrado
+    // Trocar de aba entra no histórico (voltar funciona); navegar dentro de uma
+    // aba (slide, mês, filtro) só reescreve a URL, para não inundar o histórico.
+    const viewSlugs = { presentation: 'pdi', tracking: 'cronograma', manifesto: 'manifesto', documentacao: 'documentacao' };
+    const slugToView = { pdi: 'presentation', cronograma: 'tracking', manifesto: 'manifesto', documentacao: 'documentacao' };
+    const deckTabs = ['discovery', 'executiva', 'ia'];
+    const docTabs = deckTabs.concat(['clarity']);
+    const trackingFilters = ['ALL', 'OPE', 'PER', 'INF', 'CUL', 'OUTROS'];
+
+    let currentViewName = 'presentation';
+    let applyingRoute = false;   // evita que aplicar a rota reescreva a rota
+    let routerReady = false;     // só sincroniza depois da primeira leitura da URL
+    let routeTimer = null;
+    let routePendingPush = false;
+
+    function buildRouteHash() {
+      const parts = [viewSlugs[currentViewName] || 'pdi'];
+
+      if (currentViewName === 'tracking') {
+        const filter = window.currentFilter || 'ALL';
+        if (filter !== 'ALL') parts.push(filter.toLowerCase());
+      }
+
+      if (currentViewName === 'documentacao') {
+        parts.push(activeTab);
+
+        if (deckTabs.includes(activeTab)) {
+          const slidesView = document.getElementById(`${activeTab}-view-slides`);
+          // Sem número na URL = capa do deck
+          if (slidesView && !slidesView.classList.contains('hidden')) {
+            parts.push(String(decks[activeTab].current + 1));
+          }
+        } else if (activeTab === 'clarity') {
+          if (activeClarityMonth) parts.push(activeClarityMonth);
+          if (activeClarityProduct && activeClarityProduct !== 'all') parts.push(activeClarityProduct);
+        }
+      }
+
+      return '#/' + parts.join('/');
+    }
+
+    // Agrupa mudanças do mesmo "gesto" (ex.: openDoc = trocar view + sub-aba)
+    // numa única entrada de histórico.
+    function syncRoute(push) {
+      if (!routerReady || applyingRoute) return;
+      routePendingPush = routePendingPush || !!push;
+      clearTimeout(routeTimer);
+      routeTimer = setTimeout(() => {
+        const hash = buildRouteHash();
+        const shouldPush = routePendingPush;
+        routePendingPush = false;
+        if (hash === location.hash) return;
+        if (window.history && history.pushState) {
+          history[shouldPush ? 'pushState' : 'replaceState'](null, '', hash);
+        } else {
+          location.hash = hash;
+        }
+      }, 0);
+    }
+
+    function applyRoute() {
+      const parts = location.hash.replace(/^#\/?/, '').split('/').filter(Boolean).map(p => decodeURIComponent(p));
+      const slug = (parts[0] || '').toLowerCase();
+      const view = slugToView[slug] || (viewSlugs[slug] ? slug : 'presentation');
+
+      applyingRoute = true;
+      try {
+        currentViewName = view;
+        if (typeof window.switchView === 'function') window.switchView(view);
+
+        if (view === 'tracking' && typeof window.setFilter === 'function') {
+          const filter = (parts[1] || 'ALL').toUpperCase();
+          window.setFilter(trackingFilters.includes(filter) ? filter : 'ALL');
+        }
+
+        if (view === 'documentacao') {
+          const tab = docTabs.includes(parts[1]) ? parts[1] : 'discovery';
+          switchTab(tab);
+
+          if (deckTabs.includes(tab)) {
+            const slide = parseInt(parts[2], 10);
+            if (slide >= 1 && slide <= decks[tab].slides.length) {
+              decks[tab].current = slide - 1;
+              switchDeckView(tab, 'slides');
+              renderDeck(tab);
+            } else {
+              switchDeckView(tab, 'intro');
+            }
+          } else if (tab === 'clarity') {
+            const month = clarityReports.find(r => r.id === parts[2]);
+            activeClarityMonth = month ? month.id : (clarityReports[0] ? clarityReports[0].id : null);
+            const report = getClarityReport();
+            activeClarityProduct = (report && report.products.some(p => p.key === parts[3])) ? parts[3] : 'all';
+            renderClarity();
+          }
+        }
+      } finally {
+        applyingRoute = false;
+      }
+
+      // Normaliza a URL (ex.: "#/" vira "#/pdi"; slide inexistente cai na capa)
+      routerReady = true;
+      syncRoute(false);
+    }
+    window.applyRoute = applyRoute;
+
+    // Renderiza o arquivo do Clarity (fica pronto antes de qualquer rota abri-lo)
     renderClarity();
+
+    window.addEventListener('hashchange', applyRoute);
+    window.addEventListener('popstate', applyRoute);
+
+    // Envolve as funções de navegação do módulo principal para que a URL
+    // acompanhe a aba aberta e o filtro do cronograma.
+    document.addEventListener('DOMContentLoaded', () => {
+      if (typeof window.switchView === 'function' && !window.switchView.__routed) {
+        const originalSwitchView = window.switchView;
+        const routedSwitchView = function(viewName) {
+          originalSwitchView(viewName);
+          currentViewName = viewName;
+          syncRoute(true);
+        };
+        routedSwitchView.__routed = true;
+        window.switchView = routedSwitchView;
+      }
+
+      if (typeof window.setFilter === 'function' && !window.setFilter.__routed) {
+        const originalSetFilter = window.setFilter;
+        const routedSetFilter = function(filterType) {
+          originalSetFilter(filterType);
+          syncRoute(false);
+        };
+        routedSetFilter.__routed = true;
+        window.setFilter = routedSetFilter;
+      }
+
+      applyRoute();
+    });
+
+    // --- COPIAR O LINK DA PARTE ABERTA ---
+    function showLinkToast(message) {
+      const toast = document.getElementById('link-toast');
+      if (!toast) return;
+      toast.innerHTML = `<i class="fa-solid fa-check mr-2 text-accent"></i>${message}`;
+      toast.classList.remove('hidden');
+      clearTimeout(showLinkToast.timer);
+      showLinkToast.timer = setTimeout(() => toast.classList.add('hidden'), 2600);
+    }
+
+    window.copyCurrentLink = function() {
+      const url = location.origin + location.pathname + location.search + buildRouteHash();
+      const ok = () => showLinkToast('Link desta seção copiado!');
+      const fallback = () => {
+        const field = document.createElement('textarea');
+        field.value = url;
+        field.setAttribute('readonly', '');
+        field.style.position = 'fixed';
+        field.style.opacity = '0';
+        document.body.appendChild(field);
+        field.select();
+        try { document.execCommand('copy'); ok(); }
+        catch (e) { showLinkToast(url); }
+        document.body.removeChild(field);
+      };
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(ok).catch(fallback);
+      } else {
+        fallback();
+      }
+    };
 
     // --- NAVEGAÇÃO POR TECLADO (setas ← →) ---
     document.addEventListener('keydown', (e) => {
