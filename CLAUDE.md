@@ -44,6 +44,39 @@ Ordem do arquivo:
   um `<main id="view-XYZ" class="... view-enter hidden">`, e inclua `'XYZ'` no array
   `views` de `switchView`.
 
+### Rotas / URLs compartilháveis
+
+Cada parte do site tem a sua própria URL, via **hash** (`#/...`) — não há servidor,
+então nada de rotas com `history.pushState` puro. Formato:
+
+| URL | Abre |
+| --- | --- |
+| `#/pdi` | Aba PDI |
+| `#/cronograma` | Cronograma (todas as categorias) |
+| `#/cronograma/<categoria>` | Cronograma filtrado (`ope`, `per`, `inf`, `cul`, `outros`) |
+| `#/manifesto` | Manifesto |
+| `#/documentacao/<sub-aba>` | Capa do deck (`discovery`, `executiva`, `ia`) ou o Clarity |
+| `#/documentacao/<deck>/<n>` | Deck aberto no slide `n` (1-based) |
+| `#/documentacao/clarity/<mês>` | Clarity no mês registrado (ex.: `2026-07`) |
+| `#/documentacao/clarity/<mês>/<produto>` | Clarity no mês + produto (`key` do produto) |
+
+- Motor no script comum: `buildRouteHash()`, `syncRoute(push)`, `applyRoute()`
+  (exposto como `window.applyRoute`). Também aceita os ids internos das views
+  (`#/tracking` = `#/cronograma`) e normaliza rotas inválidas.
+- **Trocar de aba** entra no histórico (`pushState`); navegar **dentro** de uma aba
+  (slide, mês, produto, filtro) usa `replaceState`, para o botão voltar não ter que
+  desfazer slide a slide. Chamadas do mesmo gesto são agrupadas numa entrada só.
+- `syncRoute` só age depois da primeira leitura da URL (`routerReady`) — por isso
+  renders de inicialização não sobrescrevem a rota recebida.
+- Quem chama o roteador na carga é o `DOMContentLoaded` do **módulo principal**
+  (`window.applyRoute()` no lugar do antigo `switchView('presentation')`). Se mexer
+  nessa inicialização, mantenha a chamada, senão links diretos param de abrir.
+- `window.switchView` e `window.setFilter` (do módulo) são **envolvidos** pelo roteador
+  no `DOMContentLoaded` do script comum para manter a URL em dia. Ao editar essas
+  funções, preserve a assinatura.
+- O botão de corrente 🔗 na navbar (`window.copyCurrentLink`) copia a URL da parte
+  aberta e mostra o aviso `#link-toast`.
+
 ### Aba Documentação (integração nativa)
 
 - Conteúdo trazido do repo `documenta_pdi_armando` e **embutido nativamente** (não é
