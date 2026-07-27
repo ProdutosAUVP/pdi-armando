@@ -306,6 +306,9 @@
     <button onclick="window.openDoc('ia')" class="w-full text-left px-4 py-2.5 text-[10px] uppercase tracking-widest font-bold text-ink-light hover:text-ink hover:bg-paper dark:text-white/60 dark:hover:text-white dark:hover:bg-white/5 transition-colors flex items-center gap-2.5">
       <i class="fa-solid fa-wand-magic-sparkles w-4 text-center text-accent"></i> Bons Usos de IA
     </button>
+    <button onclick="window.openDoc('clarity')" class="w-full text-left px-4 py-2.5 text-[10px] uppercase tracking-widest font-bold text-ink-light hover:text-ink hover:bg-paper dark:text-white/60 dark:hover:text-white dark:hover:bg-white/5 transition-colors flex items-center gap-2.5">
+      <i class="fa-solid fa-fire w-4 text-center text-accent"></i> Análise Clarity
+    </button>
   </div>
 
   <!-- VIEW 1: Apresentação PDI -->
@@ -897,6 +900,10 @@
             <i class="fa-solid fa-wand-magic-sparkles text-[11px] w-3.5 text-center opacity-70 shrink-0 mt-0.5"></i>
             <span>Bons Usos de IA</span>
           </button>
+          <button data-tab="clarity" id="tab-btn-clarity" onclick="switchTab('clarity')" class="doc-side-link flex items-start gap-2.5 px-3 py-2 rounded-[3px] text-[10px] md:text-[11px] uppercase tracking-widest font-bold text-ink-light/70 dark:text-white/40 hover:text-ink dark:hover:text-white transition-colors border-l-2 border-transparent text-left">
+            <i class="fa-solid fa-fire text-[11px] w-3.5 text-center opacity-70 shrink-0 mt-0.5"></i>
+            <span>Análise Clarity</span>
+          </button>
         </nav>
       </aside>
 
@@ -1288,6 +1295,84 @@
       </p>
     </main>
   </div> <!-- Fim Aba Bons Usos de IA -->
+
+  <!-- ========================================================================= -->
+  <!-- CONTEÚDO DA ABA: ANÁLISE CLARITY (registro recorrente mensal)              -->
+  <!-- ========================================================================= -->
+  <div id="tab-content-clarity" class="tab-content hidden">
+
+    <main class="w-full px-4 py-6 md:py-10 flex flex-col items-center justify-start min-h-[calc(100vh-80px)]">
+      <div class="w-full max-w-[1000px] flex flex-col gap-6">
+
+        <!-- Capa / contexto da documentação -->
+        <div class="w-full bg-white dark:bg-[#1A1A1A] border border-paper-dark dark:border-white/5 shadow-xl shadow-black/5 dark:shadow-white/5 p-8 md:p-10 flex flex-col relative rounded-[4px] animate-fade-in-up overflow-hidden">
+
+          <!-- Ilustração Abstrata Fundo (mapa de calor estilizado) -->
+          <div class="absolute top-[-60px] right-[-60px] opacity-10 dark:opacity-5 pointer-events-none animate-spin-slow">
+            <svg width="300" height="300" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" class="overflow-visible">
+              <circle cx="100" cy="100" r="85" stroke="#38805A" stroke-width="1" stroke-dasharray="6 8"/>
+              <circle cx="100" cy="100" r="60" stroke="#38805A" stroke-width="2"/>
+              <circle cx="100" cy="100" r="35" stroke="#38805A" stroke-width="3"/>
+              <circle cx="100" cy="100" r="12" stroke="#38805A" stroke-width="5"/>
+            </svg>
+          </div>
+
+          <div class="relative z-10">
+            <span class="inline-block py-0.5 px-3 border border-accent/20 text-[10px] font-bold tracking-widest bg-accent/10 text-accent dark:bg-white/5 dark:text-white/70 uppercase w-max mb-4 rounded-full">
+              ANÁLISE CLARITY • RECORRÊNCIA MENSAL
+            </span>
+            <h1 class="text-4xl md:text-6xl font-black tracking-tighter uppercase text-ink dark:text-white leading-[0.85] font-satoshi mt-2">
+              O que o mapa de calor <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-[#72A68C] italic font-light tracking-tight">entregou.</span>
+            </h1>
+            <p class="text-base text-ink-light dark:text-white/70 font-medium mt-6 font-satoshi max-w-xl leading-relaxed">
+              Registro contínuo das leituras de Clarity das nossas páginas: cliques, rolagem, cliques mortos e rage clicks.
+              Cada rodada é arquivada por <strong>mês</strong> e destrinchada por <strong>produto</strong>, para que a evolução
+              (ou a reincidência) de cada gargalo fique visível ao longo do ciclo.
+            </p>
+            <div class="mt-5 flex items-center gap-2 justify-start flex-wrap">
+              <span class="text-[9px] uppercase tracking-widest font-bold text-ink-light/70 dark:text-white/40">Ação do PDI:</span>
+              <button onclick="window.switchView('tracking')" class="text-[10px] font-bold py-1 px-2.5 rounded bg-paper-dark text-ink dark:bg-white/10 dark:text-white hover:opacity-80 transition-opacity" title="Ver no cronograma">🎯 PER.3 — Análise de Mapas de Calor (Clarity) e estudo de gargalos</button>
+            </div>
+
+            <div class="border-b border-paper-dark dark:border-white/10 my-8"></div>
+
+            <div class="flex gap-4 flex-wrap">
+              <div class="text-left">
+                <span id="clarity-stat-months" class="block text-2xl font-black text-ink dark:text-white">0</span>
+                <span class="text-[9px] uppercase tracking-widest font-bold text-ink-light">Meses Registrados</span>
+              </div>
+              <div class="w-px h-10 bg-paper-dark dark:bg-white/10"></div>
+              <div class="text-left">
+                <span id="clarity-stat-products" class="block text-2xl font-black text-ink dark:text-white">0</span>
+                <span class="text-[9px] uppercase tracking-widest font-bold text-ink-light">Páginas Analisadas</span>
+              </div>
+              <div class="w-px h-10 bg-paper-dark dark:bg-white/10"></div>
+              <div class="text-left">
+                <span id="clarity-stat-insights" class="block text-2xl font-black text-ink dark:text-white">0</span>
+                <span class="text-[9px] uppercase tracking-widest font-bold text-ink-light">Insights no Mês</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Linha do tempo: seleção do mês analisado -->
+        <div class="w-full bg-white dark:bg-[#1A1A1A] border border-paper-dark dark:border-white/5 rounded-[4px] p-4 md:p-5 flex flex-col gap-3">
+          <span class="text-[9px] uppercase tracking-widest font-bold text-ink-light dark:text-white/40">
+            <i class="fa-regular fa-calendar mr-1.5"></i> Mês da análise
+          </span>
+          <div id="clarity-month-nav" class="flex flex-wrap gap-2">
+            <!-- Injetado via JS -->
+          </div>
+        </div>
+
+        <!-- Relatório do mês selecionado (cards por produto) -->
+        <div id="clarity-report" class="w-full flex flex-col gap-6">
+          <!-- Injetado via JS -->
+        </div>
+
+      </div>
+    </main>
+  </div> <!-- Fim Aba Análise Clarity -->
 
       </div> <!-- Fim do conteúdo das documentações -->
     </div> <!-- Fim do layout com menu lateral -->
@@ -2883,6 +2968,339 @@
         renderDeck(deckId);
       }
     }
+
+    // =========================================================================
+    // ANÁLISE CLARITY — registro recorrente mensal dos mapas de calor
+    // =========================================================================
+    // Para registrar uma nova rodada: adicione um objeto no INÍCIO de
+    // `clarityReports` (o mais recente sempre primeiro). Cada produto aceita
+    // `metrics` (chips de dados, opcional), `behaviors` e `conclusions`.
+    // Em qualquer item, `note` guarda a anotação/hipótese do time sobre o dado.
+    const clarityReports = [
+      {
+        id: "2026-07",
+        month: "Julho",
+        year: "2026",
+        focus: "Revisão de mapas de calor",
+        summary: "Leitura dos mapas de calor (cliques, cliques mortos, rage clicks e profundidade de rolagem) das quatro páginas principais. O padrão que se repete em todos os produtos: o usuário decide no topo — quase ninguém chega à metade da página.",
+        products: [
+          {
+            key: "capital-home",
+            name: "AUVP Capital",
+            page: "Home",
+            icon: "fa-house",
+            themeKey: "default",
+            metrics: [
+              { label: "Dobra média desktop", value: "~845px" },
+              { label: "Dobra média mobile", value: "~1043px" },
+              { label: "Queda de rolagem", value: "após 20%" }
+            ],
+            behaviors: [
+              {
+                text: "No desktop, os primeiros cliques vão para <strong>Início</strong> e <strong>AUVP Escola</strong>, indicando que o interesse inicial está nessas seções.",
+                note: "A página ainda é usada como hub para os outros produtos."
+              },
+              {
+                text: "Poucos usuários de desktop rolam além de <strong>50%</strong> da página, com queda acentuada já depois dos <strong>20%</strong> de profundidade.",
+                note: "Avaliar uma versão mais curta e objetiva da página."
+              },
+              {
+                text: "No mobile, a interação se concentra no <strong>menu hambúrguer</strong> e em links externos, como o YouTube."
+              }
+            ],
+            conclusions: [
+              {
+                text: "Destacar o conteúdo importante antes da dobra média (~845px no desktop e ~1043px no mobile) para aumentar o engajamento.",
+                note: "Todos os pontos mais importantes estão concentrados acima dos 20% de profundidade?"
+              },
+              {
+                text: "Melhorar a clareza ou a funcionalidade dos elementos com muitos <strong>cliques mortos</strong> no título da hero <em>FEITOS PARA PRESERVAR</em>."
+              },
+              {
+                text: "Otimizar a navegação mobile: as interações se concentram no menu hambúrguer e poucos exploram além do topo.",
+                note: "O usuário enxerga a página como hub."
+              }
+            ]
+          },
+          {
+            key: "capital-planos",
+            name: "AUVP Capital",
+            page: "Planos",
+            icon: "fa-layer-group",
+            themeKey: "blue",
+            metrics: [
+              { label: "Dobra média", value: "880px" },
+              { label: "Rolagem no fim da página", value: "12%" }
+            ],
+            behaviors: [
+              {
+                text: "No desktop, os primeiros cliques vão para <strong>SELECIONAR PLANO</strong> e suas variantes — o interesse inicial é a escolha do plano."
+              },
+              {
+                text: "Boa parte dos <strong>cliques finais</strong> é no botão de fechar do modal, o que sugere desistência ou conclusão da ação."
+              },
+              {
+                text: "A rolagem no desktop cai para <strong>12%</strong> no fim da página, mostrando baixa exploração completa do conteúdo.",
+                note: "Usuários desistem de ler logo após os cards dos planos."
+              }
+            ],
+            conclusions: [
+              {
+                text: "Para aumentar conversões, otimizar a experiência depois do clique em <strong>SELECIONAR PLANO</strong> — hoje o modal é fechado cedo demais.",
+                note: "Melhorar a experiência do popup."
+              },
+              {
+                text: "Posicionar o conteúdo importante acima da dobra média (880px) para garantir visibilidade."
+              }
+            ]
+          },
+          {
+            key: "escola",
+            name: "AUVP Escola",
+            page: "Página principal",
+            icon: "fa-graduation-cap",
+            themeKey: "orange",
+            metrics: [
+              { label: "Chegam a 75% da página", value: "< 15%" },
+              { label: "Maioria não rola além de", value: "25%" }
+            ],
+            behaviors: [
+              {
+                text: "Em desktop e tablet, o primeiro clique é em <strong>Área do aluno</strong>.",
+                note: "Comportamento esperado — talvez posicionar o acesso junto do CTA torne a experiência mais fluida."
+              },
+              {
+                text: "No mobile, muitos primeiros cliques vão para o <strong>botão aprender 1</strong>, seguido de <strong>FAÇA SUA ANÁLISE DE PERFIL</strong>."
+              },
+              {
+                text: "Rolagem profunda é rara: <strong>menos de 15%</strong> chegam a 75% da página em todos os dispositivos."
+              }
+            ],
+            conclusions: [
+              {
+                text: "Melhorar visibilidade e funcionalidade da <strong>Área do aluno</strong> — hoje ela concentra alto volume de cliques mortos e rage clicks no desktop."
+              },
+              {
+                text: "Otimizar o conteúdo acima da dobra, já que a maioria não rola além de 25% da página."
+              },
+              {
+                text: "Garantir clareza e atratividade dos CTAs principais: <strong>FAÇA SUA ANÁLISE DE PERFIL</strong> e <strong>botão aprender 1</strong>."
+              }
+            ]
+          },
+          {
+            key: "pro",
+            name: "AUVP PRO",
+            page: "Página principal",
+            icon: "fa-arrow-trend-up",
+            themeKey: "pink",
+            behaviors: [
+              {
+                text: "Em desktop e mobile, o primeiro clique é no <strong>ponto 4 da linha do tempo</strong> — é ali que está o interesse inicial.",
+                note: "Seria o ponto mais alto da carreira; talvez colocar esse elemento em destaque."
+              },
+              {
+                text: "Muitos <strong>cliques mortos</strong> em <strong>INDIVIDUAL / PACOTES (EM BREVE)</strong> em todos os dispositivos, sugerindo tentativa de acesso a conteúdo indisponível.",
+                note: "É o comportamento esperado."
+              },
+              {
+                text: "No desktop, há <strong>cliques finais</strong> frequentes na <strong>Área do aluno</strong>, possivelmente concluindo tarefas ou acessando recursos restritos.",
+                note: "Avaliar colocar a área do aluno junto do CTA."
+              }
+            ],
+            conclusions: [
+              {
+                text: "Para reduzir frustração, remover ou desativar <strong>INDIVIDUAL / PACOTES (EM BREVE)</strong> até que esteja disponível."
+              },
+              {
+                text: "Destacar e otimizar o acesso ao <strong>ponto 4 da linha do tempo</strong>, já que é o foco inicial dos usuários."
+              },
+              {
+                text: "Melhorar a visibilidade e a usabilidade da <strong>Área do aluno</strong> para facilitar o fluxo de navegação encerrado pelos visitantes."
+              }
+            ]
+          }
+        ]
+      }
+    ];
+
+    let activeClarityMonth = clarityReports.length ? clarityReports[0].id : null;
+    let activeClarityProduct = 'all';
+
+    function getClarityReport() {
+      return clarityReports.find(r => r.id === activeClarityMonth) || null;
+    }
+
+    function clarityInsightCount(report) {
+      return report.products.reduce((total, p) => total + p.behaviors.length + p.conclusions.length, 0);
+    }
+
+    function switchClarityMonth(monthId) {
+      activeClarityMonth = monthId;
+      activeClarityProduct = 'all';
+      renderClarity();
+    }
+
+    function filterClarityProduct(productKey) {
+      activeClarityProduct = productKey;
+      renderClarity();
+    }
+
+    // Lista de comportamentos/conclusões, com a anotação do time quando houver
+    function clarityListHtml(items, theme) {
+      return items.map(item => `
+        <li class="flex gap-3">
+          <i class="fa-solid fa-circle text-[5px] mt-[7px] shrink-0 ${theme.text}"></i>
+          <div class="min-w-0">
+            <p class="text-[13px] text-ink dark:text-white/85 leading-relaxed">${item.text}</p>
+            ${item.note ? `
+              <p class="mt-2 text-[11px] text-ink-light dark:text-white/50 leading-relaxed bg-paper-dark/20 dark:bg-white/5 border-l-2 ${theme.borderLeft} px-3 py-2 rounded-r-[2px]">
+                <i class="fa-solid fa-pen-nib mr-1.5 opacity-60"></i>${item.note}
+              </p>` : ''}
+          </div>
+        </li>
+      `).join('');
+    }
+
+    function clarityProductCardHtml(product) {
+      const theme = colorThemes[product.themeKey || 'default'];
+      const metrics = (product.metrics || []).map(m => `
+        <div class="px-3 py-2 border border-paper-dark dark:border-white/10 rounded-[2px] bg-paper-dark/20 dark:bg-white/5">
+          <span class="block text-[9px] uppercase tracking-widest font-bold text-ink-light dark:text-white/40">${m.label}</span>
+          <span class="block text-sm font-black ${theme.text}">${m.value}</span>
+        </div>
+      `).join('');
+
+      return `
+        <article class="w-full bg-white dark:bg-[#1A1A1A] border border-paper-dark dark:border-white/5 shadow-xl shadow-black/5 dark:shadow-white/5 rounded-[4px] p-6 md:p-8 slide-item">
+
+          <div class="flex flex-wrap items-start justify-between gap-4 border-b border-paper-dark dark:border-white/10 pb-4 mb-6">
+            <div class="flex items-start gap-3">
+              <span class="w-9 h-9 rounded-[3px] flex items-center justify-center shrink-0 ${theme.bg} ${theme.text} border ${theme.border}">
+                <i class="fa-solid ${product.icon}"></i>
+              </span>
+              <div>
+                <h3 class="text-lg md:text-xl font-black uppercase tracking-tighter text-ink dark:text-white leading-none">${product.name}</h3>
+                <span class="text-[10px] uppercase tracking-widest font-bold text-ink-light dark:text-white/40">${product.page}</span>
+              </div>
+            </div>
+            <span class="inline-block py-1 px-3 border text-[9px] font-bold tracking-widest uppercase rounded-full ${theme.text} ${theme.bg} ${theme.border}">
+              <i class="fa-solid fa-fire mr-1.5"></i> Mapa de calor
+            </span>
+          </div>
+
+          ${metrics ? `<div class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-6">${metrics}</div>` : ''}
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+            <section>
+              <h4 class="text-[10px] uppercase tracking-widest font-bold text-ink-light dark:text-white/40 mb-4 flex items-center gap-2">
+                <i class="fa-regular fa-eye ${theme.text}"></i> Comportamentos do usuário
+              </h4>
+              <ul class="flex flex-col gap-4">${clarityListHtml(product.behaviors, theme)}</ul>
+            </section>
+            <section class="border-paper-dark dark:border-white/10 md:border-l md:pl-8">
+              <h4 class="text-[10px] uppercase tracking-widest font-bold text-ink-light dark:text-white/40 mb-4 flex items-center gap-2">
+                <i class="fa-regular fa-lightbulb ${theme.text}"></i> Principais conclusões
+              </h4>
+              <ul class="flex flex-col gap-4">${clarityListHtml(product.conclusions, theme)}</ul>
+            </section>
+          </div>
+        </article>
+      `;
+    }
+
+    function renderClarity() {
+      const monthNav = document.getElementById('clarity-month-nav');
+      const reportEl = document.getElementById('clarity-report');
+      if (!monthNav || !reportEl) return;
+
+      // Linha do tempo (um botão por mês registrado)
+      monthNav.innerHTML = clarityReports.map(r => {
+        const active = r.id === activeClarityMonth;
+        return `
+          <button onclick="switchClarityMonth('${r.id}')" class="px-4 py-2 rounded-[2px] text-[10px] uppercase tracking-widest font-bold transition-colors border ${
+            active
+              ? 'bg-ink text-paper border-ink dark:bg-white dark:text-[#121212] dark:border-white'
+              : 'border-paper-dark dark:border-white/10 text-ink-light dark:text-white/50 hover:text-ink dark:hover:text-white hover:bg-paper-dark/20 dark:hover:bg-white/5'
+          }">
+            ${r.month} <span class="opacity-60">/ ${r.year}</span>
+          </button>
+        `;
+      }).join('');
+
+      const report = getClarityReport();
+      if (!report) {
+        reportEl.innerHTML = `
+          <div class="w-full bg-white dark:bg-[#1A1A1A] border border-dashed border-paper-dark dark:border-white/10 rounded-[4px] p-8 text-center">
+            <p class="text-sm text-ink-light dark:text-white/50 font-medium">Nenhuma análise registrada ainda.</p>
+          </div>
+        `;
+        return;
+      }
+
+      // Estatísticas da capa
+      const uniquePages = new Set();
+      clarityReports.forEach(r => r.products.forEach(p => uniquePages.add(p.key)));
+      document.getElementById('clarity-stat-months').innerText = clarityReports.length;
+      document.getElementById('clarity-stat-products').innerText = uniquePages.size;
+      document.getElementById('clarity-stat-insights').innerText = clarityInsightCount(report);
+
+      const visibleProducts = activeClarityProduct === 'all'
+        ? report.products
+        : report.products.filter(p => p.key === activeClarityProduct);
+
+      const productFilters = [{ key: 'all', name: 'Todos os produtos', page: '' }]
+        .concat(report.products)
+        .map(p => {
+          const active = p.key === activeClarityProduct;
+          const label = p.page ? `${p.name} <span class="opacity-60">· ${p.page}</span>` : p.name;
+          return `
+            <button onclick="filterClarityProduct('${p.key}')" class="px-3 py-1.5 rounded-full text-[10px] uppercase tracking-widest font-bold transition-colors border ${
+              active
+                ? 'bg-accent/10 text-accent border-accent/30 dark:bg-white/10 dark:text-white dark:border-white/20'
+                : 'border-paper-dark dark:border-white/10 text-ink-light dark:text-white/40 hover:text-ink dark:hover:text-white'
+            }">${label}</button>
+          `;
+        }).join('');
+
+      reportEl.innerHTML = `
+        <!-- Cabeçalho do mês selecionado -->
+        <div class="w-full bg-white dark:bg-[#1A1A1A] border border-paper-dark dark:border-white/5 shadow-xl shadow-black/5 dark:shadow-white/5 rounded-[4px] p-6 md:p-8 flex flex-col gap-5">
+          <div class="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <span class="text-[9px] uppercase tracking-widest font-bold text-ink-light dark:text-white/40">${report.focus}</span>
+              <h2 class="text-2xl md:text-3xl font-black uppercase tracking-tighter text-ink dark:text-white leading-none mt-1">
+                ${report.month} <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-[#72A68C] italic font-light tracking-tight">${report.year}</span>
+              </h2>
+            </div>
+            <div class="flex gap-4">
+              <div class="text-left">
+                <span class="block text-xl font-black text-ink dark:text-white">${report.products.length}</span>
+                <span class="text-[9px] uppercase tracking-widest font-bold text-ink-light">Páginas</span>
+              </div>
+              <div class="w-px h-8 bg-paper-dark dark:bg-white/10"></div>
+              <div class="text-left">
+                <span class="block text-xl font-black text-ink dark:text-white">${clarityInsightCount(report)}</span>
+                <span class="text-[9px] uppercase tracking-widest font-bold text-ink-light">Insights</span>
+              </div>
+            </div>
+          </div>
+
+          <p class="text-sm text-ink-light dark:text-white/70 leading-relaxed font-medium border-l-4 border-accent pl-4 py-1">${report.summary}</p>
+
+          <div class="flex flex-wrap gap-2 pt-1">${productFilters}</div>
+        </div>
+
+        ${visibleProducts.map(clarityProductCardHtml).join('')}
+      `;
+
+      // Entrada escalonada dos cards de produto
+      Array.from(reportEl.querySelectorAll('article')).forEach((el, i) => {
+        el.style.animationDelay = `${0.05 + i * 0.08}s`;
+      });
+    }
+
+    renderClarity();
 
     // --- NAVEGAÇÃO POR TECLADO (setas ← →) ---
     document.addEventListener('keydown', (e) => {

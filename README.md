@@ -35,13 +35,18 @@ controla as quatro abas principais:
 | **PDI** | `view-presentation` | Plano de desenvolvimento no modelo 70‑20‑10, com as 4 dimensões e TAGS de rastreamento. |
 | **Cronograma** | `view-tracking` | Roadmap por mês/semana, com checklist persistente e filtros por categoria. |
 | **Manifesto** | `view-manifesto` | Manifesto de design (bom designer × mau designer), injetado via JS. |
-| **Documentação** | `view-documentacao` | Playbooks interativos de **Discovery** e **Apresentação Executiva** (decks de slides). |
+| **Documentação** | `view-documentacao` | Playbooks interativos de **Discovery**, **Apresentação Executiva** e **Bons Usos de IA** (decks de slides), além do arquivo mensal de **Análise Clarity**. |
 
 A aba **Documentação** foi integrada a partir do repositório
 [`documenta_pdi_armando`](https://github.com/ProdutosAUVP/documenta_pdi_armando) e roda
-nativamente dentro do SPA (mesma navbar, mesmo tema). Internamente ela tem um seletor
-de sub-abas (Discovery / Executiva) e um motor de decks com navegação por botões,
-teclado (setas ← →) e swipe no mobile.
+nativamente dentro do SPA (mesma navbar, mesmo tema). Internamente ela tem um menu
+lateral de sub-abas e um motor de decks com navegação por botões, teclado (setas ← →)
+e swipe no mobile.
+
+A sub-aba **Análise Clarity** foge do formato de deck: é um registro **recorrente
+mensal** das leituras de mapa de calor das nossas páginas, com um seletor de mês e
+filtro por produto. Cada página analisada traz os *comportamentos do usuário*
+observados e as *principais conclusões*, com as anotações do time em destaque.
 
 Além das views, há um **assistente estilo Clippy** (canto inferior direito) com um chat
 de dicas sobre o PDI.
