@@ -35,7 +35,7 @@ controla as quatro abas principais:
 | **PDI** | `view-presentation` | Plano de desenvolvimento no modelo 70‑20‑10, com as 4 dimensões e TAGS de rastreamento. |
 | **Cronograma** | `view-tracking` | Roadmap por mês/semana, com checklist persistente e filtros por categoria. |
 | **Manifesto** | `view-manifesto` | Manifesto de design (bom designer × mau designer), injetado via JS. |
-| **Documentação** | `view-documentacao` | Playbooks interativos de **Discovery**, **Apresentação Executiva** e **Bons Usos de IA** (decks de slides), além do arquivo mensal de **Análise Clarity**. |
+| **Documentação** | `view-documentacao` | Playbooks interativos de **Discovery**, **Apresentação Executiva** e **Bons Usos de IA** (decks de slides), o arquivo mensal de **Análise Clarity** e as propostas de **Testes A/B**. |
 
 A aba **Documentação** foi integrada a partir do repositório
 [`documenta_pdi_armando`](https://github.com/ProdutosAUVP/documenta_pdi_armando) e roda
@@ -55,6 +55,7 @@ mostrar (o botão 🔗 na navbar copia o link da tela aberta):
 | `.../#/manifesto` | Manifesto |
 | `.../#/documentacao/discovery/4` | Playbook de Discovery no slide 4 |
 | `.../#/documentacao/clarity/2026-07/pro` | Análise Clarity de julho, produto AUVP PRO |
+| `.../#/documentacao/testes-ab/escola` | Proposta de teste A/B da página da AUVP Escola |
 
 O botão **voltar** do navegador desfaz a troca de aba; navegar dentro de uma aba
 (slide, mês, filtro) só atualiza a URL.
@@ -63,6 +64,13 @@ A sub-aba **Análise Clarity** foge do formato de deck: é um registro **recorre
 mensal** das leituras de mapa de calor das nossas páginas, com um seletor de mês e
 filtro por produto. Cada página analisada traz os *comportamentos do usuário*
 observados e as *principais conclusões*, com as anotações do time em destaque.
+
+A sub-aba **Testes A/B** é a continuação natural dessa leitura: cada gargalo registrado
+no Clarity vira uma proposta fechada de experimento — evidência, hipótese (se / então /
+porque), o **controle (A)** e a **variante (B)** com esquema de tela lado a lado
+(incluindo a linha da dobra), as mudanças propostas e como medir (métrica primária,
+secundárias, métrica de proteção e critério de sucesso). É o material de apoio da ação
+**PER.1** do cronograma.
 
 Além das views, há um **assistente estilo Clippy** (canto inferior direito) com um chat
 de dicas sobre o PDI.

@@ -315,6 +315,9 @@
     <button onclick="window.openDoc('clarity')" class="w-full text-left px-4 py-2.5 text-[10px] uppercase tracking-widest font-bold text-ink-light hover:text-ink hover:bg-paper dark:text-white/60 dark:hover:text-white dark:hover:bg-white/5 transition-colors flex items-center gap-2.5">
       <i class="fa-solid fa-fire w-4 text-center text-accent"></i> Análise Clarity
     </button>
+    <button onclick="window.openDoc('testes-ab')" class="w-full text-left px-4 py-2.5 text-[10px] uppercase tracking-widest font-bold text-ink-light hover:text-ink hover:bg-paper dark:text-white/60 dark:hover:text-white dark:hover:bg-white/5 transition-colors flex items-center gap-2.5">
+      <i class="fa-solid fa-flask-vial w-4 text-center text-accent"></i> Testes A/B
+    </button>
   </div>
 
   <!-- VIEW 1: Apresentação PDI -->
@@ -910,6 +913,10 @@
             <i class="fa-solid fa-fire text-[11px] w-3.5 text-center opacity-70 shrink-0 mt-0.5"></i>
             <span>Análise Clarity</span>
           </button>
+          <button data-tab="testes-ab" id="tab-btn-testes-ab" onclick="switchTab('testes-ab')" class="doc-side-link flex items-start gap-2.5 px-3 py-2 rounded-[3px] text-[10px] md:text-[11px] uppercase tracking-widest font-bold text-ink-light/70 dark:text-white/40 hover:text-ink dark:hover:text-white transition-colors border-l-2 border-transparent text-left">
+            <i class="fa-solid fa-flask-vial text-[11px] w-3.5 text-center opacity-70 shrink-0 mt-0.5"></i>
+            <span>Testes A/B</span>
+          </button>
         </nav>
       </aside>
 
@@ -1379,6 +1386,121 @@
       </div>
     </main>
   </div> <!-- Fim Aba Análise Clarity -->
+
+  <!-- ========================================================================= -->
+  <!-- CONTEÚDO DA ABA: TESTES A/B (propostas de versão das páginas)             -->
+  <!-- ========================================================================= -->
+  <div id="tab-content-testes-ab" class="tab-content hidden">
+
+    <main class="w-full px-4 py-6 md:py-10 flex flex-col items-center justify-start min-h-[calc(100vh-80px)]">
+      <div class="w-full max-w-[1000px] flex flex-col gap-6">
+
+        <!-- Capa / contexto da documentação -->
+        <div class="w-full bg-white dark:bg-[#1A1A1A] border border-paper-dark dark:border-white/5 shadow-xl shadow-black/5 dark:shadow-white/5 p-8 md:p-10 flex flex-col relative rounded-[4px] animate-fade-in-up overflow-hidden">
+
+          <!-- Ilustração Abstrata Fundo (A/B estilizado) -->
+          <div class="absolute top-[-60px] right-[-60px] opacity-10 dark:opacity-5 pointer-events-none animate-spin-slow">
+            <svg width="300" height="300" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" class="overflow-visible">
+              <rect x="20" y="35" width="65" height="130" stroke="#38805A" stroke-width="2"/>
+              <rect x="115" y="35" width="65" height="130" stroke="#38805A" stroke-width="2" stroke-dasharray="8 6"/>
+              <path d="M100 20 L100 180" stroke="#38805A" stroke-width="1" stroke-dasharray="4 6"/>
+              <circle cx="100" cy="100" r="16" stroke="#38805A" stroke-width="4"/>
+            </svg>
+          </div>
+
+          <div class="relative z-10">
+            <span class="inline-block py-0.5 px-3 border border-accent/20 text-[10px] font-bold tracking-widest bg-accent/10 text-accent dark:bg-white/5 dark:text-white/70 uppercase w-max mb-4 rounded-full">
+              TESTES A/B • PROPOSTAS DE VERSÃO
+            </span>
+            <h1 class="text-4xl md:text-6xl font-black tracking-tighter uppercase text-ink dark:text-white leading-[0.85] font-satoshi mt-2">
+              O mapa de calor virou <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-[#72A68C] italic font-light tracking-tight">hipótese testável.</span>
+            </h1>
+            <p class="text-base text-ink-light dark:text-white/70 font-medium mt-6 font-satoshi max-w-xl leading-relaxed">
+              Cada gargalo registrado na <strong>Análise Clarity</strong> vira aqui uma proposta de página: o que é o
+              <strong>controle (A)</strong>, o que muda na <strong>variante (B)</strong>, qual é a hipótese, a métrica primária
+              e o critério de sucesso. É o material de apoio para levar o teste à mesa e decidir por dado, não por achismo.
+            </p>
+            <div class="mt-5 flex items-center gap-2 justify-start flex-wrap">
+              <span class="text-[9px] uppercase tracking-widest font-bold text-ink-light/70 dark:text-white/40">Ação do PDI:</span>
+              <button onclick="window.switchView('tracking')" class="text-[10px] font-bold py-1 px-2.5 rounded bg-paper-dark text-ink dark:bg-white/10 dark:text-white hover:opacity-80 transition-opacity" title="Ver no cronograma">🎯 PER.1 — Estruturar e rodar o 1º Teste A/B documentado</button>
+              <button onclick="window.openDoc('clarity')" class="text-[10px] font-bold py-1 px-2.5 rounded bg-paper-dark text-ink dark:bg-white/10 dark:text-white hover:opacity-80 transition-opacity" title="Ver a análise que originou as hipóteses">🔥 Origem: Análise Clarity</button>
+            </div>
+
+            <div class="border-b border-paper-dark dark:border-white/10 my-8"></div>
+
+            <div class="flex gap-4 flex-wrap">
+              <div class="text-left">
+                <span id="ab-stat-tests" class="block text-2xl font-black text-ink dark:text-white">0</span>
+                <span class="text-[9px] uppercase tracking-widest font-bold text-ink-light">Testes Propostos</span>
+              </div>
+              <div class="w-px h-10 bg-paper-dark dark:bg-white/10"></div>
+              <div class="text-left">
+                <span id="ab-stat-pages" class="block text-2xl font-black text-ink dark:text-white">0</span>
+                <span class="text-[9px] uppercase tracking-widest font-bold text-ink-light">Páginas Cobertas</span>
+              </div>
+              <div class="w-px h-10 bg-paper-dark dark:bg-white/10"></div>
+              <div class="text-left">
+                <span id="ab-stat-changes" class="block text-2xl font-black text-ink dark:text-white">0</span>
+                <span class="text-[9px] uppercase tracking-widest font-bold text-ink-light">Mudanças Propostas</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Protocolo: como rodar qualquer um destes testes -->
+        <div class="w-full bg-white dark:bg-[#1A1A1A] border border-paper-dark dark:border-white/5 shadow-xl shadow-black/5 dark:shadow-white/5 rounded-[4px] p-6 md:p-8 flex flex-col gap-5">
+          <div class="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <span class="text-[9px] uppercase tracking-widest font-bold text-ink-light dark:text-white/40">Antes de subir qualquer variante</span>
+              <h2 class="text-xl md:text-2xl font-black uppercase tracking-tighter text-ink dark:text-white leading-none mt-1">
+                Protocolo do <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-[#72A68C] italic font-light tracking-tight">teste</span>
+              </h2>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <span class="text-[9px] uppercase tracking-widest font-bold text-ink-light dark:text-white/40 self-center">Ordem sugerida:</span>
+              <span class="px-2.5 py-1 rounded-full text-[9px] uppercase tracking-widest font-bold border border-brand-orange/30 bg-brand-orange/10 text-brand-orange">1. Escola</span>
+              <span class="px-2.5 py-1 rounded-full text-[9px] uppercase tracking-widest font-bold border border-brand-blue/30 bg-brand-blue/10 text-brand-blue">2. Planos</span>
+              <span class="px-2.5 py-1 rounded-full text-[9px] uppercase tracking-widest font-bold border border-brand-pink/30 bg-brand-pink/10 text-brand-pink">3. PRO</span>
+              <span class="px-2.5 py-1 rounded-full text-[9px] uppercase tracking-widest font-bold border border-accent/30 bg-accent/10 text-accent">4. Home</span>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
+            <div class="flex gap-3">
+              <span class="w-6 h-6 rounded-[3px] bg-accent/10 text-accent border border-accent/20 text-[11px] font-black flex items-center justify-center shrink-0">1</span>
+              <p class="text-[13px] text-ink dark:text-white/85 leading-relaxed"><strong>Uma hipótese por teste.</strong> Se duas mudanças não puderem ser separadas, assuma no documento que o teste mede o pacote — e não tente atribuir o resultado a uma delas depois.</p>
+            </div>
+            <div class="flex gap-3">
+              <span class="w-6 h-6 rounded-[3px] bg-accent/10 text-accent border border-accent/20 text-[11px] font-black flex items-center justify-center shrink-0">2</span>
+              <p class="text-[13px] text-ink dark:text-white/85 leading-relaxed"><strong>Divisão 50/50</strong>, mesma janela de tempo, sem estrear campanha nova no meio do teste.</p>
+            </div>
+            <div class="flex gap-3">
+              <span class="w-6 h-6 rounded-[3px] bg-accent/10 text-accent border border-accent/20 text-[11px] font-black flex items-center justify-center shrink-0">3</span>
+              <p class="text-[13px] text-ink dark:text-white/85 leading-relaxed"><strong>Duração mínima de 2 semanas cheias</strong> (ou até bater a amostra planejada), para o ciclo semanal não enviesar o resultado. Não pare no primeiro dia bom.</p>
+            </div>
+            <div class="flex gap-3">
+              <span class="w-6 h-6 rounded-[3px] bg-accent/10 text-accent border border-accent/20 text-[11px] font-black flex items-center justify-center shrink-0">4</span>
+              <p class="text-[13px] text-ink dark:text-white/85 leading-relaxed"><strong>Registre antes de subir:</strong> hipótese, métrica primária, critério de sucesso e o que faria você reverter. Depois do resultado, o combinado não muda.</p>
+            </div>
+            <div class="flex gap-3">
+              <span class="w-6 h-6 rounded-[3px] bg-accent/10 text-accent border border-accent/20 text-[11px] font-black flex items-center justify-center shrink-0">5</span>
+              <p class="text-[13px] text-ink dark:text-white/85 leading-relaxed"><strong>Feche o ciclo no Clarity:</strong> releia o mapa de calor da variante vencedora no mês seguinte e registre a rodada na Análise Clarity.</p>
+            </div>
+            <div class="flex gap-3">
+              <span class="w-6 h-6 rounded-[3px] bg-danger/10 text-danger border border-danger/20 text-[11px] font-black flex items-center justify-center shrink-0"><i class="fa-solid fa-triangle-exclamation text-[10px]"></i></span>
+              <p class="text-[13px] text-ink dark:text-white/85 leading-relaxed"><strong>Os esquemas de tela abaixo são leitura do mapa de calor</strong>, não a estrutura exata das páginas. Confira o layout real antes de fechar o escopo da variante.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Propostas por página (cards) -->
+        <div id="ab-report" class="w-full flex flex-col gap-6">
+          <!-- Injetado via JS -->
+        </div>
+
+      </div>
+    </main>
+  </div> <!-- Fim Aba Testes A/B -->
 
       </div> <!-- Fim do conteúdo das documentações -->
     </div> <!-- Fim do layout com menu lateral -->
@@ -3315,6 +3437,527 @@
       syncRoute(false);
     }
 
+
+    // =========================================================================
+    // TESTES A/B — propostas de versão das páginas a partir do Clarity
+    // =========================================================================
+    // Cada objeto de `abTests` é uma proposta fechada de experimento: evidência
+    // (o que o mapa de calor mostrou), hipótese, as duas versões da página com
+    // um esquema de tela (`wireframe`), as mudanças da variante e como medir.
+    // Estados aceitos em cada bloco do wireframe: mantido, ajustado, subiu,
+    // desceu, novo, removido, destaque. `fold: true` desenha a linha da dobra
+    // logo abaixo do bloco. `alert` marca o ponto quente do mapa de calor.
+    // Para propor um novo teste: adicione um objeto neste array — contadores,
+    // filtros e legendas se ajustam sozinhos.
+    const abTests = [
+      {
+        key: "escola",
+        name: "AUVP Escola",
+        page: "Página principal",
+        icon: "fa-graduation-cap",
+        themeKey: "orange",
+        priority: "Prioridade alta",
+        effort: "Esforço baixo",
+        recommended: "Candidato ao 1º teste (PER.1)",
+        evidence: [
+          { text: "Em desktop e tablet o <strong>primeiro clique</strong> é em <strong>Área do aluno</strong> — e é ali que se concentram cliques mortos e rage clicks." },
+          { text: "No mobile, os primeiros cliques vão para o <strong>botão aprender 1</strong> e para <strong>FAÇA SUA ANÁLISE DE PERFIL</strong>." },
+          { text: "<strong>Menos de 15%</strong> chegam a 75% da página e a maioria não passa de <strong>25%</strong> de profundidade." }
+        ],
+        hypothesis: {
+          se: "separarmos os dois públicos no topo — acesso do aluno sempre visível e com resposta clara ao clique, e um único CTA de aquisição em destaque",
+          entao: "reduzimos os rage clicks na Área do aluno e aumentamos o CTR de FAÇA SUA ANÁLISE DE PERFIL",
+          porque: "aluno voltando e visitante novo disputam a mesma faixa da tela; o rage click indica que o acesso do aluno parece quebrado, e esse ruído contamina o CTA de aquisição."
+        },
+        variants: [
+          {
+            id: "A",
+            tag: "Controle",
+            title: "Página atual",
+            summary: "Área do aluno dividindo o topo com os CTAs de aquisição e conteúdo longo depois da dobra.",
+            wireframe: [
+              { label: "Navbar com Área do aluno", state: "destaque", alert: "1º clique + rage clicks" },
+              { label: "Hero com CTAs competindo (aprender 1 · análise de perfil)", state: "mantido", size: "lg", alert: "cliques divididos", fold: true },
+              { label: "Seções de conteúdo (longas)", state: "mantido", size: "lg" },
+              { label: "Prova social / depoimentos", state: "mantido" },
+              { label: "FAQ + rodapé", state: "mantido" }
+            ]
+          },
+          {
+            id: "B",
+            tag: "Variante",
+            title: "Dois públicos, dois caminhos",
+            summary: "Acesso do aluno com lugar próprio e feedback de clique; o hero fica com um único CTA de aquisição e a decisão cabe nos primeiros 25%.",
+            wireframe: [
+              { label: "Navbar: botão Área do aluno com estado de carregamento", state: "ajustado" },
+              { label: "Hero com CTA único: FAÇA SUA ANÁLISE DE PERFIL", state: "destaque" },
+              { label: "Link secundário “Já sou aluno”, ao lado do CTA", state: "novo" },
+              { label: "O que você aprende + prova social (resumidos)", state: "subiu", fold: true },
+              { label: "Demais seções em acordeão / âncoras", state: "desceu" },
+              { label: "FAQ + rodapé", state: "mantido" }
+            ],
+            changes: [
+              { text: "<strong>Área do aluno</strong> ganha botão próprio na navbar, com estado de carregamento e destino garantido.", note: "Rage click quase sempre é sintoma de clique sem resposta visível — vale inspecionar o elemento antes de subir o teste." },
+              { text: "Um único CTA primário no hero: <strong>FAÇA SUA ANÁLISE DE PERFIL</strong>. O <em>botão aprender 1</em> vira secundário, com rótulo dizendo o que entrega." },
+              { text: "Prova social e “o que você vai aprender” sobem para dentro dos primeiros <strong>25%</strong> da página." },
+              { text: "O conteúdo que hoje mora depois de 75% vira acordeão: quem quiser aprofundar abre, sem empurrar a decisão para longe.", note: "Menos de 15% dos visitantes chegam lá hoje." }
+            ]
+          }
+        ],
+        metrics: {
+          primary: "CTR do CTA FAÇA SUA ANÁLISE DE PERFIL e taxa de conclusão da análise.",
+          secondary: [
+            "Rage clicks e cliques mortos na Área do aluno",
+            "% de sessões que passam de 50% da página",
+            "CTR do CTA secundário"
+          ],
+          guardrail: "Acessos bem-sucedidos à Área do aluno não podem cair."
+        },
+        success: "+20% no CTR do CTA principal e rage clicks na Área do aluno próximos de zero, sem perda de acesso dos alunos."
+      },
+      {
+        key: "capital-planos",
+        name: "AUVP Capital",
+        page: "Planos",
+        icon: "fa-layer-group",
+        themeKey: "blue",
+        priority: "Prioridade alta",
+        effort: "Esforço médio",
+        recommended: "Teste mais próximo da receita",
+        evidence: [
+          { text: "O primeiro clique do desktop é em <strong>SELECIONAR PLANO</strong> e variantes — a intenção já chega definida." },
+          { text: "Boa parte dos <strong>cliques finais</strong> da sessão é no <strong>botão de fechar do modal</strong>: o fluxo morre logo depois do clique principal." },
+          { text: "A rolagem cai para <strong>12%</strong> no fim da página; a dobra média fica em <strong>880px</strong>." }
+        ],
+        hypothesis: {
+          se: "trocarmos o modal de seleção por uma etapa inline, com o plano escolhido resumido e uma única ação por vez",
+          entao: "aumentamos a taxa de conclusão depois do clique em SELECIONAR PLANO",
+          porque: "o abandono se concentra no fechamento do popup — quem clica demonstra intenção clara e desiste na tela seguinte, o que aponta fricção ou perda de contexto no modal, não falta de interesse."
+        },
+        variants: [
+          {
+            id: "A",
+            tag: "Controle",
+            title: "Seleção via modal",
+            summary: "O clique no plano abre um popup sobre a página; boa parte das sessões termina no X desse popup.",
+            wireframe: [
+              { label: "Navbar", state: "mantido" },
+              { label: "Hero / título dos planos", state: "mantido" },
+              { label: "Cards de planos + SELECIONAR PLANO", state: "destaque", alert: "1º clique", fold: true },
+              { label: "Modal sobreposto (formulário completo)", state: "mantido", alert: "fechado cedo demais" },
+              { label: "Comparativo, FAQ e institucional", state: "mantido", size: "lg", alert: "só 12% chegam" },
+              { label: "Rodapé", state: "mantido" }
+            ]
+          },
+          {
+            id: "B",
+            tag: "Variante",
+            title: "Seleção inline, sem popup",
+            summary: "O plano escolhido expande uma etapa na própria página, com contexto preservado e uma ação por vez.",
+            wireframe: [
+              { label: "Navbar", state: "mantido" },
+              { label: "Título curto + comparativo de 3 colunas (plano recomendado)", state: "ajustado" },
+              { label: "Cards de planos, todos acima de 880px", state: "subiu", fold: true },
+              { label: "Etapa inline “1 de 2”: resumo do plano + formulário curto", state: "novo" },
+              { label: "Modal de seleção", state: "removido" },
+              { label: "FAQ e objeções em acordeão", state: "subiu" },
+              { label: "Rodapé", state: "mantido" }
+            ],
+            changes: [
+              { text: "O clique em <strong>SELECIONAR PLANO</strong> expande uma etapa <em>na própria página</em>, com o plano escolhido resumido no topo — sem popup." },
+              { text: "Uma ação por tela: só o campo necessário para avançar; o resto do cadastro vem depois da confirmação." },
+              { text: "Comparativo dos planos condensado acima da dobra (<strong>880px</strong>); FAQ e institucional viram acordeão." },
+              { text: "Saída suave no lugar do X seco: <strong>guardar o plano e continuar depois</strong>, capturando quem desiste.", note: "Transforma parte do abandono de hoje em lead recuperável." },
+              { text: "Se não der para remover o modal no prazo, rodar como <strong>variante C</strong> o “modal magro”: progresso 1 de 2, resumo do plano e um único CTA.", note: "Só vale se houver tráfego para três braços; caso contrário, fica para a rodada seguinte." }
+            ]
+          }
+        ],
+        metrics: {
+          primary: "Taxa de conclusão pós-clique: sessões que concluem o fluxo ÷ sessões que clicaram em SELECIONAR PLANO.",
+          secondary: [
+            "Cliques no botão de fechar (queda esperada)",
+            "Tempo entre o clique no plano e a conclusão",
+            "Rolagem até o comparativo de planos"
+          ],
+          guardrail: "Volume absoluto de cliques em SELECIONAR PLANO e leads/receita por sessão."
+        },
+        success: "+20% na conclusão pós-clique e −40% nos cliques de fechamento, sem queda no volume de cliques no plano."
+      },
+      {
+        key: "pro",
+        name: "AUVP PRO",
+        page: "Página principal",
+        icon: "fa-arrow-trend-up",
+        themeKey: "pink",
+        priority: "Prioridade média",
+        effort: "Esforço baixo",
+        recommended: "Maior ganho de frustração evitada",
+        evidence: [
+          { text: "Em desktop e mobile, o <strong>primeiro clique</strong> é no <strong>ponto 4 da linha do tempo</strong> — o ponto mais alto da carreira." },
+          { text: "Muitos <strong>cliques mortos</strong> em <strong>INDIVIDUAL / PACOTES (EM BREVE)</strong> em todos os dispositivos." },
+          { text: "No desktop, os <strong>cliques finais</strong> da sessão se concentram na <strong>Área do aluno</strong>." }
+        ],
+        hypothesis: {
+          se: "abrirmos a página com a linha do tempo já no ponto 4 e trocarmos o card EM BREVE por um bloco honesto de lista de espera",
+          entao: "reduzimos os cliques mortos e aumentamos a interação com a linha do tempo e o CTA",
+          porque: "o interesse já chega apontado para o topo da carreira, enquanto o item indisponível absorve cliques que não levam a lugar nenhum."
+        },
+        variants: [
+          {
+            id: "A",
+            tag: "Controle",
+            title: "Página atual",
+            summary: "A linha do tempo abre no início e o bloco indisponível continua com cara de card clicável.",
+            wireframe: [
+              { label: "Navbar", state: "mantido" },
+              { label: "Hero", state: "mantido" },
+              { label: "Linha do tempo (abre no ponto 1)", state: "destaque", alert: "clique vai direto ao ponto 4", fold: true },
+              { label: "INDIVIDUAL / PACOTES (EM BREVE)", state: "mantido", alert: "cliques mortos" },
+              { label: "Seções de conteúdo", state: "mantido", size: "lg" },
+              { label: "Área do aluno (rodapé/menu)", state: "mantido" }
+            ]
+          },
+          {
+            id: "B",
+            tag: "Variante",
+            title: "Linha do tempo com destino claro",
+            summary: "A página abre no estágio que o usuário procura e o indisponível vira captura de lista de espera.",
+            wireframe: [
+              { label: "Navbar + Área do aluno junto do CTA", state: "subiu" },
+              { label: "Hero com a promessa do ponto 4", state: "ajustado" },
+              { label: "Linha do tempo abrindo no <strong>ponto 4</strong> + CTA contextual", state: "destaque", fold: true },
+              { label: "Bloco “Em breve — quero ser avisado” (e-mail)", state: "novo" },
+              { label: "Cards INDIVIDUAL / PACOTES (EM BREVE)", state: "removido" },
+              { label: "Seções de conteúdo", state: "mantido" }
+            ],
+            changes: [
+              { text: "A linha do tempo carrega já no <strong>ponto 4</strong>, com o estágio nomeado e um CTA contextual ao lado." },
+              { text: "<strong>INDIVIDUAL / PACOTES (EM BREVE)</strong> perde a aparência de card clicável e vira bloco de <strong>lista de espera</strong> com captura de e-mail.", note: "Se a data ainda estiver indefinida, a alternativa honesta é remover o bloco — é justamente o que o teste ajuda a decidir." },
+              { text: "<strong>Área do aluno</strong> sobe para junto do CTA principal, já que é onde a sessão termina no desktop." }
+            ]
+          }
+        ],
+        metrics: {
+          primary: "Cliques mortos em INDIVIDUAL / PACOTES (queda) e CTR do CTA principal.",
+          secondary: [
+            "Interações com a linha do tempo por sessão",
+            "E-mails capturados na lista de espera",
+            "Cliques na Área do aluno a partir do topo"
+          ],
+          guardrail: "Cliques no CTA de matrícula/compra não podem cair."
+        },
+        success: "−70% nos cliques mortos do bloco EM BREVE e +10% no CTR do CTA principal."
+      },
+      {
+        key: "capital-home",
+        name: "AUVP Capital",
+        page: "Home",
+        icon: "fa-house",
+        themeKey: "default",
+        priority: "Prioridade média",
+        effort: "Esforço alto",
+        recommended: "Maior reestruturação — deixar por último",
+        evidence: [
+          { text: "Poucos visitantes de desktop passam de <strong>50%</strong> da página, com queda acentuada já depois dos <strong>20%</strong> de profundidade." },
+          { text: "Dobra média em <strong>~845px</strong> no desktop e <strong>~1043px</strong> no mobile." },
+          { text: "Cliques mortos concentrados no título da hero <em>FEITOS PARA PRESERVAR</em>." },
+          { text: "Os primeiros cliques vão para <strong>Início</strong> e <strong>AUVP Escola</strong>; no mobile, para o <strong>menu hambúrguer</strong> e links externos." }
+        ],
+        hypothesis: {
+          se: "encurtarmos a Home e colocarmos a escolha de produto (Capital, Escola, PRO) como blocos clicáveis dentro da dobra média",
+          entao: "aumentamos o clique em produto por sessão e reduzimos o abandono no topo",
+          porque: "o mapa de calor mostra a Home sendo usada como hub de navegação — o visitante chega para escolher para onde ir, não para ler a página inteira."
+        },
+        variants: [
+          {
+            id: "A",
+            tag: "Controle",
+            title: "Home atual — narrativa longa",
+            summary: "Hero institucional alto seguido de várias seções; a navegação entre produtos vive no menu do topo e no fim da página.",
+            wireframe: [
+              { label: "Navbar (Início · Escola · PRO)", state: "destaque", alert: "1º clique no desktop" },
+              { label: "Hero alto — FEITOS PARA PRESERVAR", state: "mantido", size: "lg", alert: "cliques mortos no título", fold: true },
+              { label: "Seção institucional 1", state: "mantido", size: "lg" },
+              { label: "Seção institucional 2", state: "mantido", size: "lg", alert: "rolagem despenca aqui" },
+              { label: "Blocos dos produtos (fim da página)", state: "mantido" },
+              { label: "Rodapé", state: "mantido" }
+            ]
+          },
+          {
+            id: "B",
+            tag: "Variante",
+            title: "Home-hub curta",
+            summary: "Hero enxuto e, logo abaixo, o menu visual de produtos. Todo o institucional vira conteúdo secundário.",
+            wireframe: [
+              { label: "Navbar + atalho Área do cliente", state: "mantido" },
+              { label: "Hero curto: headline + subheadline + 1 CTA", state: "ajustado" },
+              { label: "“Escolha seu caminho”: Capital · Escola · PRO", state: "subiu", fold: true },
+              { label: "Números / prova institucional (resumida)", state: "desceu" },
+              { label: "Seções institucionais em acordeão", state: "desceu" },
+              { label: "Mobile: barra fixa inferior com os 3 produtos", state: "novo" },
+              { label: "Rodapé", state: "mantido" }
+            ],
+            changes: [
+              { text: "Hero reduzido a headline, subheadline e <strong>um</strong> CTA, cabendo inteiro acima de ~600px.", note: "Libera espaço para os cards de produto dentro da dobra de 845px." },
+              { text: "Bloco <strong>“Escolha seu caminho”</strong> com Capital, Escola e PRO em cards clicáveis, promovido do fim da página para logo abaixo do hero." },
+              { text: "O título <em>FEITOS PARA PRESERVAR</em> deixa de ter aparência clicável — ou vira link real para a seção institucional.", note: "Ataca direto o foco de cliques mortos: ou responde ao clique, ou para de pedir clique." },
+              { text: "Seções institucionais viram acordeões e âncoras: a página fica cerca de <strong>40% mais curta</strong>." },
+              { text: "No mobile, barra fixa inferior com os três produtos, tirando a navegação da dependência do menu hambúrguer." }
+            ]
+          }
+        ],
+        metrics: {
+          primary: "Cliques em card/link de produto por sessão (CTR de navegação para Capital, Escola e PRO).",
+          secondary: [
+            "Profundidade média de rolagem (% que passa de 50%)",
+            "Cliques mortos e rage clicks na área do hero",
+            "Tempo até o primeiro clique"
+          ],
+          guardrail: "Taxa de saída da Home e sessões que chegam à página de Planos não podem cair."
+        },
+        success: "+15% no CTR de navegação para produto e −50% nos cliques mortos do hero, com taxa de saída estável."
+      }
+    ];
+
+    let activeAbTest = 'all';
+
+    // Estilos dos blocos do esquema de tela (wireframe) de cada variante
+    const abBlockStates = {
+      mantido:  { cls: "border-paper-dark dark:border-white/10 bg-paper-dark/20 dark:bg-white/5 text-ink-light dark:text-white/50", tag: "" },
+      ajustado: { cls: "border-brand-orange/40 bg-brand-orange/10 text-brand-orange", tag: "Ajustado" },
+      subiu:    { cls: "border-brand-blue/40 bg-brand-blue/10 text-brand-blue", tag: "Subiu" },
+      desceu:   { cls: "border-paper-dark dark:border-white/10 bg-transparent text-ink-light/70 dark:text-white/30 border-dashed", tag: "Desceu" },
+      novo:     { cls: "border-accent/40 bg-accent/10 text-accent", tag: "Novo" },
+      removido: { cls: "border-danger/40 bg-danger/5 text-danger border-dashed line-through", tag: "Sai" },
+      destaque: { cls: "border-ink/30 dark:border-white/30 bg-ink/5 dark:bg-white/10 text-ink dark:text-white", tag: "Foco" }
+    };
+
+    function abCountChanges() {
+      return abTests.reduce((total, test) => total + test.variants.reduce((acc, v) => acc + (v.changes ? v.changes.length : 0), 0), 0);
+    }
+
+    function abWireframeHtml(variant) {
+      return variant.wireframe.map(block => {
+        const style = abBlockStates[block.state] || abBlockStates.mantido;
+        const height = block.size === 'lg' ? 'py-4' : 'py-2.5';
+        return `
+          <div>
+            <div class="border ${style.cls} rounded-[2px] px-3 ${height} flex items-center justify-between gap-2">
+              <span class="text-[11px] font-bold leading-tight">${block.label}</span>
+              ${style.tag ? `<span class="text-[8px] uppercase tracking-widest font-black opacity-70 shrink-0">${style.tag}</span>` : ''}
+            </div>
+            ${block.alert ? `
+              <p class="text-[9px] uppercase tracking-widest font-bold text-danger mt-1 flex items-center gap-1">
+                <i class="fa-solid fa-fire text-[8px]"></i> ${block.alert}
+              </p>` : ''}
+            ${block.fold ? `
+              <div class="flex items-center gap-2 my-2">
+                <div class="flex-1 border-t border-dashed border-danger/50"></div>
+                <span class="text-[8px] uppercase tracking-widest font-black text-danger/70 shrink-0">Dobra média</span>
+                <div class="flex-1 border-t border-dashed border-danger/50"></div>
+              </div>` : ''}
+          </div>
+        `;
+      }).join('');
+    }
+
+    function abVariantHtml(variant, theme) {
+      const isControl = variant.id === 'A';
+      return `
+        <section class="flex flex-col gap-4 ${isControl ? '' : 'md:border-l md:pl-8 border-paper-dark dark:border-white/10'}">
+          <div class="flex items-start gap-3">
+            <span class="w-8 h-8 rounded-[3px] flex items-center justify-center shrink-0 text-sm font-black border ${
+              isControl
+                ? 'border-paper-dark dark:border-white/10 bg-paper-dark/30 dark:bg-white/5 text-ink-light dark:text-white/50'
+                : `${theme.bg} ${theme.text} ${theme.border}`
+            }">${variant.id}</span>
+            <div class="min-w-0">
+              <span class="text-[9px] uppercase tracking-widest font-bold text-ink-light dark:text-white/40">${variant.tag}</span>
+              <h5 class="text-sm font-black uppercase tracking-tight text-ink dark:text-white leading-tight">${variant.title}</h5>
+            </div>
+          </div>
+          <p class="text-[12px] text-ink-light dark:text-white/60 leading-relaxed">${variant.summary}</p>
+          <div class="flex flex-col gap-1.5">${abWireframeHtml(variant)}</div>
+          ${variant.changes ? `
+            <div class="mt-2">
+              <h6 class="text-[10px] uppercase tracking-widest font-bold text-ink-light dark:text-white/40 mb-3 flex items-center gap-2">
+                <i class="fa-solid fa-pen-ruler ${theme.text}"></i> O que muda nesta versão
+              </h6>
+              <ul class="flex flex-col gap-4">${clarityListHtml(variant.changes, theme)}</ul>
+            </div>` : ''}
+        </section>
+      `;
+    }
+
+    function abTestCardHtml(test) {
+      const theme = colorThemes[test.themeKey || 'default'];
+      const chips = [
+        { icon: 'fa-bolt', label: test.priority },
+        { icon: 'fa-screwdriver-wrench', label: test.effort },
+        { icon: 'fa-flag-checkered', label: test.recommended }
+      ].map(c => `
+        <span class="px-2.5 py-1 rounded-full text-[9px] uppercase tracking-widest font-bold border ${theme.text} ${theme.bg} ${theme.border}">
+          <i class="fa-solid ${c.icon} mr-1"></i>${c.label}
+        </span>
+      `).join('');
+
+      return `
+        <article class="w-full bg-white dark:bg-[#1A1A1A] border border-paper-dark dark:border-white/5 shadow-xl shadow-black/5 dark:shadow-white/5 rounded-[4px] p-6 md:p-8 slide-item">
+
+          <div class="flex flex-wrap items-start justify-between gap-4 border-b border-paper-dark dark:border-white/10 pb-4 mb-6">
+            <div class="flex items-start gap-3">
+              <span class="w-9 h-9 rounded-[3px] flex items-center justify-center shrink-0 ${theme.bg} ${theme.text} border ${theme.border}">
+                <i class="fa-solid ${test.icon}"></i>
+              </span>
+              <div>
+                <h3 class="text-lg md:text-xl font-black uppercase tracking-tighter text-ink dark:text-white leading-none">${test.name}</h3>
+                <span class="text-[10px] uppercase tracking-widest font-bold text-ink-light dark:text-white/40">${test.page}</span>
+              </div>
+            </div>
+            <div class="flex flex-wrap gap-2">${chips}</div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-8">
+            <section>
+              <h4 class="text-[10px] uppercase tracking-widest font-bold text-ink-light dark:text-white/40 mb-4 flex items-center gap-2">
+                <i class="fa-solid fa-fire ${theme.text}"></i> Evidência do mapa de calor
+              </h4>
+              <ul class="flex flex-col gap-4">${clarityListHtml(test.evidence, theme)}</ul>
+            </section>
+            <section class="border-paper-dark dark:border-white/10 md:border-l md:pl-8">
+              <h4 class="text-[10px] uppercase tracking-widest font-bold text-ink-light dark:text-white/40 mb-4 flex items-center gap-2">
+                <i class="fa-regular fa-lightbulb ${theme.text}"></i> Hipótese
+              </h4>
+              <div class="p-4 border-l-4 ${theme.borderLeft} bg-paper-dark/20 dark:bg-white/5 rounded-r-[2px] flex flex-col gap-2">
+                <p class="text-[13px] text-ink dark:text-white/85 leading-relaxed"><strong class="${theme.text}">SE</strong> ${test.hypothesis.se}</p>
+                <p class="text-[13px] text-ink dark:text-white/85 leading-relaxed"><strong class="${theme.text}">ENTÃO</strong> ${test.hypothesis.entao}</p>
+                <p class="text-[13px] text-ink dark:text-white/85 leading-relaxed"><strong class="${theme.text}">PORQUE</strong> ${test.hypothesis.porque}</p>
+              </div>
+            </section>
+          </div>
+
+          <h4 class="text-[10px] uppercase tracking-widest font-bold text-ink-light dark:text-white/40 mb-5 flex items-center gap-2">
+            <i class="fa-solid fa-table-columns ${theme.text}"></i> As duas versões da página
+          </h4>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-8">
+            ${test.variants.map(v => abVariantHtml(v, theme)).join('')}
+          </div>
+
+          <div class="mt-8 pt-6 border-t border-paper-dark dark:border-white/10 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+            <section>
+              <h4 class="text-[10px] uppercase tracking-widest font-bold text-ink-light dark:text-white/40 mb-4 flex items-center gap-2">
+                <i class="fa-solid fa-chart-simple ${theme.text}"></i> Como medir
+              </h4>
+              <div class="flex flex-col gap-3">
+                <div class="p-3 border ${theme.border} ${theme.bg} rounded-[2px]">
+                  <span class="block text-[9px] uppercase tracking-widest font-bold ${theme.text} mb-1">Métrica primária</span>
+                  <p class="text-[12px] text-ink dark:text-white/85 leading-relaxed">${test.metrics.primary}</p>
+                </div>
+                <div class="p-3 border border-paper-dark dark:border-white/10 rounded-[2px] bg-paper-dark/20 dark:bg-white/5">
+                  <span class="block text-[9px] uppercase tracking-widest font-bold text-ink-light dark:text-white/40 mb-1.5">Secundárias</span>
+                  <ul class="text-[12px] text-ink-light dark:text-white/70 leading-relaxed list-disc pl-4 space-y-1">
+                    ${test.metrics.secondary.map(m => `<li>${m}</li>`).join('')}
+                  </ul>
+                </div>
+                <div class="p-3 border border-danger/30 bg-danger/5 rounded-[2px]">
+                  <span class="block text-[9px] uppercase tracking-widest font-bold text-danger mb-1"><i class="fa-solid fa-shield-halved mr-1"></i> Métrica de proteção</span>
+                  <p class="text-[12px] text-ink dark:text-white/85 leading-relaxed">${test.metrics.guardrail}</p>
+                </div>
+              </div>
+            </section>
+            <section class="border-paper-dark dark:border-white/10 md:border-l md:pl-8">
+              <h4 class="text-[10px] uppercase tracking-widest font-bold text-ink-light dark:text-white/40 mb-4 flex items-center gap-2">
+                <i class="fa-solid fa-flag-checkered ${theme.text}"></i> Critério de sucesso
+              </h4>
+              <p class="text-[13px] text-ink dark:text-white/85 leading-relaxed font-medium border-l-4 ${theme.borderLeft} pl-4 py-1">${test.success}</p>
+              <p class="text-[11px] text-ink-light dark:text-white/50 leading-relaxed mt-4">
+                <i class="fa-solid fa-rotate-left mr-1.5 opacity-60"></i>
+                Se a variante ficar abaixo do controle na métrica de proteção, o teste é revertido — mesmo que a métrica primária suba.
+              </p>
+            </section>
+          </div>
+        </article>
+      `;
+    }
+
+    function switchAbTest(testKey) {
+      activeAbTest = testKey;
+      renderAbTests();
+    }
+
+    function renderAbTests() {
+      const reportEl = document.getElementById('ab-report');
+      if (!reportEl) return;
+
+      // Estatísticas da capa (calculadas a partir dos dados)
+      const statTests = document.getElementById('ab-stat-tests');
+      const statPages = document.getElementById('ab-stat-pages');
+      const statChanges = document.getElementById('ab-stat-changes');
+      if (statTests) statTests.innerText = abTests.length;
+      if (statPages) statPages.innerText = new Set(abTests.map(t => t.key)).size;
+      if (statChanges) statChanges.innerText = abCountChanges();
+
+      const visibleTests = activeAbTest === 'all'
+        ? abTests
+        : abTests.filter(t => t.key === activeAbTest);
+
+      const filters = [{ key: 'all', name: 'Todos os testes', page: '' }]
+        .concat(abTests)
+        .map(t => {
+          const active = t.key === activeAbTest;
+          const label = t.page ? `${t.name} <span class="opacity-60">· ${t.page}</span>` : t.name;
+          return `
+            <button onclick="switchAbTest('${t.key}')" class="px-3 py-1.5 rounded-full text-[10px] uppercase tracking-widest font-bold transition-colors border ${
+              active
+                ? 'bg-accent/10 text-accent border-accent/30 dark:bg-white/10 dark:text-white dark:border-white/20'
+                : 'border-paper-dark dark:border-white/10 text-ink-light dark:text-white/40 hover:text-ink dark:hover:text-white'
+            }">${label}</button>
+          `;
+        }).join('');
+
+      // Legenda dos estados usados nos esquemas de tela
+      const legend = Object.keys(abBlockStates)
+        .filter(state => abBlockStates[state].tag)
+        .map(state => `
+          <span class="px-2 py-0.5 rounded-[2px] border text-[8px] uppercase tracking-widest font-black ${abBlockStates[state].cls}">
+            ${abBlockStates[state].tag}
+          </span>
+        `).join('');
+
+      reportEl.innerHTML = `
+        <div class="w-full bg-white dark:bg-[#1A1A1A] border border-paper-dark dark:border-white/5 shadow-xl shadow-black/5 dark:shadow-white/5 rounded-[4px] p-6 md:p-8 flex flex-col gap-5">
+          <div class="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <span class="text-[9px] uppercase tracking-widest font-bold text-ink-light dark:text-white/40">Propostas derivadas da rodada de Julho/2026</span>
+              <h2 class="text-2xl md:text-3xl font-black uppercase tracking-tighter text-ink dark:text-white leading-none mt-1">
+                Controle <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-[#72A68C] italic font-light tracking-tight">vs.</span> Variante
+              </h2>
+            </div>
+            <div class="flex flex-col items-start md:items-end gap-1.5">
+              <span class="text-[9px] uppercase tracking-widest font-bold text-ink-light dark:text-white/40">Legenda do esquema de tela</span>
+              <div class="flex flex-wrap gap-1.5">${legend}</div>
+            </div>
+          </div>
+
+          <p class="text-sm text-ink-light dark:text-white/70 leading-relaxed font-medium border-l-4 border-accent pl-4 py-1">
+            O padrão que se repete nas quatro páginas é o mesmo: <strong>o usuário decide no topo</strong>. Por isso toda variante
+            aqui move a decisão para dentro da dobra e tira do caminho o que rouba clique sem entregar nada.
+          </p>
+
+          <div class="flex flex-wrap gap-2 pt-1">${filters}</div>
+        </div>
+
+        ${visibleTests.map(abTestCardHtml).join('')}
+      `;
+
+      // Entrada escalonada dos cards
+      Array.from(reportEl.querySelectorAll('article')).forEach((el, i) => {
+        el.style.animationDelay = `${0.05 + i * 0.08}s`;
+      });
+
+      syncRoute(false);
+    }
+
     // =========================================================================
     // ROTEADOR POR HASH — cada parte do PDI tem a sua própria URL
     // =========================================================================
@@ -3327,12 +3970,14 @@
     //   #/documentacao/discovery/4           → deck aberto no slide 4
     //   #/documentacao/clarity/2026-07       → Clarity no mês registrado
     //   #/documentacao/clarity/2026-07/pro   → Clarity no mês + produto filtrado
+    //   #/documentacao/testes-ab             → todas as propostas de teste A/B
+    //   #/documentacao/testes-ab/escola      → proposta de uma página específica
     // Trocar de aba entra no histórico (voltar funciona); navegar dentro de uma
     // aba (slide, mês, filtro) só reescreve a URL, para não inundar o histórico.
     const viewSlugs = { presentation: 'pdi', tracking: 'cronograma', manifesto: 'manifesto', documentacao: 'documentacao' };
     const slugToView = { pdi: 'presentation', cronograma: 'tracking', manifesto: 'manifesto', documentacao: 'documentacao' };
     const deckTabs = ['discovery', 'executiva', 'ia'];
-    const docTabs = deckTabs.concat(['clarity']);
+    const docTabs = deckTabs.concat(['clarity', 'testes-ab']);
     const trackingFilters = ['ALL', 'OPE', 'PER', 'INF', 'CUL', 'OUTROS'];
 
     let currentViewName = 'presentation';
@@ -3361,6 +4006,8 @@
         } else if (activeTab === 'clarity') {
           if (activeClarityMonth) parts.push(activeClarityMonth);
           if (activeClarityProduct && activeClarityProduct !== 'all') parts.push(activeClarityProduct);
+        } else if (activeTab === 'testes-ab') {
+          if (activeAbTest && activeAbTest !== 'all') parts.push(activeAbTest);
         }
       }
 
@@ -3420,6 +4067,9 @@
             const report = getClarityReport();
             activeClarityProduct = (report && report.products.some(p => p.key === parts[3])) ? parts[3] : 'all';
             renderClarity();
+          } else if (tab === 'testes-ab') {
+            activeAbTest = abTests.some(t => t.key === parts[2]) ? parts[2] : 'all';
+            renderAbTests();
           }
         }
       } finally {
@@ -3432,8 +4082,10 @@
     }
     window.applyRoute = applyRoute;
 
-    // Renderiza o arquivo do Clarity (fica pronto antes de qualquer rota abri-lo)
+    // Renderiza o arquivo do Clarity e as propostas de teste A/B (ficam prontos
+    // antes de qualquer rota abri-los)
     renderClarity();
+    renderAbTests();
 
     window.addEventListener('hashchange', applyRoute);
     window.addEventListener('popstate', applyRoute);

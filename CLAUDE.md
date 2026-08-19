@@ -59,6 +59,8 @@ então nada de rotas com `history.pushState` puro. Formato:
 | `#/documentacao/<deck>/<n>` | Deck aberto no slide `n` (1-based) |
 | `#/documentacao/clarity/<mês>` | Clarity no mês registrado (ex.: `2026-07`) |
 | `#/documentacao/clarity/<mês>/<produto>` | Clarity no mês + produto (`key` do produto) |
+| `#/documentacao/testes-ab` | Propostas de teste A/B (todas as páginas) |
+| `#/documentacao/testes-ab/<página>` | Proposta de uma página só (`key` do teste) |
 
 - Motor no script comum: `buildRouteHash()`, `syncRoute(push)`, `applyRoute()`
   (exposto como `window.applyRoute`). Também aceita os ids internos das views
@@ -82,7 +84,8 @@ então nada de rotas com `history.pushState` puro. Formato:
 - Conteúdo trazido do repo `documenta_pdi_armando` e **embutido nativamente** (não é
   iframe — a versão com iframe foi removida por gerar uma segunda navbar/"puxadinho").
 - Vive dentro de `view-documentacao`, com um **menu lateral de sub-abas**
-  (`#tab-btn-discovery`, `#tab-btn-executiva`, `#tab-btn-ia`, `#tab-btn-clarity`) —
+  (`#tab-btn-discovery`, `#tab-btn-executiva`, `#tab-btn-ia`, `#tab-btn-clarity`,
+  `#tab-btn-testes-ab`) —
   não é uma segunda navbar fixa. Os mesmos itens aparecem no dropdown da navbar
   (`#doc-dropdown`, via `window.openDoc('<tab>')`).
 - Três "decks" de slides: `discovery`, `executiva` e `ia`. Cada slide é um objeto em
@@ -114,6 +117,27 @@ então nada de rotas com `history.pushState` puro. Formato:
   dados — não edite números na mão.
 - **Para registrar um novo mês:** adicione um objeto no início de `clarityReports`.
   Nada mais precisa mudar: seletor de mês, filtros por produto e estatísticas se ajustam.
+
+### Sub-aba Testes A/B (propostas de versão das páginas)
+
+- Também não é deck: é o desdobramento do Clarity em **experimentos propostos**, um por
+  página, na ordem sugerida de execução (a primeira do array é a primeira a rodar).
+- Dados em `abTests` (script comum, logo abaixo do motor do Clarity). Cada objeto tem
+  `key`, `name`, `page`, `icon`, `themeKey` (paleta de `colorThemes`), os chips
+  `priority` / `effort` / `recommended`, `evidence[]`, `hypothesis` (`se`, `entao`,
+  `porque`), `variants[]`, `metrics` (`primary`, `secondary[]`, `guardrail`) e `success`.
+- Cada variante tem `id` (`A` = controle, `B` = variante), `tag`, `title`, `summary`,
+  o esquema de tela `wireframe[]` e — na variante — `changes[]` (que reaproveita
+  `clarityListHtml`, então aceita `note`).
+- Cada bloco do `wireframe` aceita `label` (HTML inline), `state` (`mantido`,
+  `ajustado`, `subiu`, `desceu`, `novo`, `removido`, `destaque` — estilos em
+  `abBlockStates`), `size: 'lg'`, `alert` (rótulo vermelho do ponto quente) e
+  `fold: true`, que desenha a linha da dobra logo abaixo do bloco.
+- Render em `renderAbTests()`; estado em `activeAbTest`; interação global
+  `switchAbTest(key)`. Contadores da capa e a legenda saem dos dados — não edite números
+  na mão.
+- **Para propor um novo teste:** adicione um objeto em `abTests`. Filtros, contadores e
+  legenda se ajustam sozinhos.
 
 ### Tema (dark/light)
 
