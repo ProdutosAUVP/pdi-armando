@@ -54,9 +54,9 @@ então nada de rotas com `history.pushState` puro. Formato:
 | `#/pdi` | Aba PDI |
 | `#/cronograma` | Cronograma (todas as categorias) |
 | `#/cronograma/<categoria>` | Cronograma filtrado (`ope`, `per`, `inf`, `cul`, `outros`) |
-| `#/resultados` | Resultados quinzenais (apresentação mais recente) |
-| `#/resultados/<data>` | Apresentação de uma data (ex.: `2026-09-02`) |
-| `#/resultados/<data>/<entrega>` | Apresentação da data + entrega filtrada (`key` da entrega) |
+| `#/resultados` | Resultados quinzenais (capa da apresentação mais recente) |
+| `#/resultados/<data>` | Capa da apresentação de uma data (ex.: `2026-09-02`) |
+| `#/resultados/<data>/<slide>` | Apresentação aberta no slide (`abertura`, `key` da entrega ou `fechamento`) |
 | `#/manifesto` | Manifesto |
 | `#/documentacao/<sub-aba>` | Capa do deck (`discovery`, `executiva`, `ia`) ou o Clarity |
 | `#/documentacao/<deck>/<n>` | Deck aberto no slide `n` (1-based) |
@@ -142,11 +142,13 @@ então nada de rotas com `history.pushState` puro. Formato:
 - **Para propor um novo teste:** adicione um objeto em `abTests`. Filtros, contadores e
   legenda se ajustam sozinhos.
 
-### Aba Resultados Quinzenais (apresentação recorrente)
+### Aba Resultados Quinzenais (apresentação de slides com cronômetro)
 
-- Aba do topo (`view-resultados`), no mesmo espírito do Clarity: **não é deck**, é um
-  arquivo recorrente das apresentações de resultados, marcado pela **data em que foi
-  apresentada**.
+- Aba do topo (`view-resultados`): arquivo recorrente das apresentações de resultados,
+  marcado pela **data em que foi apresentada** — e rodado como **deck de slides**.
+- Dois modos, como os decks da Documentação: a **capa** (`resultados-view-intro`, com
+  seletor de data, resumo e roteiro clicável) e os **slides**
+  (`resultados-view-slides`). `switchResultadosView('intro' | 'slides')` alterna.
 - Dados em `apresentacoesQuinzenais` (script comum, logo acima do roteador): um objeto
   por apresentação (`id` no formato `AAAA-MM-DD` — é o que vai para a URL —, `date`,
   `label`, `period`, `focus`, `summary`, `deliveries[]`), do **mais recente para o mais
@@ -159,12 +161,28 @@ então nada de rotas com `history.pushState` puro. Formato:
   `next[]` (próximos passos), opcional.
 - As listas reaproveitam `clarityListHtml`, então cada item aceita `text` com HTML
   inline (`<strong>`, `<em>`) e `note` como anotação recuada do time.
-- Render em `renderResultados()`; estado em `activeQuinzena` / `activeQuinzenaEntrega`;
-  interações globais `switchQuinzena(id)` e `filterQuinzenaEntrega(key)`. Contadores da
-  capa e do cabeçalho saem dos dados — não edite números na mão.
+- **Roteiro dos slides:** `getResultadoSlides()` monta `abertura` + uma entrega por
+  slide + `fechamento` (que agrega os `next[]` de todas as entregas). A `key` de cada
+  slide é o que vai para a URL — não há número de slide na rota.
+- Render: `renderResultados()` (capa) e `renderResultadoSlide()` (slide atual).
+  Estado em `activeQuinzena` / `activeQuinzenaSlide`. Interações globais:
+  `switchQuinzena(id)`, `startResultadosDeck(slideKey?)`, `backToResultadosIntro()`,
+  `resultadosNext()`, `resultadosPrev()`, `goToResultadoSlide(i)` e
+  `abrirEntregaQuinzena(key)`.
+- **Cronômetro:** estado em `resultadosTimer` (`running`, `totalMs`, `slideMs`),
+  alvo total em `resultadosTarget` (opções em `resultadosTargetOptions`) e alvo por
+  slide = total ÷ nº de slides. `tickResultadosTimer()` roda a cada 250 ms e **só
+  acumula com os slides visíveis** (`resultadosSlidesVisible()`), então trocar de aba
+  ou voltar para a capa segura o tempo sozinho. Trocar de slide zera o tempo do slide,
+  não o total. Globais: `toggleResultadosTimer()`, `resetResultadosTimer()`,
+  `setResultadosTarget(min)`; desenho em `renderResultadosTimer()`.
+- **Teclado e swipe:** os handlers globais checam `resultadosSlidesVisible()` **antes**
+  do guard da Documentação — setas ← → navegam e **espaço pausa/retoma** o cronômetro
+  (com `preventDefault`, então o espaço não rola a página durante a apresentação).
+  Preserve essa ordem ao mexer nos handlers.
 - **Para registrar uma nova quinzena:** adicione um objeto **no início** de
-  `apresentacoesQuinzenais`. Seletor de data, filtros por entrega e estatísticas se
-  ajustam sozinhos.
+  `apresentacoesQuinzenais`. Seletor de data, roteiro, slides, contadores e alvo do
+  cronômetro se ajustam sozinhos.
 
 ### Tema (dark/light)
 

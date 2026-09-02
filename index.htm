@@ -871,10 +871,11 @@
 
   </main>
 
-  <!-- VIEW 3: Resultados Quinzenais (apresentação recorrente, uma por data) -->
+  <!-- VIEW 3: Resultados Quinzenais (apresentação de slides, uma por data) -->
   <main id="view-resultados" class="w-full view-enter hidden">
 
-    <div class="w-full px-4 sm:px-6 py-8 md:py-12 flex flex-col items-center justify-start">
+    <!-- CAPA: escolha da data + roteiro da apresentação -->
+    <section id="resultados-view-intro" class="w-full px-4 sm:px-6 py-8 md:py-12 flex flex-col items-center justify-start">
       <div class="w-full max-w-[1000px] flex flex-col gap-6">
 
         <!-- Capa / contexto da apresentação -->
@@ -891,15 +892,16 @@
 
           <div class="relative z-10">
             <span class="inline-block py-0.5 px-3 border border-accent/20 text-[10px] font-bold tracking-widest bg-accent/10 text-accent dark:bg-white/5 dark:text-white/70 uppercase w-max mb-4 rounded-full">
-              RESULTADOS • RECORRÊNCIA QUINZENAL
+              RESULTADOS • APRESENTAÇÃO QUINZENAL
             </span>
             <h1 class="text-4xl md:text-6xl font-black tracking-tighter uppercase text-ink dark:text-white leading-[0.85] font-satoshi mt-2">
               O que saiu do papel nesta <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-[#72A68C] italic font-light tracking-tight">quinzena.</span>
             </h1>
             <p class="text-base text-ink-light dark:text-white/70 font-medium mt-6 font-satoshi max-w-xl leading-relaxed">
-              Registro contínuo das entregas de produto e design, arquivado por <strong>data de apresentação</strong>.
-              Cada entrega responde às mesmas três perguntas: <strong>o que foi feito</strong>,
-              <strong>por que é um bom produto</strong> e <strong>como pode gerar faturamento</strong>.
+              Apresentação de slides das entregas de produto e design, arquivada por <strong>data de apresentação</strong>
+              e com <strong>cronômetro</strong> para segurar o tempo. Cada entrega responde às mesmas três perguntas:
+              <strong>o que foi feito</strong>, <strong>por que é um bom produto</strong> e
+              <strong>como pode gerar faturamento</strong>.
             </p>
 
             <div class="border-b border-paper-dark dark:border-white/10 my-8"></div>
@@ -933,13 +935,112 @@
           </div>
         </div>
 
-        <!-- Apresentação selecionada (cards por entrega) -->
+        <!-- Roteiro da apresentação selecionada -->
         <div id="resultados-report" class="w-full flex flex-col gap-6">
           <!-- Injetado via JS -->
         </div>
 
       </div>
-    </div>
+    </section>
+
+    <!-- SLIDES: a apresentação em si, com cronômetro -->
+    <section id="resultados-view-slides" class="w-full px-4 py-6 md:py-10 flex flex-col items-center justify-start min-h-[calc(100vh-80px)] hidden">
+
+      <div class="w-full max-w-[1000px] bg-white dark:bg-[#1A1A1A] border border-paper-dark dark:border-white/5 shadow-xl shadow-black/5 dark:shadow-white/5 p-6 md:p-10 flex flex-col rounded-[4px] relative overflow-visible">
+
+        <!-- Top bar do slide -->
+        <div class="flex flex-col md:flex-row md:items-end justify-between border-b border-paper-dark dark:border-white/10 pb-4 mb-6 gap-4 md:gap-6 relative z-10">
+          <div class="relative w-full md:w-auto text-center md:text-left cursor-pointer group" onclick="backToResultadosIntro()">
+            <h1 class="text-xl md:text-2xl font-black tracking-tighter uppercase text-ink dark:text-white leading-[0.85] font-satoshi mt-2 md:mt-0 flex items-center gap-3 transition-transform group-hover:-translate-x-1">
+              <span class="text-ink-light text-sm"><i class="fa-solid fa-arrow-left"></i></span>
+              Resultados <span id="resultados-slide-date" class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-[#72A68C] italic font-light tracking-tight ml-1">02/09/2026</span>
+            </h1>
+          </div>
+
+          <div class="w-full md:w-1/3 flex flex-col justify-end block mt-4 md:mt-0">
+            <div class="flex justify-between items-end mb-2">
+              <span class="text-[9px] uppercase font-bold tracking-widest text-ink-light dark:text-white/50">Progresso</span>
+              <span id="resultados-slide-counter" class="text-xs font-bold text-ink dark:text-white">01/08</span>
+            </div>
+            <div class="w-full h-[2px] bg-paper-dark dark:bg-white/10 relative overflow-hidden rounded-full">
+              <div id="resultados-progress-bar" class="absolute top-0 left-0 h-full bg-accent transition-all duration-500 ease-out" style="width: 0%"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cronômetro da apresentação -->
+        <div class="w-full border border-paper-dark dark:border-white/10 rounded-[3px] bg-paper-dark/10 dark:bg-white/5 p-4 mb-8 flex flex-col gap-3 relative z-10">
+          <div class="flex flex-wrap items-center justify-between gap-4">
+
+            <!-- Tempos -->
+            <div class="flex items-center gap-4 sm:gap-6">
+              <div class="text-left">
+                <span class="block text-[9px] uppercase tracking-widest font-bold text-ink-light dark:text-white/40">Tempo total</span>
+                <span class="flex items-baseline gap-1.5">
+                  <span id="resultados-timer-total" class="text-xl sm:text-2xl font-black tabular-nums text-ink dark:text-white leading-none">00:00</span>
+                  <span class="text-[10px] font-bold text-ink-light dark:text-white/40">/ <span id="resultados-timer-target">15:00</span></span>
+                </span>
+              </div>
+              <div class="w-px h-8 bg-paper-dark dark:bg-white/10"></div>
+              <div class="text-left">
+                <span class="block text-[9px] uppercase tracking-widest font-bold text-ink-light dark:text-white/40">Neste slide</span>
+                <span class="flex items-baseline gap-1.5">
+                  <span id="resultados-timer-slide" class="text-xl sm:text-2xl font-black tabular-nums text-ink dark:text-white leading-none">00:00</span>
+                  <span class="text-[10px] font-bold text-ink-light dark:text-white/40">/ <span id="resultados-timer-slide-target">02:00</span></span>
+                </span>
+              </div>
+            </div>
+
+            <!-- Controles -->
+            <div class="flex items-center gap-2">
+              <button id="resultados-timer-toggle" onclick="toggleResultadosTimer()" class="px-4 py-2 rounded-[2px] text-[10px] uppercase tracking-widest font-bold bg-ink text-paper dark:bg-white dark:text-[#121212] hover:opacity-80 transition-opacity flex items-center gap-2" title="Pausar ou retomar o cronômetro">
+                <i class="fa-solid fa-pause"></i> <span id="resultados-timer-toggle-label">Pausar</span>
+              </button>
+              <button onclick="resetResultadosTimer()" class="px-3 py-2 rounded-[2px] text-[10px] uppercase tracking-widest font-bold border border-paper-dark dark:border-white/10 text-ink-light dark:text-white/50 hover:text-ink dark:hover:text-white transition-colors" title="Zerar o cronômetro">
+                <i class="fa-solid fa-rotate-left"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Barra do tempo do slide atual -->
+          <div class="w-full h-[3px] bg-paper-dark dark:bg-white/10 relative overflow-hidden rounded-full">
+            <div id="resultados-timer-bar" class="absolute top-0 left-0 h-full bg-accent transition-[width] duration-200 ease-linear" style="width: 0%"></div>
+          </div>
+
+          <!-- Duração alvo da apresentação -->
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="text-[9px] uppercase tracking-widest font-bold text-ink-light dark:text-white/40 mr-1">Duração alvo</span>
+            <div id="resultados-target-nav" class="flex flex-wrap gap-1.5">
+              <!-- Injetado via JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Conteúdo do slide -->
+        <div id="resultados-slide-content" class="w-full flex flex-col gap-5 text-left min-h-[380px] relative z-10">
+          <!-- Injetado via JS -->
+        </div>
+
+        <!-- Navegação -->
+        <div class="w-full flex flex-col-reverse md:flex-row justify-between items-center mt-10 pt-6 border-t border-paper-dark dark:border-white/10 gap-4 md:gap-0 relative z-10">
+          <button id="resultados-btn-prev" onclick="resultadosPrev()" class="w-full md:w-auto justify-center md:justify-start text-[11px] uppercase tracking-widest font-bold text-ink-light hover:text-ink dark:text-white/50 dark:hover:text-white disabled:opacity-0 transition-all hover:-translate-x-1 flex items-center gap-2 py-3 md:py-0">
+            <i class="fa-solid fa-arrow-left"></i> Anterior
+          </button>
+
+          <button id="resultados-btn-next" onclick="resultadosNext()" class="w-full md:w-auto justify-center px-10 py-4 bg-ink text-paper dark:bg-white dark:text-[#121212] text-[11px] uppercase tracking-widest font-bold hover:bg-ink-light dark:hover:bg-white/80 disabled:opacity-30 transition-all hover:translate-x-1 hover:shadow-lg flex items-center gap-2 rounded-[2px]">
+            Próximo <i class="fa-solid fa-arrow-right"></i>
+          </button>
+
+          <button id="resultados-btn-restart" onclick="startResultadosDeck()" class="w-full md:w-auto justify-center hidden px-10 py-4 border border-paper-dark dark:border-white/20 text-ink dark:text-white text-[11px] uppercase tracking-widest font-bold hover:bg-paper-dark/10 dark:hover:bg-white/5 transition-colors rounded-[2px]">
+            <i class="fa-solid fa-rotate-left mr-2"></i> Recomeçar apresentação
+          </button>
+        </div>
+      </div>
+
+      <p class="hidden md:block text-[10px] text-ink-light/70 dark:text-white/30 mt-4 font-medium tracking-wide">
+        <i class="fa-regular fa-keyboard mr-1"></i> Use as setas <span class="font-bold">←</span> e <span class="font-bold">→</span> do teclado para navegar
+      </p>
+    </section>
   </main>
 
   <!-- VIEW 4: Manifesto de Design -->
@@ -4282,8 +4383,20 @@
       }
     ];
 
+    // --- ESTADO DA APRESENTAÇÃO ---------------------------------------------
+    // `activeQuinzena` = data aberta; `activeQuinzenaSlide` = índice do slide.
+    // A apresentação tem dois modos, como os decks da Documentação: a capa
+    // (`resultados-view-intro`) e os slides (`resultados-view-slides`).
     let activeQuinzena = apresentacoesQuinzenais.length ? apresentacoesQuinzenais[0].id : null;
-    let activeQuinzenaEntrega = 'all';
+    let activeQuinzenaSlide = 0;
+
+    // Duração alvo da apresentação (minutos). O alvo por slide é a divisão
+    // desse total pela quantidade de slides.
+    const resultadosTargetOptions = [10, 15, 20, 30];
+    let resultadosTarget = 15;
+
+    // Cronômetro: acumula em milissegundos e só corre com os slides visíveis.
+    const resultadosTimer = { running: false, totalMs: 0, slideMs: 0, lastTick: null, ticker: null };
 
     function getQuinzena() {
       return apresentacoesQuinzenais.find(a => a.id === activeQuinzena) || null;
@@ -4296,81 +4409,385 @@
         total + d.what.length + d.why.length + d.revenue.length + ((d.next || []).length), 0);
     }
 
+    // Roteiro da apresentação: abertura + uma entrega por slide + fechamento.
+    // A `key` de cada slide é o que vai para a URL.
+    function getResultadoSlides() {
+      const apresentacao = getQuinzena();
+      if (!apresentacao) return [];
+      return [{ key: 'abertura', kind: 'abertura', themeKey: 'default' }]
+        .concat(apresentacao.deliveries.map(d => ({ key: d.key, kind: 'entrega', themeKey: d.themeKey, delivery: d })))
+        .concat([{ key: 'fechamento', kind: 'fechamento', themeKey: 'default' }]);
+    }
+
     function switchQuinzena(quinzenaId) {
       activeQuinzena = quinzenaId;
-      activeQuinzenaEntrega = 'all';
+      activeQuinzenaSlide = 0;
       renderResultados();
     }
 
-    function filterQuinzenaEntrega(entregaKey) {
-      activeQuinzenaEntrega = entregaKey;
+    // =========================================================================
+    // CRONÔMETRO DA APRESENTAÇÃO
+    // =========================================================================
+    function formatClock(ms) {
+      const total = Math.max(0, Math.floor(ms / 1000));
+      const min = String(Math.floor(total / 60)).padStart(2, '0');
+      const sec = String(total % 60).padStart(2, '0');
+      return `${min}:${sec}`;
+    }
+
+    function resultadosSlideTargetMs() {
+      const slides = getResultadoSlides();
+      if (!slides.length) return resultadosTarget * 60000;
+      return (resultadosTarget * 60000) / slides.length;
+    }
+
+    function resultadosSlidesVisible() {
+      const view = document.getElementById('view-resultados');
+      const slidesView = document.getElementById('resultados-view-slides');
+      return !!view && !view.classList.contains('hidden')
+        && !!slidesView && !slidesView.classList.contains('hidden');
+    }
+
+    function startResultadosTimer() {
+      resultadosTimer.running = true;
+      resultadosTimer.lastTick = Date.now();
+      if (!resultadosTimer.ticker) resultadosTimer.ticker = setInterval(tickResultadosTimer, 250);
+      renderResultadosTimer();
+    }
+
+    function toggleResultadosTimer() {
+      if (resultadosTimer.running) {
+        tickResultadosTimer();
+        resultadosTimer.running = false;
+        renderResultadosTimer();
+      } else {
+        startResultadosTimer();
+      }
+    }
+
+    function resetResultadosTimer() {
+      resultadosTimer.totalMs = 0;
+      resultadosTimer.slideMs = 0;
+      resultadosTimer.lastTick = Date.now();
+      renderResultadosTimer();
+    }
+
+    function resetResultadosSlideTimer() {
+      resultadosTimer.slideMs = 0;
+      resultadosTimer.lastTick = Date.now();
+    }
+
+    function setResultadosTarget(minutes) {
+      resultadosTarget = minutes;
+      renderResultadosTimer();
+    }
+
+    // Acumula o tempo decorrido. Fora dos slides (outra aba, capa) o cronômetro
+    // segura sozinho, para não contar tempo que não é de apresentação.
+    function tickResultadosTimer() {
+      const now = Date.now();
+      const last = resultadosTimer.lastTick || now;
+      resultadosTimer.lastTick = now;
+
+      if (!resultadosTimer.running || !resultadosSlidesVisible()) {
+        renderResultadosTimer();
+        return;
+      }
+
+      const delta = now - last;
+      resultadosTimer.totalMs += delta;
+      resultadosTimer.slideMs += delta;
+      renderResultadosTimer();
+    }
+
+    function renderResultadosTimer() {
+      const totalEl = document.getElementById('resultados-timer-total');
+      if (!totalEl) return;
+
+      const slideTarget = resultadosSlideTargetMs();
+      const totalTarget = resultadosTarget * 60000;
+
+      totalEl.innerText = formatClock(resultadosTimer.totalMs);
+      totalEl.className = `text-xl sm:text-2xl font-black tabular-nums leading-none ${
+        resultadosTimer.totalMs > totalTarget ? 'text-danger' : 'text-ink dark:text-white'
+      }`;
+      document.getElementById('resultados-timer-target').innerText = formatClock(totalTarget);
+
+      const slideEl = document.getElementById('resultados-timer-slide');
+      slideEl.innerText = formatClock(resultadosTimer.slideMs);
+      slideEl.className = `text-xl sm:text-2xl font-black tabular-nums leading-none ${
+        resultadosTimer.slideMs > slideTarget ? 'text-danger' : 'text-ink dark:text-white'
+      }`;
+      document.getElementById('resultados-timer-slide-target').innerText = formatClock(slideTarget);
+
+      // Barra do slide: verde até 80% do alvo, laranja no fim, vermelha ao estourar
+      const ratio = slideTarget ? resultadosTimer.slideMs / slideTarget : 0;
+      const bar = document.getElementById('resultados-timer-bar');
+      bar.style.width = `${Math.min(100, ratio * 100)}%`;
+      bar.style.backgroundColor = ratio > 1 ? '#C0392B' : (ratio > 0.8 ? '#FF6B35' : '#38805A');
+
+      // Botão de pausa/retomada
+      const toggle = document.getElementById('resultados-timer-toggle');
+      const label = document.getElementById('resultados-timer-toggle-label');
+      const rodando = resultadosTimer.running;
+      label.innerText = rodando ? 'Pausar' : 'Retomar';
+      toggle.innerHTML = `<i class="fa-solid ${rodando ? 'fa-pause' : 'fa-play'}"></i> <span id="resultados-timer-toggle-label">${rodando ? 'Pausar' : 'Retomar'}</span>`;
+      toggle.className = `px-4 py-2 rounded-[2px] text-[10px] uppercase tracking-widest font-bold transition-opacity hover:opacity-80 flex items-center gap-2 ${
+        rodando
+          ? 'bg-ink text-paper dark:bg-white dark:text-[#121212]'
+          : 'bg-accent text-white'
+      }`;
+
+      // Seletor de duração alvo
+      const targetNav = document.getElementById('resultados-target-nav');
+      targetNav.innerHTML = resultadosTargetOptions.map(min => `
+        <button onclick="setResultadosTarget(${min})" class="px-2.5 py-1 rounded-full text-[9px] uppercase tracking-widest font-bold transition-colors border ${
+          min === resultadosTarget
+            ? 'bg-accent/10 text-accent border-accent/30 dark:bg-white/10 dark:text-white dark:border-white/20'
+            : 'border-paper-dark dark:border-white/10 text-ink-light dark:text-white/40 hover:text-ink dark:hover:text-white'
+        }">${min} min</button>
+      `).join('');
+    }
+
+    // =========================================================================
+    // NAVEGAÇÃO DA APRESENTAÇÃO
+    // =========================================================================
+    function switchResultadosView(view) {
+      ['intro', 'slides'].forEach(v => {
+        const el = document.getElementById(`resultados-view-${v}`);
+        if (el) el.classList.add('hidden');
+      });
+      const target = document.getElementById(`resultados-view-${view}`);
+      if (target) target.classList.remove('hidden');
+    }
+
+    // Abre a apresentação (opcionalmente já num slide específico)
+    function startResultadosDeck(slideKey) {
+      const slides = getResultadoSlides();
+      if (!slides.length) return;
+      const index = slideKey ? slides.findIndex(s => s.key === slideKey) : 0;
+      activeQuinzenaSlide = index >= 0 ? index : 0;
+      switchResultadosView('slides');
+      resetResultadosTimer();
+      startResultadosTimer();
+      renderResultadoSlide();
+    }
+
+    function backToResultadosIntro() {
+      switchResultadosView('intro');
+      resultadosTimer.running = false;
       renderResultados();
     }
 
-    function resultadoDeliveryCardHtml(delivery) {
-      const theme = colorThemes[delivery.themeKey || 'default'];
+    function goToResultadoSlide(index) {
+      const slides = getResultadoSlides();
+      if (index < 0 || index >= slides.length) return;
+      activeQuinzenaSlide = index;
+      resetResultadosSlideTimer();
+      renderResultadoSlide();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
 
+    function resultadosNext() { goToResultadoSlide(activeQuinzenaSlide + 1); }
+    function resultadosPrev() { goToResultadoSlide(activeQuinzenaSlide - 1); }
+
+    // Pula direto para uma entrega a partir do roteiro da capa
+    function abrirEntregaQuinzena(entregaKey) {
+      startResultadosDeck(entregaKey);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // =========================================================================
+    // CONTEÚDO DOS SLIDES
+    // =========================================================================
+    function resultadoBlocoHtml(titulo, icone, itens, theme, destaque) {
       return `
-        <article class="w-full bg-white dark:bg-[#1A1A1A] border border-paper-dark dark:border-white/5 shadow-xl shadow-black/5 dark:shadow-white/5 rounded-[4px] p-6 md:p-8 slide-item">
-
-          <div class="flex flex-wrap items-start justify-between gap-4 border-b border-paper-dark dark:border-white/10 pb-4 mb-6">
-            <div class="flex items-start gap-3">
-              <span class="w-9 h-9 rounded-[3px] flex items-center justify-center shrink-0 ${theme.bg} ${theme.text} border ${theme.border}">
-                <i class="fa-solid ${delivery.icon}"></i>
-              </span>
-              <div>
-                <h3 class="text-lg md:text-xl font-black uppercase tracking-tighter text-ink dark:text-white leading-none">${delivery.name}</h3>
-                <span class="text-[10px] uppercase tracking-widest font-bold text-ink-light dark:text-white/40">${delivery.page}</span>
-              </div>
-            </div>
-            <div class="flex flex-wrap items-center gap-2">
-              <span class="inline-block py-1 px-3 border text-[9px] font-bold tracking-widest uppercase rounded-full ${theme.text} ${theme.bg} ${theme.border}">
-                ${delivery.kind}
-              </span>
-              ${delivery.stage ? `
-                <span class="inline-block py-1 px-3 border border-paper-dark dark:border-white/10 text-[9px] font-bold tracking-widest uppercase rounded-full text-ink-light dark:text-white/40">
-                  <i class="fa-solid fa-flag-checkered mr-1.5 opacity-60"></i>${delivery.stage}
-                </span>` : ''}
-            </div>
-          </div>
-
-          ${delivery.summary ? `
-            <p class="text-sm text-ink-light dark:text-white/70 leading-relaxed font-medium border-l-4 ${theme.borderLeft} pl-4 py-1 mb-6">${delivery.summary}</p>` : ''}
-
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-            <section>
-              <h4 class="text-[10px] uppercase tracking-widest font-bold text-ink-light dark:text-white/40 mb-4 flex items-center gap-2">
-                <i class="fa-solid fa-screwdriver-wrench ${theme.text}"></i> O que foi feito
-              </h4>
-              <ul class="flex flex-col gap-4">${clarityListHtml(delivery.what, theme)}</ul>
-            </section>
-            <section class="border-paper-dark dark:border-white/10 md:border-l md:pl-8">
-              <h4 class="text-[10px] uppercase tracking-widest font-bold text-ink-light dark:text-white/40 mb-4 flex items-center gap-2">
-                <i class="fa-regular fa-gem ${theme.text}"></i> Por que é um bom produto
-              </h4>
-              <ul class="flex flex-col gap-4">${clarityListHtml(delivery.why, theme)}</ul>
-            </section>
-          </div>
-
-          <!-- Bloco de faturamento: a leitura que interessa à liderança -->
-          <section class="mt-6 md:mt-8 p-5 md:p-6 rounded-[3px] border ${theme.border} ${theme.bg}">
-            <h4 class="text-[10px] uppercase tracking-widest font-bold ${theme.text} mb-4 flex items-center gap-2">
-              <i class="fa-solid fa-sack-dollar"></i> Como pode gerar faturamento
-            </h4>
-            <ul class="flex flex-col gap-4">${clarityListHtml(delivery.revenue, theme)}</ul>
-          </section>
-
-          ${(delivery.next && delivery.next.length) ? `
-            <section class="mt-6">
-              <h4 class="text-[10px] uppercase tracking-widest font-bold text-ink-light dark:text-white/40 mb-4 flex items-center gap-2">
-                <i class="fa-solid fa-arrow-trend-up ${theme.text}"></i> Próximos passos
-              </h4>
-              <ul class="flex flex-col gap-4">${clarityListHtml(delivery.next, theme)}</ul>
-            </section>` : ''}
-        </article>
+        <section class="${destaque ? `p-5 rounded-[3px] border ${theme.border} ${theme.bg}` : ''}">
+          <h4 class="text-[10px] uppercase tracking-widest font-bold ${destaque ? theme.text : 'text-ink-light dark:text-white/40'} mb-4 flex items-center gap-2">
+            <i class="fa-solid ${icone} ${destaque ? '' : theme.text}"></i> ${titulo}
+          </h4>
+          <ul class="flex flex-col gap-4">${clarityListHtml(itens, theme)}</ul>
+        </section>
       `;
     }
 
+    function resultadoSlideAberturaHtml(apresentacao, theme) {
+      const roteiro = apresentacao.deliveries.map((d, i) => {
+        const t = colorThemes[d.themeKey || 'default'];
+        return `
+          <button onclick="goToResultadoSlide(${i + 1})" class="text-left flex items-start gap-3 p-3 rounded-[3px] border border-paper-dark dark:border-white/10 hover:bg-paper-dark/10 dark:hover:bg-white/5 transition-colors">
+            <span class="w-7 h-7 rounded-[3px] flex items-center justify-center shrink-0 ${t.bg} ${t.text} border ${t.border}">
+              <i class="fa-solid ${d.icon} text-[11px]"></i>
+            </span>
+            <span class="min-w-0">
+              <span class="block text-[13px] font-bold text-ink dark:text-white leading-tight">${d.name}</span>
+              <span class="block text-[10px] uppercase tracking-widest font-bold text-ink-light dark:text-white/40 mt-0.5">${d.kind}</span>
+            </span>
+          </button>
+        `;
+      }).join('');
+
+      return `
+        <div class="flex flex-col gap-2">
+          <span class="inline-block py-1 px-3 border text-[9px] font-bold tracking-widest uppercase w-max rounded-full ${theme.text} ${theme.bg} ${theme.border}">Abertura</span>
+          <h2 class="text-3xl md:text-5xl font-black tracking-tighter uppercase text-ink dark:text-white leading-[0.9] font-satoshi mt-2">
+            ${apresentacao.label} <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-[#72A68C] italic font-light tracking-tight">${apresentacao.date}</span>
+          </h2>
+          <span class="text-[10px] uppercase tracking-widest font-bold text-ink-light dark:text-white/40">${apresentacao.period || apresentacao.focus}</span>
+        </div>
+
+        <p class="text-base text-ink-light dark:text-white/75 leading-relaxed font-medium border-l-4 ${theme.borderLeft} pl-4 py-1">${apresentacao.summary}</p>
+
+        <div class="flex gap-4 flex-wrap">
+          <div class="text-left">
+            <span class="block text-2xl font-black text-ink dark:text-white">${apresentacao.deliveries.length}</span>
+            <span class="text-[9px] uppercase tracking-widest font-bold text-ink-light">Entregas</span>
+          </div>
+          <div class="w-px h-10 bg-paper-dark dark:bg-white/10"></div>
+          <div class="text-left">
+            <span class="block text-2xl font-black text-ink dark:text-white">${quinzenaPontosCount(apresentacao)}</span>
+            <span class="text-[9px] uppercase tracking-widest font-bold text-ink-light">Pontos Apresentados</span>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="text-[10px] uppercase tracking-widest font-bold text-ink-light dark:text-white/40 mb-4 flex items-center gap-2">
+            <i class="fa-solid fa-list-ol ${theme.text}"></i> Roteiro desta apresentação
+          </h4>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">${roteiro}</div>
+        </div>
+      `;
+    }
+
+    function resultadoSlideEntregaHtml(delivery, theme, posicao, total) {
+      return `
+        <div class="flex flex-wrap items-start justify-between gap-4">
+          <div class="flex items-start gap-3">
+            <span class="w-11 h-11 rounded-[3px] flex items-center justify-center shrink-0 ${theme.bg} ${theme.text} border ${theme.border}">
+              <i class="fa-solid ${delivery.icon} text-lg"></i>
+            </span>
+            <div>
+              <span class="inline-block py-1 px-3 border text-[9px] font-bold tracking-widest uppercase rounded-full mb-2 ${theme.text} ${theme.bg} ${theme.border}">
+                ${delivery.kind} • Entrega ${posicao}/${total}
+              </span>
+              <h2 class="text-2xl md:text-4xl font-black tracking-tighter uppercase text-ink dark:text-white leading-[0.9] font-satoshi">${delivery.name}</h2>
+              <span class="text-[10px] uppercase tracking-widest font-bold text-ink-light dark:text-white/40">${delivery.page}</span>
+            </div>
+          </div>
+          ${delivery.stage ? `
+            <span class="inline-block py-1 px-3 border border-paper-dark dark:border-white/10 text-[9px] font-bold tracking-widest uppercase rounded-full text-ink-light dark:text-white/40">
+              <i class="fa-solid fa-flag-checkered mr-1.5 opacity-60"></i>${delivery.stage}
+            </span>` : ''}
+        </div>
+
+        ${delivery.summary ? `
+          <p class="text-sm md:text-base text-ink-light dark:text-white/75 leading-relaxed font-medium border-l-4 ${theme.borderLeft} pl-4 py-1">${delivery.summary}</p>` : ''}
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+          ${resultadoBlocoHtml('O que foi feito', 'fa-screwdriver-wrench', delivery.what, theme, false)}
+          ${resultadoBlocoHtml('Por que é um bom produto', 'fa-gem', delivery.why, theme, false)}
+        </div>
+
+        ${resultadoBlocoHtml('Como pode gerar faturamento', 'fa-sack-dollar', delivery.revenue, theme, true)}
+
+        ${(delivery.next && delivery.next.length)
+          ? resultadoBlocoHtml('Próximos passos', 'fa-arrow-trend-up', delivery.next, theme, false)
+          : ''}
+      `;
+    }
+
+    function resultadoSlideFechamentoHtml(apresentacao, theme) {
+      const proximos = apresentacao.deliveries
+        .filter(d => d.next && d.next.length)
+        .map(d => {
+          const t = colorThemes[d.themeKey || 'default'];
+          return `
+            <div class="p-4 rounded-[3px] border border-paper-dark dark:border-white/10">
+              <span class="flex items-center gap-2 text-[10px] uppercase tracking-widest font-bold ${t.text} mb-3">
+                <i class="fa-solid ${d.icon}"></i> ${d.name}
+              </span>
+              <ul class="flex flex-col gap-3">${clarityListHtml(d.next, t)}</ul>
+            </div>
+          `;
+        }).join('');
+
+      return `
+        <div class="flex flex-col gap-2">
+          <span class="inline-block py-1 px-3 border text-[9px] font-bold tracking-widest uppercase w-max rounded-full ${theme.text} ${theme.bg} ${theme.border}">Fechamento</span>
+          <h2 class="text-3xl md:text-5xl font-black tracking-tighter uppercase text-ink dark:text-white leading-[0.9] font-satoshi mt-2">
+            O que fica de <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-[#72A68C] italic font-light tracking-tight">pé.</span>
+          </h2>
+          <span class="text-[10px] uppercase tracking-widest font-bold text-ink-light dark:text-white/40">
+            ${apresentacao.deliveries.length} entregas apresentadas em ${apresentacao.date}
+          </span>
+        </div>
+
+        ${proximos ? `
+          <div>
+            <h4 class="text-[10px] uppercase tracking-widest font-bold text-ink-light dark:text-white/40 mb-4 flex items-center gap-2">
+              <i class="fa-solid fa-arrow-trend-up ${theme.text}"></i> Próximos passos combinados
+            </h4>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">${proximos}</div>
+          </div>` : ''}
+
+        <div class="p-5 rounded-[3px] border ${theme.border} ${theme.bg}">
+          <p class="text-sm ${theme.text} font-bold leading-relaxed">
+            <i class="fa-solid fa-comments mr-2"></i> Espaço para dúvidas, prioridades e o que entra na próxima quinzena.
+          </p>
+        </div>
+      `;
+    }
+
+    function renderResultadoSlide() {
+      const contentEl = document.getElementById('resultados-slide-content');
+      if (!contentEl) return;
+
+      const apresentacao = getQuinzena();
+      const slides = getResultadoSlides();
+      const slide = slides[activeQuinzenaSlide];
+      if (!apresentacao || !slide) return;
+
+      const theme = colorThemes[slide.themeKey || 'default'];
+
+      // Contador e barra de progresso
+      document.getElementById('resultados-slide-date').innerText = apresentacao.date;
+      document.getElementById('resultados-slide-counter').innerText =
+        `${String(activeQuinzenaSlide + 1).padStart(2, '0')}/${String(slides.length).padStart(2, '0')}`;
+      const progressBar = document.getElementById('resultados-progress-bar');
+      progressBar.style.width = `${((activeQuinzenaSlide + 1) / slides.length) * 100}%`;
+      progressBar.style.backgroundColor = theme.hex;
+
+      if (slide.kind === 'abertura') {
+        contentEl.innerHTML = resultadoSlideAberturaHtml(apresentacao, theme);
+      } else if (slide.kind === 'fechamento') {
+        contentEl.innerHTML = resultadoSlideFechamentoHtml(apresentacao, theme);
+      } else {
+        contentEl.innerHTML = resultadoSlideEntregaHtml(slide.delivery, theme, activeQuinzenaSlide, apresentacao.deliveries.length);
+      }
+
+      // Entrada escalonada dos blocos do slide
+      Array.from(contentEl.children).forEach((el, i) => {
+        el.classList.add('slide-item');
+        el.style.animationDelay = `${0.05 + i * 0.08}s`;
+      });
+
+      // Botões de navegação (no último slide, "Próximo" dá lugar a "Recomeçar")
+      const isLast = activeQuinzenaSlide === slides.length - 1;
+      const btnNext = document.getElementById('resultados-btn-next');
+      const btnRestart = document.getElementById('resultados-btn-restart');
+      document.getElementById('resultados-btn-prev').disabled = activeQuinzenaSlide === 0;
+      btnNext.classList.toggle('hidden', isLast);
+      btnNext.classList.toggle('flex', !isLast);
+      btnRestart.classList.toggle('hidden', !isLast);
+      btnRestart.classList.toggle('flex', isLast);
+
+      renderResultadosTimer();
+      syncRoute(false);
+    }
+
+    // =========================================================================
+    // CAPA — escolha da data e roteiro da apresentação
+    // =========================================================================
     function renderResultados() {
       const dateNav = document.getElementById('resultados-date-nav');
       const reportEl = document.getElementById('resultados-report');
@@ -4407,23 +4824,25 @@
       document.getElementById('resultados-stat-entregas').innerText = apresentacao.deliveries.length;
       document.getElementById('resultados-stat-frentes').innerText = frentes.size;
 
-      const visibleDeliveries = activeQuinzenaEntrega === 'all'
-        ? apresentacao.deliveries
-        : apresentacao.deliveries.filter(d => d.key === activeQuinzenaEntrega);
+      const totalSlides = getResultadoSlides().length;
 
-      const deliveryFilters = [{ key: 'all', name: 'Todas as entregas', page: '' }]
-        .concat(apresentacao.deliveries)
-        .map(d => {
-          const active = d.key === activeQuinzenaEntrega;
-          const label = d.page ? `${d.name} <span class="opacity-60">· ${d.page}</span>` : d.name;
-          return `
-            <button onclick="filterQuinzenaEntrega('${d.key}')" class="px-3 py-1.5 rounded-full text-[10px] uppercase tracking-widest font-bold transition-colors border ${
-              active
-                ? 'bg-accent/10 text-accent border-accent/30 dark:bg-white/10 dark:text-white dark:border-white/20'
-                : 'border-paper-dark dark:border-white/10 text-ink-light dark:text-white/40 hover:text-ink dark:hover:text-white'
-            }">${label}</button>
-          `;
-        }).join('');
+      const roteiro = apresentacao.deliveries.map((d, i) => {
+        const t = colorThemes[d.themeKey || 'default'];
+        return `
+          <button onclick="abrirEntregaQuinzena('${d.key}')" class="text-left flex items-start gap-3 p-4 rounded-[3px] border border-paper-dark dark:border-white/10 hover:bg-paper-dark/10 dark:hover:bg-white/5 transition-colors group">
+            <span class="w-9 h-9 rounded-[3px] flex items-center justify-center shrink-0 ${t.bg} ${t.text} border ${t.border}">
+              <i class="fa-solid ${d.icon}"></i>
+            </span>
+            <span class="min-w-0 flex-1">
+              <span class="block text-sm font-black uppercase tracking-tighter text-ink dark:text-white leading-tight">${d.name}</span>
+              <span class="block text-[10px] uppercase tracking-widest font-bold text-ink-light dark:text-white/40 mt-1">${d.kind} · ${d.page}</span>
+            </span>
+            <span class="text-[10px] font-bold text-ink-light dark:text-white/30 shrink-0 self-center transition-transform group-hover:translate-x-1">
+              ${String(i + 2).padStart(2, '0')} <i class="fa-solid fa-arrow-right ml-1"></i>
+            </span>
+          </button>
+        `;
+      }).join('');
 
       reportEl.innerHTML = `
         <!-- Cabeçalho da apresentação selecionada -->
@@ -4438,6 +4857,11 @@
             </div>
             <div class="flex gap-4">
               <div class="text-left">
+                <span class="block text-xl font-black text-ink dark:text-white">${totalSlides}</span>
+                <span class="text-[9px] uppercase tracking-widest font-bold text-ink-light">Slides</span>
+              </div>
+              <div class="w-px h-8 bg-paper-dark dark:bg-white/10"></div>
+              <div class="text-left">
                 <span class="block text-xl font-black text-ink dark:text-white">${apresentacao.deliveries.length}</span>
                 <span class="text-[9px] uppercase tracking-widest font-bold text-ink-light">Entregas</span>
               </div>
@@ -4451,16 +4875,24 @@
 
           <p class="text-sm text-ink-light dark:text-white/70 leading-relaxed font-medium border-l-4 border-accent pl-4 py-1">${apresentacao.summary}</p>
 
-          <div class="flex flex-wrap gap-2 pt-1">${deliveryFilters}</div>
+          <div class="flex flex-wrap items-center gap-3 pt-1">
+            <button onclick="startResultadosDeck()" class="px-8 py-4 bg-ink text-paper dark:bg-white dark:text-[#121212] text-[11px] uppercase tracking-widest font-bold hover:bg-ink-light dark:hover:bg-white/80 transition-all hover:translate-x-1 hover:shadow-lg flex items-center gap-2 rounded-[2px]">
+              <i class="fa-solid fa-play"></i> Iniciar apresentação
+            </button>
+            <span class="text-[10px] uppercase tracking-widest font-bold text-ink-light dark:text-white/40">
+              <i class="fa-regular fa-clock mr-1.5"></i> ${totalSlides} slides · cronômetro de ${resultadosTarget} min
+            </span>
+          </div>
         </div>
 
-        ${visibleDeliveries.map(resultadoDeliveryCardHtml).join('')}
+        <!-- Roteiro: atalho direto para cada entrega -->
+        <div class="w-full bg-white dark:bg-[#1A1A1A] border border-paper-dark dark:border-white/5 shadow-xl shadow-black/5 dark:shadow-white/5 rounded-[4px] p-6 md:p-8 flex flex-col gap-4">
+          <span class="text-[9px] uppercase tracking-widest font-bold text-ink-light dark:text-white/40">
+            <i class="fa-solid fa-list-ol mr-1.5"></i> Roteiro da apresentação
+          </span>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3">${roteiro}</div>
+        </div>
       `;
-
-      // Entrada escalonada dos cards de entrega
-      Array.from(reportEl.querySelectorAll('article')).forEach((el, i) => {
-        el.style.animationDelay = `${0.05 + i * 0.08}s`;
-      });
 
       syncRoute(false);
     }
@@ -4473,9 +4905,9 @@
     //   #/pdi                                → aba PDI
     //   #/cronograma                         → Cronograma (todas as categorias)
     //   #/cronograma/per                     → Cronograma filtrado por categoria
-    //   #/resultados                         → Resultados (última apresentação)
-    //   #/resultados/2026-09-02              → Resultados de uma data específica
-    //   #/resultados/2026-09-02/quiz-etfs    → Resultados na data + entrega filtrada
+    //   #/resultados                         → Resultados (capa da última apresentação)
+    //   #/resultados/2026-09-02              → Capa da apresentação de uma data
+    //   #/resultados/2026-09-02/quiz-etfs    → Apresentação aberta naquele slide
     //   #/manifesto                          → Manifesto
     //   #/documentacao/discovery             → capa do deck
     //   #/documentacao/discovery/4           → deck aberto no slide 4
@@ -4507,7 +4939,13 @@
 
       if (currentViewName === 'resultados') {
         if (activeQuinzena) parts.push(activeQuinzena);
-        if (activeQuinzenaEntrega && activeQuinzenaEntrega !== 'all') parts.push(activeQuinzenaEntrega);
+
+        // Sem a key do slide na URL = capa da apresentação
+        const slidesView = document.getElementById('resultados-view-slides');
+        if (slidesView && !slidesView.classList.contains('hidden')) {
+          const slide = getResultadoSlides()[activeQuinzenaSlide];
+          if (slide) parts.push(slide.key);
+        }
       }
 
       if (currentViewName === 'documentacao') {
@@ -4569,9 +5007,17 @@
           activeQuinzena = apresentacao
             ? apresentacao.id
             : (apresentacoesQuinzenais[0] ? apresentacoesQuinzenais[0].id : null);
-          const atual = getQuinzena();
-          activeQuinzenaEntrega = (atual && atual.deliveries.some(d => d.key === parts[2])) ? parts[2] : 'all';
-          renderResultados();
+
+          // Com a key de um slide na URL a apresentação já abre nele; sem ela,
+          // fica na capa (e o cronômetro não corre).
+          const slideIndex = getResultadoSlides().findIndex(sl => sl.key === parts[2]);
+          if (slideIndex >= 0) {
+            startResultadosDeck(parts[2]);
+          } else {
+            switchResultadosView('intro');
+            resultadosTimer.running = false;
+            renderResultados();
+          }
         }
 
         if (view === 'documentacao') {
@@ -4679,6 +5125,14 @@
 
     // --- NAVEGAÇÃO POR TECLADO (setas ← →) ---
     document.addEventListener('keydown', (e) => {
+      // Apresentação de resultados: setas navegam e espaço pausa o cronômetro
+      if (resultadosSlidesVisible()) {
+        if (e.key === 'ArrowRight') resultadosNext();
+        if (e.key === 'ArrowLeft') resultadosPrev();
+        if (e.key === ' ' || e.code === 'Space') { e.preventDefault(); toggleResultadosTimer(); }
+        return;
+      }
+
       const docView = document.getElementById('view-documentacao');
       if (!docView || docView.classList.contains('hidden')) return;
       const slidesView = document.getElementById(`${activeTab}-view-slides`);
@@ -4696,6 +5150,18 @@
 
     document.addEventListener('touchend', (e) => {
       if (touchStartX === null) return;
+
+      // Apresentação de resultados
+      if (resultadosSlidesVisible()) {
+        const delta = e.changedTouches[0].clientX - touchStartX;
+        if (Math.abs(delta) > 60) {
+          if (delta < 0) resultadosNext();
+          else resultadosPrev();
+        }
+        touchStartX = null;
+        return;
+      }
+
       const docView = document.getElementById('view-documentacao');
       if (!docView || docView.classList.contains('hidden')) { touchStartX = null; return; }
       const slidesView = document.getElementById(`${activeTab}-view-slides`);
