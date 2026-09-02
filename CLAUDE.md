@@ -159,6 +159,10 @@ então nada de rotas com `history.pushState` puro. Formato:
   (HTML inline) e as três listas obrigatórias — `what[]` (o que foi feito), `why[]`
   (por que é um bom produto) e `revenue[]` (como pode gerar faturamento) — mais
   `next[]` (próximos passos), opcional.
+- **A área do slide tem altura fixa** (`#resultados-slide-content`: `h-[480px]`,
+  `md:h-[600px]`), para o card não mudar de tamanho a cada slide; o que passar disso
+  rola dentro da própria área, e `renderResultadoSlide()` zera o `scrollTop` na troca.
+  Se o conteúdo estiver rolando, o caminho é cortar texto, não crescer a altura.
 - **Slide é apoio de fala, não documento.** Escreva enxuto: `summary` em uma linha e
   **2–3 itens curtos** por lista (uma frase cada, sem parágrafo). Com 10 minutos e
   ~1:15 por slide, texto demais atrapalha quem apresenta. O detalhamento longo, se

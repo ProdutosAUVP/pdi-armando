@@ -1028,7 +1028,9 @@
         </div>
 
         <!-- Conteúdo do slide -->
-        <div id="resultados-slide-content" class="w-full flex flex-col gap-5 text-left min-h-[380px] relative z-10">
+        <!-- Altura fixa: o card não muda de tamanho entre um slide e outro.
+             Conteúdo mais alto rola dentro da própria área. -->
+        <div id="resultados-slide-content" class="w-full flex flex-col gap-4 md:gap-5 text-left h-[480px] md:h-[600px] overflow-y-auto custom-scrollbar pr-1 relative z-10">
           <!-- Injetado via JS -->
         </div>
 
@@ -4775,6 +4777,9 @@
       } else {
         contentEl.innerHTML = resultadoSlideEntregaHtml(slide.delivery, theme, activeQuinzenaSlide, apresentacao.deliveries.length);
       }
+
+      // A área tem altura fixa: cada slide começa do topo dela
+      contentEl.scrollTop = 0;
 
       // Entrada escalonada dos blocos do slide
       Array.from(contentEl.children).forEach((el, i) => {

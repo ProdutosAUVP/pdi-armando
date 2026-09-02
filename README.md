@@ -80,7 +80,7 @@ A aba **Resultados** é o registro **quinzenal** das entregas, rodado como
 *Iniciar apresentação* abre o deck — abertura, um slide por entrega e o fechamento com
 os próximos passos. Cada entrega responde sempre às mesmas três perguntas — *o que foi
 feito*, *por que é um bom produto* e *como pode gerar faturamento* — em tópicos curtos,
-porque slide é apoio de fala. O bloco de faturamento abre com a **cadeia até a receita**
+porque slide é apoio de fala. A área do slide tem **altura fixa**, então o card não muda de tamanho de um slide para o outro. O bloco de faturamento abre com a **cadeia até a receita**
 (da entrega ao que entra em caixa), e as atualizações mostram o **de → para** do que
 mudou.
 
