@@ -899,7 +899,8 @@
             </h1>
             <p class="text-base text-ink-light dark:text-white/70 font-medium mt-6 font-satoshi max-w-xl leading-relaxed">
               Apresentação de slides das entregas de produto e design, arquivada por <strong>data de apresentação</strong>
-              e com <strong>cronômetro</strong> para segurar o tempo. Cada entrega responde às mesmas três perguntas:
+              e com <strong>cronômetro de 10 minutos</strong> — a duração máxima de cada apresentação.
+              Cada entrega responde às mesmas três perguntas:
               <strong>o que foi feito</strong>, <strong>por que é um bom produto</strong> e
               <strong>como pode gerar faturamento</strong>.
             </p>
@@ -986,8 +987,13 @@
                 <span class="block text-[9px] uppercase tracking-widest font-bold text-ink-light dark:text-white/40">Neste slide</span>
                 <span class="flex items-baseline gap-1.5">
                   <span id="resultados-timer-slide" class="text-xl sm:text-2xl font-black tabular-nums text-ink dark:text-white leading-none">00:00</span>
-                  <span class="text-[10px] font-bold text-ink-light dark:text-white/40">/ <span id="resultados-timer-slide-target">02:00</span></span>
+                  <span class="text-[10px] font-bold text-ink-light dark:text-white/40">/ <span id="resultados-timer-slide-target">01:15</span></span>
                 </span>
+              </div>
+              <div class="w-px h-8 bg-paper-dark dark:bg-white/10"></div>
+              <div class="text-left">
+                <span id="resultados-timer-left-label" class="block text-[9px] uppercase tracking-widest font-bold text-ink-light dark:text-white/40">Restante</span>
+                <span id="resultados-timer-left" class="text-xl sm:text-2xl font-black tabular-nums text-ink dark:text-white leading-none">10:00</span>
               </div>
             </div>
 
@@ -1003,21 +1009,28 @@
           </div>
 
           <!-- Barra do tempo do slide atual -->
-          <div class="w-full h-[3px] bg-paper-dark dark:bg-white/10 relative overflow-hidden rounded-full">
-            <div id="resultados-timer-bar" class="absolute top-0 left-0 h-full bg-accent transition-[width] duration-200 ease-linear" style="width: 0%"></div>
+          <div class="flex flex-col gap-1">
+            <span class="text-[9px] uppercase tracking-widest font-bold text-ink-light dark:text-white/40">Ritmo do slide</span>
+            <div class="w-full h-[3px] bg-paper-dark dark:bg-white/10 relative overflow-hidden rounded-full">
+              <div id="resultados-timer-bar" class="absolute top-0 left-0 h-full bg-accent transition-[width] duration-200 ease-linear" style="width: 0%"></div>
+            </div>
           </div>
 
-          <!-- Duração alvo da apresentação -->
-          <div class="flex flex-wrap items-center gap-2">
-            <span class="text-[9px] uppercase tracking-widest font-bold text-ink-light dark:text-white/40 mr-1">Duração alvo</span>
-            <div id="resultados-target-nav" class="flex flex-wrap gap-1.5">
-              <!-- Injetado via JS -->
+          <!-- Barra do tempo total contra o limite de 10 minutos -->
+          <div class="flex flex-col gap-1">
+            <span class="text-[9px] uppercase tracking-widest font-bold text-ink-light dark:text-white/40">
+              Limite da apresentação <span class="opacity-60">· 10 minutos</span>
+            </span>
+            <div class="w-full h-[3px] bg-paper-dark dark:bg-white/10 relative overflow-hidden rounded-full">
+              <div id="resultados-timer-total-bar" class="absolute top-0 left-0 h-full bg-accent transition-[width] duration-200 ease-linear" style="width: 0%"></div>
             </div>
           </div>
         </div>
 
         <!-- Conteúdo do slide -->
-        <div id="resultados-slide-content" class="w-full flex flex-col gap-5 text-left min-h-[380px] relative z-10">
+        <!-- Altura fixa: o card não muda de tamanho entre um slide e outro.
+             Conteúdo mais alto rola dentro da própria área. -->
+        <div id="resultados-slide-content" class="w-full flex flex-col gap-4 md:gap-5 text-left h-[480px] md:h-[600px] overflow-y-auto custom-scrollbar pr-1 relative z-10">
           <!-- Injetado via JS -->
         </div>
 
@@ -4152,45 +4165,33 @@
         label: "Quinzena 01",
         period: "Quinzena encerrada em 02 de setembro de 2026",
         focus: "Primeira apresentação de resultados",
-        summary: "Quinzena de abertura de frentes: duas páginas novas conceituadas do zero (AUVP Partners e AUVP Advisors), a atualização do Giro Itinerante com a virada de praça para Florianópolis, os materiais do Sistema de Indicações (SI), o sistema padronizado de documentação da consultoria e o quiz de ETFs. O fio condutor é o mesmo: cada entrega abre — ou destrava — uma porta de faturamento que já existia na base.",
+        summary: "Quinzena de abertura de frentes: duas páginas novas conceituadas, o Giro migrado para Florianópolis, os materiais do SI, o padrão de documentação da consultoria e o quiz de ETFs.",
         deliveries: [
           {
             key: "auvp-partners",
             name: "AUVP Partners",
             page: "Conceituação da página",
             kind: "Conceituação",
-            stage: "Conceito validado internamente",
+            stage: "Conceito",
             icon: "fa-handshake",
             themeKey: "default",
-            summary: "Conceituação da página do serviço de <strong>lobby internacional</strong> ofertado pelo Caju, batizado a princípio de <strong>AUVP Partners</strong>: para quem é, o que exatamente se entrega e como a oferta é apresentada.",
+            summary: "Página do serviço de <strong>lobby internacional</strong> ofertado pelo Caju.",
             what: [
-              {
-                text: "Definição do posicionamento da página: a AUVP Partners é apresentada como <strong>porta de entrada para relacionamento internacional</strong>, não como mais um serviço de consultoria.",
-                note: "Nome ainda provisório — a página foi construída para suportar uma troca de marca sem refação."
-              },
-              { text: "Estruturação da narrativa da página: problema (acesso internacional é fechado e caro), a solução ofertada pelo Caju, provas de autoridade e chamada para conversa comercial." },
-              { text: "Recorte de público: cliente de <strong>ticket alto</strong>, que já resolveu a etapa de educação financeira e precisa de acesso, não de conteúdo." }
+              { text: "Posicionamento e narrativa da página definidos." },
+              { text: "Público recortado: ticket alto que precisa de <strong>acesso</strong>, não de conteúdo." }
             ],
             why: [
-              { text: "É um serviço de <strong>alto valor agregado com baixa concorrência direta</strong> no nosso mercado: quase ninguém no ecossistema de educação financeira brasileiro entrega lobby internacional de forma estruturada." },
-              {
-                text: "Vende <strong>acesso</strong>, e acesso não se copia: o ativo é a rede de relacionamento do Caju, algo que um concorrente não replica com mais anúncio ou mais conteúdo.",
-                note: "Barreira de entrada natural — o diferencial não é a página, é quem está atrás dela."
-              },
-              { text: "Aproveita autoridade já construída pela AUVP: o cliente não precisa ser convencido de que confia na casa, só de que o serviço existe." },
-              { text: "Não canibaliza nenhum produto atual — é uma camada acima da régua, para quem já consumiu tudo o que temos." }
+              { text: "Vende acesso — e acesso não se copia com mais anúncio." },
+              { text: "Camada acima da régua atual: não canibaliza nenhum produto." }
             ],
+            revenueFlow: ["Base AUVP", "Página Partners", "Contrato de lobby", "Fee recorrente"],
             revenue: [
-              { text: "<strong>Ticket alto por contrato:</strong> é um serviço de projeto, não de assinatura barata — poucas contratações já pagam a operação da frente." },
-              { text: "<strong>Fee recorrente de manutenção</strong> do relacionamento internacional, transformando um projeto pontual em receita previsível." },
-              {
-                text: "<strong>Upsell na base existente</strong> (Capital, PRO e consultoria): o público qualificado já está dentro de casa, o custo de aquisição é praticamente o custo de comunicar.",
-                note: "Hipótese a medir na primeira campanha para a base."
-              },
-              { text: "<strong>Success fee</strong> por negócio internacional viabilizado, alinhando o ganho da AUVP ao resultado do cliente." }
+              { text: "Ticket alto por contrato." },
+              { text: "Fee recorrente de manutenção do relacionamento." },
+              { text: "Upsell na base: o público qualificado já está dentro de casa." }
             ],
             next: [
-              { text: "Fechar o nome definitivo e rodar a página com tráfego da própria base antes de investir em mídia paga." }
+              { text: "Fechar o nome e rodar a página com tráfego da própria base." }
             ]
           },
           {
@@ -4198,38 +4199,26 @@
             name: "AUVP Advisors",
             page: "Conceituação da página",
             kind: "Conceituação",
-            stage: "Conceito validado internamente",
+            stage: "Conceito",
             icon: "fa-people-arrows",
             themeKey: "blue",
-            summary: "Conceituação da página da <strong>AUVP Advisors</strong>: uma plataforma que conecta clientes a advisors e transforma a capacidade técnica do profissional em <strong>autoridade visível</strong>.",
+            summary: "Plataforma que conecta clientes a advisors — o cliente <strong>compara e decide</strong>.",
             what: [
-              {
-                text: "Definição do posicionamento central: <em>“não somos uma intermediadora comum que indica qualquer profissional”</em> — o próprio cliente compara perfis, analisa competências e <strong>decide ativamente</strong> contratar o advisor.",
-                note: "A transparência é o produto, não um detalhe da página."
-              },
-              { text: "Desenho da página em duas leituras — a do <strong>cliente</strong> (como comparar e escolher) e a do <strong>advisor</strong> (por que vale expor o próprio perfil ali)." },
-              { text: "Estruturação dos blocos de comparação de perfis: competências, especialidades e critérios visíveis, para que a escolha não dependa de indicação pessoal." }
+              { text: "Posicionamento: vitrine transparente, não indicação de balcão." },
+              { text: "Página desenhada para os dois lados: cliente e advisor." }
             ],
             why: [
-              { text: "Resolve uma dor real dos dois lados: o cliente não sabe <strong>como escolher</strong> um advisor, e o bom advisor não tem <strong>vitrine</strong> para provar que é bom." },
-              {
-                text: "Escolha ativa gera <strong>compromisso</strong>: quem compara e decide sozinho chega para a primeira reunião mais convencido do que quem foi apenas encaminhado.",
-                note: "Tende a reduzir atrito comercial e churn logo no início do relacionamento."
-              },
-              { text: "Tem <strong>efeito de rede</strong>: mais advisors bons na plataforma atraem mais clientes, e mais clientes atraem mais advisors — o produto fica melhor sozinho conforme cresce." },
-              { text: "A AUVP entra como <strong>curadora e árbitra do padrão</strong> de qualidade, papel que reforça a marca em vez de diluí-la." }
+              { text: "Resolve as duas dores: escolher bem e ter onde provar competência." },
+              { text: "Efeito de rede: mais advisors atraem mais clientes, e vice-versa." }
             ],
+            revenueFlow: ["Advisor no perfil", "Cliente compara", "Contratação", "Assinatura + comissão"],
             revenue: [
-              { text: "<strong>Assinatura do advisor</strong> para manter perfil ativo na plataforma — receita recorrente que não depende de o cliente fechar." },
-              { text: "<strong>Comissão por contratação</strong> intermediada, com a plataforma ganhando quando o advisor ganha." },
-              { text: "<strong>Planos de destaque</strong> (posição na listagem, selo, portfólio ampliado) como camada premium sobre a assinatura base." },
-              {
-                text: "<strong>Funil para nossos produtos de formação:</strong> quem quer entrar na plataforma precisa atingir o padrão — e o padrão é ensinado pela própria AUVP.",
-                note: "Formação e plataforma se alimentam: a plataforma vira o destino natural de quem se forma aqui."
-              }
+              { text: "Assinatura do advisor pelo perfil ativo." },
+              { text: "Comissão por contratação." },
+              { text: "Planos de destaque na listagem." }
             ],
             next: [
-              { text: "Definir os critérios públicos de comparação de perfis antes de abrir o cadastro de advisors." }
+              { text: "Definir os critérios públicos de comparação de perfis." }
             ]
           },
           {
@@ -4240,143 +4229,96 @@
             stage: "Publicado",
             icon: "fa-route",
             themeKey: "orange",
-            summary: "Atualização da página do <strong>Giro Itinerante</strong> — evento ao vivo de leitura de notícias da bolsa, que roda o Brasil inteiro — migrando a edição de <strong>Curitiba para Florianópolis</strong>.",
+            summary: "Leitura ao vivo das notícias da bolsa, itinerante pelo Brasil.",
+            change: { from: "Curitiba", to: "Florianópolis" },
             what: [
-              { text: "Troca de praça na página: cidade, local, data e todas as referências visuais e de texto ligadas a Curitiba passaram para <strong>Florianópolis</strong>." },
-              {
-                text: "Reforço do caráter <strong>itinerante</strong> do evento na comunicação, para que a página não pareça um evento único de uma cidade só.",
-                note: "A página passa a suportar a próxima virada de praça sem reescrita — só troca de conteúdo."
-              },
-              { text: "Ajuste da chamada para inscrição, deixando explícito o formato: leitura ao vivo das notícias da bolsa, presencial." }
+              { text: "Cidade, local, data e copy atualizados para Floripa." },
+              { text: "Página pronta para a próxima virada de praça sem reescrita." }
             ],
             why: [
-              { text: "É um produto de <strong>recorrência com novidade embutida</strong>: o formato se repete, mas cada cidade é uma edição nova, com público novo." },
-              { text: "Evento presencial cria <strong>vínculo que conteúdo online não cria</strong> — quem aperta a mão do time vira cliente mais fiel." },
-              {
-                text: "Leva a marca para <strong>regiões onde a AUVP só existe pela internet</strong>, capturando público que dificilmente chegaria sozinho.",
-                note: "Florianópolis concentra público de tecnologia e investimentos com boa densidade — praça com custo de aquisição favorável."
-              },
-              { text: "Gera <strong>matéria-prima de conteúdo</strong>: cada edição vira cortes, vídeos e prova social para as próximas praças." }
+              { text: "Presencial cria vínculo que conteúdo online não cria." },
+              { text: "Cada praça abre um público regional novo." }
             ],
+            revenueFlow: ["Edição na praça", "Ingresso + patrocínio", "Lead regional", "Escola / Capital"],
             revenue: [
-              { text: "<strong>Venda de ingressos</strong> por edição, com lotes — receita direta e antecipada em relação ao custo do evento." },
-              { text: "<strong>Patrocínio e parceria local</strong> (corretoras, casas e empresas da praça), que pode cobrir o custo fixo da edição." },
-              { text: "<strong>Captação de leads regionais</strong> convertidos depois em Escola, Capital e consultoria — o evento se paga na régua seguinte, não só na bilheteria." },
-              {
-                text: "<strong>Oferta no local:</strong> público presente e aquecido é o melhor cenário possível para apresentar os produtos da casa.",
-                note: "Medir a conversão pós-evento por praça para decidir a próxima cidade com dado, não com achismo."
-              }
+              { text: "Ingressos por lote." },
+              { text: "Patrocínio local cobrindo o custo da edição." },
+              { text: "Leads regionais para Escola, Capital e consultoria." }
             ]
           },
           {
             key: "materiais-si",
-            name: "Sistema de Indicações (SI)",
+            name: "Sistema de Indicações",
             page: "Atualização e criação de materiais",
             kind: "Materiais",
-            stage: "Em produção contínua",
+            stage: "Em produção",
             icon: "fa-share-nodes",
             themeKey: "pink",
-            summary: "Atualização dos materiais existentes e <strong>criação de novas peças para o Sistema de Indicações (SI)</strong>, com padronização visual e de linguagem — o material que o cliente usa na hora de indicar a AUVP.",
+            summary: "Materiais do <strong>SI</strong> revisados e ampliados — o que o cliente usa para indicar.",
             what: [
-              { text: "Revisão do que já existia: peças desatualizadas do SI foram corrigidas e alinhadas ao padrão visual atual da casa." },
-              {
-                text: "Criação das peças que faltavam para fechar as lacunas do fluxo de indicação, do convite ao acompanhamento de quem indicou.",
-                note: "O ganho maior não é a peça: é parar de refazer a mesma peça a cada campanha."
-              },
-              { text: "Padronização de tipografia, paleta e estrutura entre os materiais, para que qualquer peça nova nasça reconhecível como AUVP na mão de quem indica." }
+              { text: "Peças desatualizadas corrigidas no padrão visual atual." },
+              { text: "Criadas as peças que faltavam no fluxo de indicação." }
             ],
             why: [
-              { text: "Indicação é o canal em que a <strong>confiança já vem pronta</strong>: quem chega indicado começa a conversa acreditando na casa." },
-              {
-                text: "Material bom <strong>reduz o atrito de indicar</strong> — o cliente não precisa inventar o que dizer, só encaminhar a peça certa.",
-                note: "Quanto menos esforço o SI exige do cliente, mais indicações ele gera."
-              },
-              { text: "<strong>Escala o discurso sem escalar o time</strong>: a mensagem chega igual, seja quem for que indique." },
-              { text: "Consistência visual é <strong>percepção de valor</strong> — material bem-feito na mão do cliente sustenta o preço melhor do que um print improvisado." }
+              { text: "Menos atrito para indicar: o cliente só encaminha." },
+              { text: "Quem chega indicado já chega confiando." }
             ],
+            revenueFlow: ["Cliente ativo", "Peça pronta na mão", "Indicação", "Novo cliente"],
             revenue: [
-              { text: "<strong>Aquisição de custo baixíssimo:</strong> cada cliente indicado entra sem verba de mídia — é receita nova sobre custo quase zero." },
-              {
-                text: "<strong>Mais indicações por cliente ativo:</strong> com peça pronta e clara, sobe a taxa de quem de fato indica, e o SI passa a render sobre a base inteira.",
-                note: "Métrica a acompanhar: indicações por cliente ativo antes e depois das novas peças."
-              },
-              { text: "<strong>Conversão maior no fim do funil</strong> — o lead indicado chega pré-vendido e fecha mais rápido do que o lead frio." },
-              { text: "<strong>Efeito composto:</strong> cliente indicado que também indica transforma o SI em canal que cresce sozinho, sem aumentar orçamento." }
+              { text: "Aquisição sem verba de mídia." },
+              { text: "Mais indicações por cliente ativo." },
+              { text: "Lead indicado fecha mais rápido." }
             ]
           },
           {
             key: "documentacao-consultoria",
             name: "Documentação da Consultoria",
-            page: "Sistema padronizado (via Claude Design)",
+            page: "Sistema padronizado via Claude Design",
             kind: "Processo",
-            stage: "Sistema em uso",
+            stage: "Em uso",
             icon: "fa-cubes",
             themeKey: "default",
-            summary: "Criação de um <strong>sistema padronizado para a documentação da consultoria</strong> via Claude Design, que permite produzir arquivos de modo escalável para processos padrão, novas iniciativas e adaptação de iniciativas alheias.",
+            summary: "Padrão único para documentar a consultoria, gerado de forma escalável.",
             what: [
-              { text: "Definição de um <strong>padrão único de documento</strong> — estrutura, seções e linguagem — que serve tanto para processo consolidado quanto para iniciativa nova." },
-              {
-                text: "Montagem do fluxo de produção via Claude Design: a documentação deixa de ser escrita do zero e passa a ser <strong>gerada a partir do padrão</strong>.",
-                note: "O padrão é o ativo; o documento é só a saída dele."
-              },
-              { text: "Previsão explícita do caso de <strong>adaptar iniciativas alheias</strong>: material de fora entra no mesmo formato em vez de conviver como corpo estranho." }
+              { text: "Um formato só para processo padrão, iniciativa nova e material de fora." },
+              { text: "Documento deixa de ser escrito do zero: passa a ser gerado do padrão." }
             ],
             why: [
-              { text: "Transforma <strong>conhecimento tácito em ativo da empresa</strong>: o processo deixa de morar na cabeça de quem executa." },
-              { text: "<strong>Escala de verdade</strong> — documentar deixa de ser gargalo, e cada nova iniciativa nasce documentada por padrão." },
-              {
-                text: "Acelera onboarding: quem chega lê o padrão e produz no formato certo desde a primeira semana.",
-                note: "Menos tempo de rampa é menos custo por pessoa contratada."
-              },
-              { text: "Garante <strong>consistência de marca e de método</strong> mesmo com pessoas e demandas diferentes." }
+              { text: "Tira o processo da cabeça de quem executa." },
+              { text: "Documentar deixa de ser gargalo — e acelera quem chega." }
             ],
+            revenueFlow: ["Padrão único", "Documento gerado", "Menos horas por entrega", "Margem maior"],
             revenue: [
-              { text: "<strong>Mais entregas com o mesmo time:</strong> o tempo que ia para formatar documento volta para atender cliente — capacidade instalada sem contratar." },
-              { text: "<strong>Margem maior por consultoria</strong>, porque o custo/hora de documentação cai a cada rodada." },
-              {
-                text: "<strong>Diferencial comercial:</strong> proposta e entrega documentadas no padrão sustentam preço melhor e reduzem objeção na venda.",
-                note: "Documentação boa é argumento de venda, não custo de bastidor."
-              },
-              { text: "Abre caminho para <strong>empacotar playbooks</strong> como produto próprio no futuro, aproveitando material que já será produzido de qualquer forma." }
+              { text: "Mais entregas com o mesmo time." },
+              { text: "Margem maior por consultoria." },
+              { text: "Proposta documentada sustenta preço melhor." }
             ]
           },
           {
             key: "quiz-etfs",
-            name: "Página de ETFs",
-            page: "Quiz de direcionamento",
+            name: "Quiz de ETFs",
+            page: "Página de ETFs",
             kind: "Experimento",
             stage: "Publicado",
             icon: "fa-clipboard-question",
             themeKey: "blue",
-            summary: "Inserção de um <strong>quiz na página de ETFs</strong> que coleta dados do visitante e o direciona para o ETF mais aderente ao seu perfil.",
+            summary: "Quiz que coleta o perfil do visitante e <strong>indica o ETF</strong> aderente.",
             what: [
-              { text: "Desenho do fluxo do quiz: perguntas curtas de perfil e objetivo, com direcionamento para um ETF específico no fim." },
-              {
-                text: "Coleta de dados declarados durante o percurso, transformando visita anônima em <strong>lead com contexto</strong>.",
-                note: "O dado vem do próprio usuário respondendo, não de inferência — é dado limpo."
-              },
-              { text: "Integração do quiz ao corpo da página, acima do ponto em que a rolagem costuma morrer nas nossas leituras de mapa de calor." }
+              { text: "Fluxo curto de perguntas com direcionamento no fim." },
+              { text: "Posicionado acima do ponto em que a rolagem morre." }
             ],
             why: [
-              { text: "Transforma uma página <strong>passiva em ferramenta</strong>: o usuário sai com uma resposta, não só com informação." },
-              { text: "Ataca a dúvida que trava a decisão — <em>“qual ETF é para mim?”</em> — que é exatamente onde a maioria desiste." },
-              {
-                text: "Interação puxa engajamento em uma página em que quase ninguém rola até o fim.",
-                note: "Conversa direto com o gargalo de profundidade de rolagem registrado na Análise Clarity."
-              },
-              { text: "Gera <strong>base segmentada por perfil</strong>, o que melhora tudo o que vem depois: e-mail, campanha e oferta." }
+              { text: "Responde a dúvida que trava a decisão: <em>qual ETF é para mim?</em>" },
+              { text: "Página passiva vira ferramenta — e o dado vem declarado." }
             ],
+            revenueFlow: ["Visita na página", "Quiz respondido", "Lead com perfil", "Oferta certa"],
             revenue: [
-              { text: "<strong>Leads qualificados</strong> com perfil declarado, muito mais baratos de converter do que tráfego frio." },
-              { text: "<strong>Segmentação para campanhas:</strong> ofertar o produto certo para o perfil certo aumenta a conversão sem aumentar a verba." },
-              {
-                text: "<strong>Ponte para os produtos da casa:</strong> quem conclui o quiz está no melhor momento para receber a oferta de Escola, PRO ou consultoria.",
-                note: "Medir a conversão do fim do quiz para a oferta seguinte é a métrica que importa aqui."
-              },
-              { text: "Os dados coletados alimentam o <strong>roadmap de conteúdo e produto</strong> — sabemos o que a audiência procura sem precisar de pesquisa nova." }
+              { text: "Lead qualificado com perfil declarado." },
+              { text: "Base segmentada melhora campanha sem aumentar verba." },
+              { text: "Ponte direta para Escola, PRO e consultoria." }
             ],
             next: [
-              { text: "Rodar o quiz como teste A/B contra a versão sem quiz para medir o efeito real sobre conversão." }
+              { text: "Rodar como teste A/B contra a versão sem quiz." }
             ]
           }
         ]
@@ -4390,10 +4332,9 @@
     let activeQuinzena = apresentacoesQuinzenais.length ? apresentacoesQuinzenais[0].id : null;
     let activeQuinzenaSlide = 0;
 
-    // Duração alvo da apresentação (minutos). O alvo por slide é a divisão
-    // desse total pela quantidade de slides.
-    const resultadosTargetOptions = [10, 15, 20, 30];
-    let resultadosTarget = 15;
+    // A apresentação quinzenal tem duração máxima fixa: 10 minutos. O alvo por
+    // slide é essa duração dividida pela quantidade de slides do roteiro.
+    const RESULTADOS_LIMITE_MIN = 10;
 
     // Cronômetro: acumula em milissegundos e só corre com os slides visíveis.
     const resultadosTimer = { running: false, totalMs: 0, slideMs: 0, lastTick: null, ticker: null };
@@ -4435,10 +4376,14 @@
       return `${min}:${sec}`;
     }
 
+    function resultadosLimiteMs() {
+      return RESULTADOS_LIMITE_MIN * 60000;
+    }
+
     function resultadosSlideTargetMs() {
       const slides = getResultadoSlides();
-      if (!slides.length) return resultadosTarget * 60000;
-      return (resultadosTarget * 60000) / slides.length;
+      if (!slides.length) return resultadosLimiteMs();
+      return resultadosLimiteMs() / slides.length;
     }
 
     function resultadosSlidesVisible() {
@@ -4477,11 +4422,6 @@
       resultadosTimer.lastTick = Date.now();
     }
 
-    function setResultadosTarget(minutes) {
-      resultadosTarget = minutes;
-      renderResultadosTimer();
-    }
-
     // Acumula o tempo decorrido. Fora dos slides (outra aba, capa) o cronômetro
     // segura sozinho, para não contar tempo que não é de apresentação.
     function tickResultadosTimer() {
@@ -4505,7 +4445,7 @@
       if (!totalEl) return;
 
       const slideTarget = resultadosSlideTargetMs();
-      const totalTarget = resultadosTarget * 60000;
+      const totalTarget = resultadosLimiteMs();
 
       totalEl.innerText = formatClock(resultadosTimer.totalMs);
       totalEl.className = `text-xl sm:text-2xl font-black tabular-nums leading-none ${
@@ -4519,6 +4459,16 @@
         resultadosTimer.slideMs > slideTarget ? 'text-danger' : 'text-ink dark:text-white'
       }`;
       document.getElementById('resultados-timer-slide-target').innerText = formatClock(slideTarget);
+
+      // Quanto ainda sobra dos 10 minutos (ou quanto já passou deles)
+      const restante = totalTarget - resultadosTimer.totalMs;
+      const estourou = restante < 0;
+      const leftEl = document.getElementById('resultados-timer-left');
+      leftEl.innerText = `${estourou ? '+' : ''}${formatClock(Math.abs(restante))}`;
+      leftEl.className = `text-xl sm:text-2xl font-black tabular-nums leading-none ${
+        estourou ? 'text-danger' : (restante < 60000 ? 'text-brand-orange' : 'text-ink dark:text-white')
+      }`;
+      document.getElementById('resultados-timer-left-label').innerText = estourou ? 'Passou do limite' : 'Restante';
 
       // Barra do slide: verde até 80% do alvo, laranja no fim, vermelha ao estourar
       const ratio = slideTarget ? resultadosTimer.slideMs / slideTarget : 0;
@@ -4538,15 +4488,11 @@
           : 'bg-accent text-white'
       }`;
 
-      // Seletor de duração alvo
-      const targetNav = document.getElementById('resultados-target-nav');
-      targetNav.innerHTML = resultadosTargetOptions.map(min => `
-        <button onclick="setResultadosTarget(${min})" class="px-2.5 py-1 rounded-full text-[9px] uppercase tracking-widest font-bold transition-colors border ${
-          min === resultadosTarget
-            ? 'bg-accent/10 text-accent border-accent/30 dark:bg-white/10 dark:text-white dark:border-white/20'
-            : 'border-paper-dark dark:border-white/10 text-ink-light dark:text-white/40 hover:text-ink dark:hover:text-white'
-        }">${min} min</button>
-      `).join('');
+      // Barra do tempo total contra os 10 minutos
+      const totalRatio = totalTarget ? resultadosTimer.totalMs / totalTarget : 0;
+      const totalBar = document.getElementById('resultados-timer-total-bar');
+      totalBar.style.width = `${Math.min(100, totalRatio * 100)}%`;
+      totalBar.style.backgroundColor = totalRatio > 1 ? '#C0392B' : (totalRatio > 0.9 ? '#FF6B35' : '#38805A');
     }
 
     // =========================================================================
@@ -4600,13 +4546,62 @@
     // =========================================================================
     // CONTEÚDO DOS SLIDES
     // =========================================================================
-    function resultadoBlocoHtml(titulo, icone, itens, theme, destaque) {
+    // Lista dos slides: mesmo formato do Clarity, com corpo maior — em
+    // apresentação o texto é lido de longe. `note` segue aceito.
+    function resultadoListHtml(itens, theme) {
+      return itens.map(item => `
+        <li class="flex gap-3">
+          <i class="fa-solid fa-circle text-[6px] mt-[9px] shrink-0 ${theme.text}"></i>
+          <div class="min-w-0">
+            <p class="text-[15px] md:text-base text-ink dark:text-white/90 leading-snug">${item.text}</p>
+            ${item.note ? `
+              <p class="mt-2 text-[12px] text-ink-light dark:text-white/50 leading-relaxed bg-paper-dark/20 dark:bg-white/5 border-l-2 ${theme.borderLeft} px-3 py-2 rounded-r-[2px]">
+                <i class="fa-solid fa-pen-nib mr-1.5 opacity-60"></i>${item.note}
+              </p>` : ''}
+          </div>
+        </li>
+      `).join('');
+    }
+
+    // `revenueFlow`: o caminho entre a entrega e o dinheiro, em uma linha.
+    // O último passo é o que entra em caixa.
+    function resultadoFluxoHtml(passos, theme) {
+      if (!passos || !passos.length) return '';
       return `
-        <section class="${destaque ? `p-5 rounded-[3px] border ${theme.border} ${theme.bg}` : ''}">
+        <div class="flex flex-wrap items-center gap-2 mb-5">
+          ${passos.map((passo, i) => {
+            const ultimo = i === passos.length - 1;
+            return `
+              ${i ? `<i class="fa-solid fa-arrow-right text-[10px] ${theme.text} opacity-50"></i>` : ''}
+              <span class="px-3 py-1.5 rounded-[2px] text-[11px] font-bold tracking-wide bg-white dark:bg-[#1A1A1A] border border-paper-dark dark:border-white/10 ${
+                ultimo ? `border-l-4 ${theme.borderLeft} ${theme.text}` : 'text-ink-light dark:text-white/50'
+              }">${passo}</span>
+            `;
+          }).join('')}
+        </div>
+      `;
+    }
+
+    // `change`: o "de → para" das atualizações (ex.: a virada de praça do Giro)
+    function resultadoMudancaHtml(change, theme) {
+      if (!change) return '';
+      return `
+        <div class="flex flex-wrap items-center gap-3">
+          <span class="px-4 py-2 rounded-[2px] border border-paper-dark dark:border-white/10 text-ink-light dark:text-white/40 text-sm font-bold line-through">${change.from}</span>
+          <i class="fa-solid fa-arrow-right ${theme.text}"></i>
+          <span class="px-4 py-2 rounded-[2px] border ${theme.border} ${theme.bg} ${theme.text} text-sm font-black">${change.to}</span>
+        </div>
+      `;
+    }
+
+    function resultadoBlocoHtml(titulo, icone, itens, theme, destaque, extra) {
+      return `
+        <section class="${destaque ? `p-5 md:p-6 rounded-[3px] border ${theme.border} ${theme.bg}` : ''}">
           <h4 class="text-[10px] uppercase tracking-widest font-bold ${destaque ? theme.text : 'text-ink-light dark:text-white/40'} mb-4 flex items-center gap-2">
             <i class="fa-solid ${icone} ${destaque ? '' : theme.text}"></i> ${titulo}
           </h4>
-          <ul class="flex flex-col gap-4">${clarityListHtml(itens, theme)}</ul>
+          ${extra || ''}
+          <ul class="flex flex-col gap-3">${resultadoListHtml(itens, theme)}</ul>
         </section>
       `;
     }
@@ -4651,6 +4646,22 @@
         </div>
 
         <div>
+          <h4 class="text-[10px] uppercase tracking-widest font-bold text-ink-light dark:text-white/40 mb-3 flex items-center gap-2">
+            <i class="fa-regular fa-clock ${theme.text}"></i> Orçamento de tempo
+            <span class="opacity-60 normal-case tracking-normal font-medium">
+              ${RESULTADOS_LIMITE_MIN} min ÷ ${getResultadoSlides().length} slides = ${formatClock(resultadosSlideTargetMs())} cada
+            </span>
+          </h4>
+          <div class="flex gap-1 w-full">
+            ${getResultadoSlides().map(sl => {
+              const t = colorThemes[sl.themeKey || 'default'];
+              const entrega = sl.kind === 'entrega';
+              return `<span class="flex-1 h-2.5 rounded-[2px]" style="background-color:${t.hex};opacity:${entrega ? 0.85 : 0.25}" title="${entrega ? sl.delivery.name : sl.key}"></span>`;
+            }).join('')}
+          </div>
+        </div>
+
+        <div>
           <h4 class="text-[10px] uppercase tracking-widest font-bold text-ink-light dark:text-white/40 mb-4 flex items-center gap-2">
             <i class="fa-solid fa-list-ol ${theme.text}"></i> Roteiro desta apresentação
           </h4>
@@ -4681,14 +4692,16 @@
         </div>
 
         ${delivery.summary ? `
-          <p class="text-sm md:text-base text-ink-light dark:text-white/75 leading-relaxed font-medium border-l-4 ${theme.borderLeft} pl-4 py-1">${delivery.summary}</p>` : ''}
+          <p class="text-base md:text-lg text-ink-light dark:text-white/75 leading-snug font-medium border-l-4 ${theme.borderLeft} pl-4 py-1">${delivery.summary}</p>` : ''}
+
+        ${resultadoMudancaHtml(delivery.change, theme)}
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
           ${resultadoBlocoHtml('O que foi feito', 'fa-screwdriver-wrench', delivery.what, theme, false)}
           ${resultadoBlocoHtml('Por que é um bom produto', 'fa-gem', delivery.why, theme, false)}
         </div>
 
-        ${resultadoBlocoHtml('Como pode gerar faturamento', 'fa-sack-dollar', delivery.revenue, theme, true)}
+        ${resultadoBlocoHtml('Como pode gerar faturamento', 'fa-sack-dollar', delivery.revenue, theme, true, resultadoFluxoHtml(delivery.revenueFlow, theme))}
 
         ${(delivery.next && delivery.next.length)
           ? resultadoBlocoHtml('Próximos passos', 'fa-arrow-trend-up', delivery.next, theme, false)
@@ -4706,7 +4719,7 @@
               <span class="flex items-center gap-2 text-[10px] uppercase tracking-widest font-bold ${t.text} mb-3">
                 <i class="fa-solid ${d.icon}"></i> ${d.name}
               </span>
-              <ul class="flex flex-col gap-3">${clarityListHtml(d.next, t)}</ul>
+              <ul class="flex flex-col gap-3">${resultadoListHtml(d.next, t)}</ul>
             </div>
           `;
         }).join('');
@@ -4764,6 +4777,9 @@
       } else {
         contentEl.innerHTML = resultadoSlideEntregaHtml(slide.delivery, theme, activeQuinzenaSlide, apresentacao.deliveries.length);
       }
+
+      // A área tem altura fixa: cada slide começa do topo dela
+      contentEl.scrollTop = 0;
 
       // Entrada escalonada dos blocos do slide
       Array.from(contentEl.children).forEach((el, i) => {
@@ -4880,7 +4896,7 @@
               <i class="fa-solid fa-play"></i> Iniciar apresentação
             </button>
             <span class="text-[10px] uppercase tracking-widest font-bold text-ink-light dark:text-white/40">
-              <i class="fa-regular fa-clock mr-1.5"></i> ${totalSlides} slides · cronômetro de ${resultadosTarget} min
+              <i class="fa-regular fa-clock mr-1.5"></i> ${totalSlides} slides · limite de ${RESULTADOS_LIMITE_MIN} min · ${formatClock(resultadosSlideTargetMs())} por slide
             </span>
           </div>
         </div>
