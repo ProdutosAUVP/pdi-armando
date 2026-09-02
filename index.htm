@@ -4248,24 +4248,27 @@
             name: "Relatórios da Consultoria",
             page: "24 modelos padronizados",
             kind: "Processo",
-            stage: "Em uso",
+            stage: "Entregue para automação",
             icon: "fa-file-invoice",
             themeKey: "default",
-            summary: "Modelos dos relatórios e apresentações entregues ao cliente, prontos para preencher e exportar.",
+            summary: "Modelos dos relatórios e apresentações da consultoria, entregues ao <strong>Luis</strong> como base do motor que vai adaptar cada documento a cada caso.",
             what: [
               { text: "24 modelos: 6 documentos em 4 segmentos (Consultoria, Alta Renda, Private e Assessoria)." },
               { text: "Campos como <strong>{{token}}</strong>, com nomes estáveis entre os documentos." },
-              { text: "PDF gerado por script, com checagem de conteúdo que estoura a página." }
+              { text: "Entregues ao Luis, que vai construir o motor de adaptação por caso." }
             ],
             why: [
-              { text: "O time preenche em vez de redigir do zero a cada cliente." },
-              { text: "Sistema visual por segmento: tudo sai reconhecível como AUVP." }
+              { text: "O motor recebe padrão pronto: adapta documento em vez de criar do zero." },
+              { text: "Sistema visual por segmento: o que sair do motor já sai como AUVP." }
             ],
-            revenueFlow: ["Dado do cliente", "Modelo preenchido", "PDF entregue", "Menos horas por cliente"],
+            revenueFlow: ["Modelos + tokens", "Motor de adaptação", "Documento por cliente", "Menos horas por entrega"],
             revenue: [
-              { text: "Hora de produção vira hora de atendimento." },
+              { text: "Relatório deixa de custar horas de produção por cliente." },
               { text: "Entrega padronizada sustenta o preço da consultoria." },
               { text: "Escala sem contratar: o mesmo time cobre mais clientes." }
+            ],
+            next: [
+              { text: "Acompanhar o motor do Luis e cobrir os tokens que faltarem." }
             ]
           },
           {
