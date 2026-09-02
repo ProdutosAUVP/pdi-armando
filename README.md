@@ -79,7 +79,10 @@ A aba **Resultados** é o registro **quinzenal** das entregas, rodado como
 **apresentação de slides**: a capa traz o seletor de data e o roteiro, e o botão
 *Iniciar apresentação* abre o deck — abertura, um slide por entrega e o fechamento com
 os próximos passos. Cada entrega responde sempre às mesmas três perguntas — *o que foi
-feito*, *por que é um bom produto* e *como pode gerar faturamento*.
+feito*, *por que é um bom produto* e *como pode gerar faturamento* — em tópicos curtos,
+porque slide é apoio de fala. O bloco de faturamento abre com a **cadeia até a receita**
+(da entrega ao que entra em caixa), e as atualizações mostram o **de → para** do que
+mudou.
 
 O deck tem **cronômetro**: a apresentação tem duração máxima de **10 minutos**, e o
 cronômetro mostra o tempo total, o tempo do slide atual contra a média (10 min ÷ nº de

@@ -159,8 +159,22 @@ então nada de rotas com `history.pushState` puro. Formato:
   (HTML inline) e as três listas obrigatórias — `what[]` (o que foi feito), `why[]`
   (por que é um bom produto) e `revenue[]` (como pode gerar faturamento) — mais
   `next[]` (próximos passos), opcional.
-- As listas reaproveitam `clarityListHtml`, então cada item aceita `text` com HTML
-  inline (`<strong>`, `<em>`) e `note` como anotação recuada do time.
+- **Slide é apoio de fala, não documento.** Escreva enxuto: `summary` em uma linha e
+  **2–3 itens curtos** por lista (uma frase cada, sem parágrafo). Com 10 minutos e
+  ~1:15 por slide, texto demais atrapalha quem apresenta. O detalhamento longo, se
+  precisar, vai para a Documentação — não para o slide.
+- As listas são desenhadas por `resultadoListHtml` (mesmo formato do Clarity, com corpo
+  maior para leitura à distância): cada item aceita `text` com HTML inline
+  (`<strong>`, `<em>`) e `note` como anotação recuada do time.
+- **Visuais opcionais da entrega**, usados só quando dizem algo (sem enfeite):
+  - `revenueFlow: [...]` — a cadeia entre a entrega e o dinheiro (ex.: `["Base AUVP",
+    "Página Partners", "Contrato de lobby", "Fee recorrente"]`), desenhada por
+    `resultadoFluxoHtml` no topo do bloco de faturamento; o último passo é o que entra
+    em caixa e vem destacado.
+  - `change: { from, to }` — o "de → para" das atualizações (ex.: a virada de praça do
+    Giro), desenhado por `resultadoMudancaHtml` logo abaixo do resumo.
+  - O slide de abertura desenha sozinho a faixa de **orçamento de tempo**: um segmento
+    por slide, colorido pelo `themeKey` da entrega.
 - **Roteiro dos slides:** `getResultadoSlides()` monta `abertura` + uma entrega por
   slide + `fechamento` (que agrega os `next[]` de todas as entregas). A `key` de cada
   slide é o que vai para a URL — não há número de slide na rota.
