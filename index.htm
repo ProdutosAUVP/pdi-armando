@@ -276,6 +276,9 @@
         <button id="btn-nav-tracking" onclick="window.switchView('tracking')" class="btn-nav text-[9px] sm:text-[10px] uppercase tracking-widest font-medium border-b-2 border-transparent text-ink-light hover:text-ink dark:text-white/50 dark:hover:text-white transition-all duration-300 py-1 shrink-0">
           Cronograma
         </button>
+        <button id="btn-nav-resultados" onclick="window.switchView('resultados')" class="btn-nav text-[9px] sm:text-[10px] uppercase tracking-widest font-medium border-b-2 border-transparent text-ink-light hover:text-ink dark:text-white/50 dark:hover:text-white transition-all duration-300 py-1 shrink-0">
+          Resultados
+        </button>
         <button id="btn-nav-manifesto" onclick="window.switchView('manifesto')" class="btn-nav text-[9px] sm:text-[10px] uppercase tracking-widest font-medium border-b-2 border-transparent text-ink-light hover:text-ink dark:text-white/50 dark:hover:text-white transition-all duration-300 py-1 shrink-0">
           Manifesto
         </button>
@@ -868,7 +871,78 @@
 
   </main>
 
-  <!-- VIEW 3: Manifesto de Design -->
+  <!-- VIEW 3: Resultados Quinzenais (apresentação recorrente, uma por data) -->
+  <main id="view-resultados" class="w-full view-enter hidden">
+
+    <div class="w-full px-4 sm:px-6 py-8 md:py-12 flex flex-col items-center justify-start">
+      <div class="w-full max-w-[1000px] flex flex-col gap-6">
+
+        <!-- Capa / contexto da apresentação -->
+        <div class="w-full bg-white dark:bg-[#1A1A1A] border border-paper-dark dark:border-white/5 shadow-xl shadow-black/5 dark:shadow-white/5 p-8 md:p-10 flex flex-col relative rounded-[4px] animate-fade-in-up overflow-hidden">
+
+          <!-- Ilustração abstrata de fundo -->
+          <div class="absolute top-[-60px] right-[-60px] opacity-10 dark:opacity-5 pointer-events-none animate-spin-slow">
+            <svg width="300" height="300" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" class="overflow-visible">
+              <circle cx="100" cy="100" r="80" stroke="#38805A" stroke-width="2" stroke-dasharray="6 12"/>
+              <path d="M40 130 L75 90 L110 115 L160 55" stroke="#38805A" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="160" cy="55" r="8" fill="#38805A"/>
+            </svg>
+          </div>
+
+          <div class="relative z-10">
+            <span class="inline-block py-0.5 px-3 border border-accent/20 text-[10px] font-bold tracking-widest bg-accent/10 text-accent dark:bg-white/5 dark:text-white/70 uppercase w-max mb-4 rounded-full">
+              RESULTADOS • RECORRÊNCIA QUINZENAL
+            </span>
+            <h1 class="text-4xl md:text-6xl font-black tracking-tighter uppercase text-ink dark:text-white leading-[0.85] font-satoshi mt-2">
+              O que saiu do papel nesta <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-[#72A68C] italic font-light tracking-tight">quinzena.</span>
+            </h1>
+            <p class="text-base text-ink-light dark:text-white/70 font-medium mt-6 font-satoshi max-w-xl leading-relaxed">
+              Registro contínuo das entregas de produto e design, arquivado por <strong>data de apresentação</strong>.
+              Cada entrega responde às mesmas três perguntas: <strong>o que foi feito</strong>,
+              <strong>por que é um bom produto</strong> e <strong>como pode gerar faturamento</strong>.
+            </p>
+
+            <div class="border-b border-paper-dark dark:border-white/10 my-8"></div>
+
+            <div class="flex gap-4 flex-wrap">
+              <div class="text-left">
+                <span id="resultados-stat-apresentacoes" class="block text-2xl font-black text-ink dark:text-white">0</span>
+                <span class="text-[9px] uppercase tracking-widest font-bold text-ink-light">Apresentações</span>
+              </div>
+              <div class="w-px h-10 bg-paper-dark dark:bg-white/10"></div>
+              <div class="text-left">
+                <span id="resultados-stat-entregas" class="block text-2xl font-black text-ink dark:text-white">0</span>
+                <span class="text-[9px] uppercase tracking-widest font-bold text-ink-light">Entregas na Quinzena</span>
+              </div>
+              <div class="w-px h-10 bg-paper-dark dark:bg-white/10"></div>
+              <div class="text-left">
+                <span id="resultados-stat-frentes" class="block text-2xl font-black text-ink dark:text-white">0</span>
+                <span class="text-[9px] uppercase tracking-widest font-bold text-ink-light">Frentes Acumuladas</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Linha do tempo: seleção da data de apresentação -->
+        <div class="w-full bg-white dark:bg-[#1A1A1A] border border-paper-dark dark:border-white/5 rounded-[4px] p-4 md:p-5 flex flex-col gap-3">
+          <span class="text-[9px] uppercase tracking-widest font-bold text-ink-light dark:text-white/40">
+            <i class="fa-regular fa-calendar-check mr-1.5"></i> Data da apresentação
+          </span>
+          <div id="resultados-date-nav" class="flex flex-wrap gap-2">
+            <!-- Injetado via JS -->
+          </div>
+        </div>
+
+        <!-- Apresentação selecionada (cards por entrega) -->
+        <div id="resultados-report" class="w-full flex flex-col gap-6">
+          <!-- Injetado via JS -->
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- VIEW 4: Manifesto de Design -->
   <main id="view-manifesto" class="w-full max-w-[1000px] mx-auto px-4 sm:px-6 py-8 md:py-12 view-enter hidden">
     
     <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 border-b border-paper-dark dark:border-white/10 pb-6 mb-8">
@@ -889,7 +963,7 @@
     </div>
   </main>
 
-  <!-- VIEW 4: Documentação (conteúdo integrado nativamente) -->
+  <!-- VIEW 5: Documentação (conteúdo integrado nativamente) -->
   <main id="view-documentacao" class="w-full view-enter hidden">
 
     <div class="flex flex-col md:flex-row w-full">
@@ -1686,7 +1760,7 @@
     };
 
     window.switchView = function(viewName) {
-      const views = ['presentation', 'tracking', 'manifesto', 'documentacao'];
+      const views = ['presentation', 'tracking', 'resultados', 'manifesto', 'documentacao'];
 
       views.forEach(v => {
         const el = document.getElementById(`view-${v}`);
@@ -3959,12 +4033,445 @@
     }
 
     // =========================================================================
+    // RESULTADOS QUINZENAIS — apresentação recorrente das entregas
+    // =========================================================================
+    // Cada objeto de `apresentacoesQuinzenais` é UMA apresentação, marcada pela
+    // data em que foi apresentada (`id` no formato AAAA-MM-DD, usado na URL).
+    // Dentro dela, `deliveries[]` traz uma entrega por card, sempre com as três
+    // leituras: `what` (o que foi feito), `why` (por que é um bom produto) e
+    // `revenue` (como pode gerar faturamento). `next` (próximos passos) é
+    // opcional. As listas reaproveitam `clarityListHtml`, então cada item aceita
+    // `text` com HTML inline e `note` como anotação recuada do time.
+    // Para registrar uma nova quinzena: adicione um objeto NO INÍCIO do array —
+    // seletor de data, filtros por entrega e contadores se ajustam sozinhos.
+    const apresentacoesQuinzenais = [
+      {
+        id: "2026-09-02",
+        date: "02/09/2026",
+        label: "Quinzena 01",
+        period: "Quinzena encerrada em 02 de setembro de 2026",
+        focus: "Primeira apresentação de resultados",
+        summary: "Quinzena de abertura de frentes: duas páginas novas conceituadas do zero (AUVP Partners e AUVP Advisors), a atualização do Giro Itinerante com a virada de praça para Florianópolis, os materiais do SI, o sistema padronizado de documentação da consultoria e o quiz de ETFs. O fio condutor é o mesmo: cada entrega abre — ou destrava — uma porta de faturamento que já existia na base.",
+        deliveries: [
+          {
+            key: "auvp-partners",
+            name: "AUVP Partners",
+            page: "Conceituação da página",
+            kind: "Conceituação",
+            stage: "Conceito validado internamente",
+            icon: "fa-handshake",
+            themeKey: "default",
+            summary: "Conceituação da página do serviço de <strong>lobby internacional</strong> ofertado pelo Caju, batizado a princípio de <strong>AUVP Partners</strong>: para quem é, o que exatamente se entrega e como a oferta é apresentada.",
+            what: [
+              {
+                text: "Definição do posicionamento da página: a AUVP Partners é apresentada como <strong>porta de entrada para relacionamento internacional</strong>, não como mais um serviço de consultoria.",
+                note: "Nome ainda provisório — a página foi construída para suportar uma troca de marca sem refação."
+              },
+              { text: "Estruturação da narrativa da página: problema (acesso internacional é fechado e caro), a solução ofertada pelo Caju, provas de autoridade e chamada para conversa comercial." },
+              { text: "Recorte de público: cliente de <strong>ticket alto</strong>, que já resolveu a etapa de educação financeira e precisa de acesso, não de conteúdo." }
+            ],
+            why: [
+              { text: "É um serviço de <strong>alto valor agregado com baixa concorrência direta</strong> no nosso mercado: quase ninguém no ecossistema de educação financeira brasileiro entrega lobby internacional de forma estruturada." },
+              {
+                text: "Vende <strong>acesso</strong>, e acesso não se copia: o ativo é a rede de relacionamento do Caju, algo que um concorrente não replica com mais anúncio ou mais conteúdo.",
+                note: "Barreira de entrada natural — o diferencial não é a página, é quem está atrás dela."
+              },
+              { text: "Aproveita autoridade já construída pela AUVP: o cliente não precisa ser convencido de que confia na casa, só de que o serviço existe." },
+              { text: "Não canibaliza nenhum produto atual — é uma camada acima da régua, para quem já consumiu tudo o que temos." }
+            ],
+            revenue: [
+              { text: "<strong>Ticket alto por contrato:</strong> é um serviço de projeto, não de assinatura barata — poucas contratações já pagam a operação da frente." },
+              { text: "<strong>Fee recorrente de manutenção</strong> do relacionamento internacional, transformando um projeto pontual em receita previsível." },
+              {
+                text: "<strong>Upsell na base existente</strong> (Capital, PRO e consultoria): o público qualificado já está dentro de casa, o custo de aquisição é praticamente o custo de comunicar.",
+                note: "Hipótese a medir na primeira campanha para a base."
+              },
+              { text: "<strong>Success fee</strong> por negócio internacional viabilizado, alinhando o ganho da AUVP ao resultado do cliente." }
+            ],
+            next: [
+              { text: "Fechar o nome definitivo e rodar a página com tráfego da própria base antes de investir em mídia paga." }
+            ]
+          },
+          {
+            key: "auvp-advisors",
+            name: "AUVP Advisors",
+            page: "Conceituação da página",
+            kind: "Conceituação",
+            stage: "Conceito validado internamente",
+            icon: "fa-people-arrows",
+            themeKey: "blue",
+            summary: "Conceituação da página da <strong>AUVP Advisors</strong>: uma plataforma que conecta clientes a advisors e transforma a capacidade técnica do profissional em <strong>autoridade visível</strong>.",
+            what: [
+              {
+                text: "Definição do posicionamento central: <em>“não somos uma intermediadora comum que indica qualquer profissional”</em> — o próprio cliente compara perfis, analisa competências e <strong>decide ativamente</strong> contratar o advisor.",
+                note: "A transparência é o produto, não um detalhe da página."
+              },
+              { text: "Desenho da página em duas leituras — a do <strong>cliente</strong> (como comparar e escolher) e a do <strong>advisor</strong> (por que vale expor o próprio perfil ali)." },
+              { text: "Estruturação dos blocos de comparação de perfis: competências, especialidades e critérios visíveis, para que a escolha não dependa de indicação pessoal." }
+            ],
+            why: [
+              { text: "Resolve uma dor real dos dois lados: o cliente não sabe <strong>como escolher</strong> um advisor, e o bom advisor não tem <strong>vitrine</strong> para provar que é bom." },
+              {
+                text: "Escolha ativa gera <strong>compromisso</strong>: quem compara e decide sozinho chega para a primeira reunião mais convencido do que quem foi apenas encaminhado.",
+                note: "Tende a reduzir atrito comercial e churn logo no início do relacionamento."
+              },
+              { text: "Tem <strong>efeito de rede</strong>: mais advisors bons na plataforma atraem mais clientes, e mais clientes atraem mais advisors — o produto fica melhor sozinho conforme cresce." },
+              { text: "A AUVP entra como <strong>curadora e árbitra do padrão</strong> de qualidade, papel que reforça a marca em vez de diluí-la." }
+            ],
+            revenue: [
+              { text: "<strong>Assinatura do advisor</strong> para manter perfil ativo na plataforma — receita recorrente que não depende de o cliente fechar." },
+              { text: "<strong>Comissão por contratação</strong> intermediada, com a plataforma ganhando quando o advisor ganha." },
+              { text: "<strong>Planos de destaque</strong> (posição na listagem, selo, portfólio ampliado) como camada premium sobre a assinatura base." },
+              {
+                text: "<strong>Funil para nossos produtos de formação:</strong> quem quer entrar na plataforma precisa atingir o padrão — e o padrão é ensinado pela própria AUVP.",
+                note: "Formação e plataforma se alimentam: a plataforma vira o destino natural de quem se forma aqui."
+              }
+            ],
+            next: [
+              { text: "Definir os critérios públicos de comparação de perfis antes de abrir o cadastro de advisors." }
+            ]
+          },
+          {
+            key: "giro-itinerante",
+            name: "Giro Itinerante",
+            page: "Atualização de página",
+            kind: "Atualização",
+            stage: "Publicado",
+            icon: "fa-route",
+            themeKey: "orange",
+            summary: "Atualização da página do <strong>Giro Itinerante</strong> — evento ao vivo de leitura de notícias da bolsa, que roda o Brasil inteiro — migrando a edição de <strong>Curitiba para Florianópolis</strong>.",
+            what: [
+              { text: "Troca de praça na página: cidade, local, data e todas as referências visuais e de texto ligadas a Curitiba passaram para <strong>Florianópolis</strong>." },
+              {
+                text: "Reforço do caráter <strong>itinerante</strong> do evento na comunicação, para que a página não pareça um evento único de uma cidade só.",
+                note: "A página passa a suportar a próxima virada de praça sem reescrita — só troca de conteúdo."
+              },
+              { text: "Ajuste da chamada para inscrição, deixando explícito o formato: leitura ao vivo das notícias da bolsa, presencial." }
+            ],
+            why: [
+              { text: "É um produto de <strong>recorrência com novidade embutida</strong>: o formato se repete, mas cada cidade é uma edição nova, com público novo." },
+              { text: "Evento presencial cria <strong>vínculo que conteúdo online não cria</strong> — quem aperta a mão do time vira cliente mais fiel." },
+              {
+                text: "Leva a marca para <strong>regiões onde a AUVP só existe pela internet</strong>, capturando público que dificilmente chegaria sozinho.",
+                note: "Florianópolis concentra público de tecnologia e investimentos com boa densidade — praça com custo de aquisição favorável."
+              },
+              { text: "Gera <strong>matéria-prima de conteúdo</strong>: cada edição vira cortes, vídeos e prova social para as próximas praças." }
+            ],
+            revenue: [
+              { text: "<strong>Venda de ingressos</strong> por edição, com lotes — receita direta e antecipada em relação ao custo do evento." },
+              { text: "<strong>Patrocínio e parceria local</strong> (corretoras, casas e empresas da praça), que pode cobrir o custo fixo da edição." },
+              { text: "<strong>Captação de leads regionais</strong> convertidos depois em Escola, Capital e consultoria — o evento se paga na régua seguinte, não só na bilheteria." },
+              {
+                text: "<strong>Oferta no local:</strong> público presente e aquecido é o melhor cenário possível para apresentar os produtos da casa.",
+                note: "Medir a conversão pós-evento por praça para decidir a próxima cidade com dado, não com achismo."
+              }
+            ]
+          },
+          {
+            key: "materiais-si",
+            name: "SI",
+            page: "Atualização e criação de materiais",
+            kind: "Materiais",
+            stage: "Em produção contínua",
+            icon: "fa-file-lines",
+            themeKey: "pink",
+            summary: "Atualização dos materiais existentes e <strong>criação de novos materiais para o SI</strong>, com padronização visual e de linguagem entre as peças.",
+            what: [
+              { text: "Revisão do que já existia: peças desatualizadas foram corrigidas e alinhadas ao padrão visual atual da casa." },
+              {
+                text: "Criação das peças que faltavam para fechar as lacunas do fluxo, evitando que cada demanda vire um material feito do zero.",
+                note: "O ganho maior não é a peça: é parar de refazer a mesma peça."
+              },
+              { text: "Padronização de tipografia, paleta e estrutura entre os materiais, para que qualquer peça nova nasça reconhecível como AUVP." }
+            ],
+            why: [
+              { text: "Material bom <strong>encurta o ciclo de entendimento</strong>: menos reunião para explicar o que uma página já explica." },
+              { text: "<strong>Escala o discurso sem escalar o time</strong> — a mensagem certa chega igual, independentemente de quem apresenta." },
+              { text: "Reduz retrabalho: com base padronizada, a próxima peça é adaptação, não criação do zero." },
+              { text: "Consistência visual é <strong>percepção de valor</strong>: material bem-feito sustenta preço melhor do que material improvisado." }
+            ],
+            revenue: [
+              { text: "<strong>Aumento de conversão</strong> nas etapas em que o material é usado — a mesma audiência rendendo mais." },
+              { text: "<strong>Redução de custo por peça:</strong> tempo de produção cai a cada nova demanda, e tempo de time é custo direto." },
+              {
+                text: "<strong>Reuso entre frentes:</strong> a mesma base atende campanhas diferentes, diluindo o custo de criação por receita gerada.",
+                note: "Quanto mais frentes usarem o padrão, melhor a margem de cada uma."
+              }
+            ]
+          },
+          {
+            key: "documentacao-consultoria",
+            name: "Documentação da Consultoria",
+            page: "Sistema padronizado (via Claude Design)",
+            kind: "Processo",
+            stage: "Sistema em uso",
+            icon: "fa-cubes",
+            themeKey: "default",
+            summary: "Criação de um <strong>sistema padronizado para a documentação da consultoria</strong> via Claude Design, que permite produzir arquivos de modo escalável para processos padrão, novas iniciativas e adaptação de iniciativas alheias.",
+            what: [
+              { text: "Definição de um <strong>padrão único de documento</strong> — estrutura, seções e linguagem — que serve tanto para processo consolidado quanto para iniciativa nova." },
+              {
+                text: "Montagem do fluxo de produção via Claude Design: a documentação deixa de ser escrita do zero e passa a ser <strong>gerada a partir do padrão</strong>.",
+                note: "O padrão é o ativo; o documento é só a saída dele."
+              },
+              { text: "Previsão explícita do caso de <strong>adaptar iniciativas alheias</strong>: material de fora entra no mesmo formato em vez de conviver como corpo estranho." }
+            ],
+            why: [
+              { text: "Transforma <strong>conhecimento tácito em ativo da empresa</strong>: o processo deixa de morar na cabeça de quem executa." },
+              { text: "<strong>Escala de verdade</strong> — documentar deixa de ser gargalo, e cada nova iniciativa nasce documentada por padrão." },
+              {
+                text: "Acelera onboarding: quem chega lê o padrão e produz no formato certo desde a primeira semana.",
+                note: "Menos tempo de rampa é menos custo por pessoa contratada."
+              },
+              { text: "Garante <strong>consistência de marca e de método</strong> mesmo com pessoas e demandas diferentes." }
+            ],
+            revenue: [
+              { text: "<strong>Mais entregas com o mesmo time:</strong> o tempo que ia para formatar documento volta para atender cliente — capacidade instalada sem contratar." },
+              { text: "<strong>Margem maior por consultoria</strong>, porque o custo/hora de documentação cai a cada rodada." },
+              {
+                text: "<strong>Diferencial comercial:</strong> proposta e entrega documentadas no padrão sustentam preço melhor e reduzem objeção na venda.",
+                note: "Documentação boa é argumento de venda, não custo de bastidor."
+              },
+              { text: "Abre caminho para <strong>empacotar playbooks</strong> como produto próprio no futuro, aproveitando material que já será produzido de qualquer forma." }
+            ]
+          },
+          {
+            key: "quiz-etfs",
+            name: "Página de ETFs",
+            page: "Quiz de direcionamento",
+            kind: "Experimento",
+            stage: "Publicado",
+            icon: "fa-clipboard-question",
+            themeKey: "blue",
+            summary: "Inserção de um <strong>quiz na página de ETFs</strong> que coleta dados do visitante e o direciona para o ETF mais aderente ao seu perfil.",
+            what: [
+              { text: "Desenho do fluxo do quiz: perguntas curtas de perfil e objetivo, com direcionamento para um ETF específico no fim." },
+              {
+                text: "Coleta de dados declarados durante o percurso, transformando visita anônima em <strong>lead com contexto</strong>.",
+                note: "O dado vem do próprio usuário respondendo, não de inferência — é dado limpo."
+              },
+              { text: "Integração do quiz ao corpo da página, acima do ponto em que a rolagem costuma morrer nas nossas leituras de mapa de calor." }
+            ],
+            why: [
+              { text: "Transforma uma página <strong>passiva em ferramenta</strong>: o usuário sai com uma resposta, não só com informação." },
+              { text: "Ataca a dúvida que trava a decisão — <em>“qual ETF é para mim?”</em> — que é exatamente onde a maioria desiste." },
+              {
+                text: "Interação puxa engajamento em uma página em que quase ninguém rola até o fim.",
+                note: "Conversa direto com o gargalo de profundidade de rolagem registrado na Análise Clarity."
+              },
+              { text: "Gera <strong>base segmentada por perfil</strong>, o que melhora tudo o que vem depois: e-mail, campanha e oferta." }
+            ],
+            revenue: [
+              { text: "<strong>Leads qualificados</strong> com perfil declarado, muito mais baratos de converter do que tráfego frio." },
+              { text: "<strong>Segmentação para campanhas:</strong> ofertar o produto certo para o perfil certo aumenta a conversão sem aumentar a verba." },
+              {
+                text: "<strong>Ponte para os produtos da casa:</strong> quem conclui o quiz está no melhor momento para receber a oferta de Escola, PRO ou consultoria.",
+                note: "Medir a conversão do fim do quiz para a oferta seguinte é a métrica que importa aqui."
+              },
+              { text: "Os dados coletados alimentam o <strong>roadmap de conteúdo e produto</strong> — sabemos o que a audiência procura sem precisar de pesquisa nova." }
+            ],
+            next: [
+              { text: "Rodar o quiz como teste A/B contra a versão sem quiz para medir o efeito real sobre conversão." }
+            ]
+          }
+        ]
+      }
+    ];
+
+    let activeQuinzena = apresentacoesQuinzenais.length ? apresentacoesQuinzenais[0].id : null;
+    let activeQuinzenaEntrega = 'all';
+
+    function getQuinzena() {
+      return apresentacoesQuinzenais.find(a => a.id === activeQuinzena) || null;
+    }
+
+    // Quantidade de pontos apresentados na quinzena (o que foi feito + por que +
+    // faturamento + próximos passos de cada entrega)
+    function quinzenaPontosCount(apresentacao) {
+      return apresentacao.deliveries.reduce((total, d) =>
+        total + d.what.length + d.why.length + d.revenue.length + ((d.next || []).length), 0);
+    }
+
+    function switchQuinzena(quinzenaId) {
+      activeQuinzena = quinzenaId;
+      activeQuinzenaEntrega = 'all';
+      renderResultados();
+    }
+
+    function filterQuinzenaEntrega(entregaKey) {
+      activeQuinzenaEntrega = entregaKey;
+      renderResultados();
+    }
+
+    function resultadoDeliveryCardHtml(delivery) {
+      const theme = colorThemes[delivery.themeKey || 'default'];
+
+      return `
+        <article class="w-full bg-white dark:bg-[#1A1A1A] border border-paper-dark dark:border-white/5 shadow-xl shadow-black/5 dark:shadow-white/5 rounded-[4px] p-6 md:p-8 slide-item">
+
+          <div class="flex flex-wrap items-start justify-between gap-4 border-b border-paper-dark dark:border-white/10 pb-4 mb-6">
+            <div class="flex items-start gap-3">
+              <span class="w-9 h-9 rounded-[3px] flex items-center justify-center shrink-0 ${theme.bg} ${theme.text} border ${theme.border}">
+                <i class="fa-solid ${delivery.icon}"></i>
+              </span>
+              <div>
+                <h3 class="text-lg md:text-xl font-black uppercase tracking-tighter text-ink dark:text-white leading-none">${delivery.name}</h3>
+                <span class="text-[10px] uppercase tracking-widest font-bold text-ink-light dark:text-white/40">${delivery.page}</span>
+              </div>
+            </div>
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="inline-block py-1 px-3 border text-[9px] font-bold tracking-widest uppercase rounded-full ${theme.text} ${theme.bg} ${theme.border}">
+                ${delivery.kind}
+              </span>
+              ${delivery.stage ? `
+                <span class="inline-block py-1 px-3 border border-paper-dark dark:border-white/10 text-[9px] font-bold tracking-widest uppercase rounded-full text-ink-light dark:text-white/40">
+                  <i class="fa-solid fa-flag-checkered mr-1.5 opacity-60"></i>${delivery.stage}
+                </span>` : ''}
+            </div>
+          </div>
+
+          ${delivery.summary ? `
+            <p class="text-sm text-ink-light dark:text-white/70 leading-relaxed font-medium border-l-4 ${theme.borderLeft} pl-4 py-1 mb-6">${delivery.summary}</p>` : ''}
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+            <section>
+              <h4 class="text-[10px] uppercase tracking-widest font-bold text-ink-light dark:text-white/40 mb-4 flex items-center gap-2">
+                <i class="fa-solid fa-screwdriver-wrench ${theme.text}"></i> O que foi feito
+              </h4>
+              <ul class="flex flex-col gap-4">${clarityListHtml(delivery.what, theme)}</ul>
+            </section>
+            <section class="border-paper-dark dark:border-white/10 md:border-l md:pl-8">
+              <h4 class="text-[10px] uppercase tracking-widest font-bold text-ink-light dark:text-white/40 mb-4 flex items-center gap-2">
+                <i class="fa-regular fa-gem ${theme.text}"></i> Por que é um bom produto
+              </h4>
+              <ul class="flex flex-col gap-4">${clarityListHtml(delivery.why, theme)}</ul>
+            </section>
+          </div>
+
+          <!-- Bloco de faturamento: a leitura que interessa à liderança -->
+          <section class="mt-6 md:mt-8 p-5 md:p-6 rounded-[3px] border ${theme.border} ${theme.bg}">
+            <h4 class="text-[10px] uppercase tracking-widest font-bold ${theme.text} mb-4 flex items-center gap-2">
+              <i class="fa-solid fa-sack-dollar"></i> Como pode gerar faturamento
+            </h4>
+            <ul class="flex flex-col gap-4">${clarityListHtml(delivery.revenue, theme)}</ul>
+          </section>
+
+          ${(delivery.next && delivery.next.length) ? `
+            <section class="mt-6">
+              <h4 class="text-[10px] uppercase tracking-widest font-bold text-ink-light dark:text-white/40 mb-4 flex items-center gap-2">
+                <i class="fa-solid fa-arrow-trend-up ${theme.text}"></i> Próximos passos
+              </h4>
+              <ul class="flex flex-col gap-4">${clarityListHtml(delivery.next, theme)}</ul>
+            </section>` : ''}
+        </article>
+      `;
+    }
+
+    function renderResultados() {
+      const dateNav = document.getElementById('resultados-date-nav');
+      const reportEl = document.getElementById('resultados-report');
+      if (!dateNav || !reportEl) return;
+
+      // Linha do tempo (um botão por apresentação registrada)
+      dateNav.innerHTML = apresentacoesQuinzenais.map(a => {
+        const active = a.id === activeQuinzena;
+        return `
+          <button onclick="switchQuinzena('${a.id}')" class="px-4 py-2 rounded-[2px] text-[10px] uppercase tracking-widest font-bold transition-colors border ${
+            active
+              ? 'bg-ink text-paper border-ink dark:bg-white dark:text-[#121212] dark:border-white'
+              : 'border-paper-dark dark:border-white/10 text-ink-light dark:text-white/50 hover:text-ink dark:hover:text-white hover:bg-paper-dark/20 dark:hover:bg-white/5'
+          }">
+            ${a.date} <span class="opacity-60">/ ${a.label}</span>
+          </button>
+        `;
+      }).join('');
+
+      const apresentacao = getQuinzena();
+      if (!apresentacao) {
+        reportEl.innerHTML = `
+          <div class="w-full bg-white dark:bg-[#1A1A1A] border border-dashed border-paper-dark dark:border-white/10 rounded-[4px] p-8 text-center">
+            <p class="text-sm text-ink-light dark:text-white/50 font-medium">Nenhuma apresentação registrada ainda.</p>
+          </div>
+        `;
+        return;
+      }
+
+      // Estatísticas da capa (calculadas a partir dos dados)
+      const frentes = new Set();
+      apresentacoesQuinzenais.forEach(a => a.deliveries.forEach(d => frentes.add(d.key)));
+      document.getElementById('resultados-stat-apresentacoes').innerText = apresentacoesQuinzenais.length;
+      document.getElementById('resultados-stat-entregas').innerText = apresentacao.deliveries.length;
+      document.getElementById('resultados-stat-frentes').innerText = frentes.size;
+
+      const visibleDeliveries = activeQuinzenaEntrega === 'all'
+        ? apresentacao.deliveries
+        : apresentacao.deliveries.filter(d => d.key === activeQuinzenaEntrega);
+
+      const deliveryFilters = [{ key: 'all', name: 'Todas as entregas', page: '' }]
+        .concat(apresentacao.deliveries)
+        .map(d => {
+          const active = d.key === activeQuinzenaEntrega;
+          const label = d.page ? `${d.name} <span class="opacity-60">· ${d.page}</span>` : d.name;
+          return `
+            <button onclick="filterQuinzenaEntrega('${d.key}')" class="px-3 py-1.5 rounded-full text-[10px] uppercase tracking-widest font-bold transition-colors border ${
+              active
+                ? 'bg-accent/10 text-accent border-accent/30 dark:bg-white/10 dark:text-white dark:border-white/20'
+                : 'border-paper-dark dark:border-white/10 text-ink-light dark:text-white/40 hover:text-ink dark:hover:text-white'
+            }">${label}</button>
+          `;
+        }).join('');
+
+      reportEl.innerHTML = `
+        <!-- Cabeçalho da apresentação selecionada -->
+        <div class="w-full bg-white dark:bg-[#1A1A1A] border border-paper-dark dark:border-white/5 shadow-xl shadow-black/5 dark:shadow-white/5 rounded-[4px] p-6 md:p-8 flex flex-col gap-5">
+          <div class="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <span class="text-[9px] uppercase tracking-widest font-bold text-ink-light dark:text-white/40">${apresentacao.focus}</span>
+              <h2 class="text-2xl md:text-3xl font-black uppercase tracking-tighter text-ink dark:text-white leading-none mt-1">
+                ${apresentacao.label} <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-[#72A68C] italic font-light tracking-tight">${apresentacao.date}</span>
+              </h2>
+              ${apresentacao.period ? `<span class="block text-[10px] uppercase tracking-widest font-bold text-ink-light dark:text-white/40 mt-2">${apresentacao.period}</span>` : ''}
+            </div>
+            <div class="flex gap-4">
+              <div class="text-left">
+                <span class="block text-xl font-black text-ink dark:text-white">${apresentacao.deliveries.length}</span>
+                <span class="text-[9px] uppercase tracking-widest font-bold text-ink-light">Entregas</span>
+              </div>
+              <div class="w-px h-8 bg-paper-dark dark:bg-white/10"></div>
+              <div class="text-left">
+                <span class="block text-xl font-black text-ink dark:text-white">${quinzenaPontosCount(apresentacao)}</span>
+                <span class="text-[9px] uppercase tracking-widest font-bold text-ink-light">Pontos</span>
+              </div>
+            </div>
+          </div>
+
+          <p class="text-sm text-ink-light dark:text-white/70 leading-relaxed font-medium border-l-4 border-accent pl-4 py-1">${apresentacao.summary}</p>
+
+          <div class="flex flex-wrap gap-2 pt-1">${deliveryFilters}</div>
+        </div>
+
+        ${visibleDeliveries.map(resultadoDeliveryCardHtml).join('')}
+      `;
+
+      // Entrada escalonada dos cards de entrega
+      Array.from(reportEl.querySelectorAll('article')).forEach((el, i) => {
+        el.style.animationDelay = `${0.05 + i * 0.08}s`;
+      });
+
+      syncRoute(false);
+    }
+
+
+    // =========================================================================
     // ROTEADOR POR HASH — cada parte do PDI tem a sua própria URL
     // =========================================================================
     // Formato: #/<aba>[/<detalhe>[/<detalhe>]]
     //   #/pdi                                → aba PDI
     //   #/cronograma                         → Cronograma (todas as categorias)
     //   #/cronograma/per                     → Cronograma filtrado por categoria
+    //   #/resultados                         → Resultados (última apresentação)
+    //   #/resultados/2026-09-02              → Resultados de uma data específica
+    //   #/resultados/2026-09-02/quiz-etfs    → Resultados na data + entrega filtrada
     //   #/manifesto                          → Manifesto
     //   #/documentacao/discovery             → capa do deck
     //   #/documentacao/discovery/4           → deck aberto no slide 4
@@ -3974,8 +4481,8 @@
     //   #/documentacao/testes-ab/escola      → proposta de uma página específica
     // Trocar de aba entra no histórico (voltar funciona); navegar dentro de uma
     // aba (slide, mês, filtro) só reescreve a URL, para não inundar o histórico.
-    const viewSlugs = { presentation: 'pdi', tracking: 'cronograma', manifesto: 'manifesto', documentacao: 'documentacao' };
-    const slugToView = { pdi: 'presentation', cronograma: 'tracking', manifesto: 'manifesto', documentacao: 'documentacao' };
+    const viewSlugs = { presentation: 'pdi', tracking: 'cronograma', resultados: 'resultados', manifesto: 'manifesto', documentacao: 'documentacao' };
+    const slugToView = { pdi: 'presentation', cronograma: 'tracking', resultados: 'resultados', manifesto: 'manifesto', documentacao: 'documentacao' };
     const deckTabs = ['discovery', 'executiva', 'ia'];
     const docTabs = deckTabs.concat(['clarity', 'testes-ab']);
     const trackingFilters = ['ALL', 'OPE', 'PER', 'INF', 'CUL', 'OUTROS'];
@@ -3992,6 +4499,11 @@
       if (currentViewName === 'tracking') {
         const filter = window.currentFilter || 'ALL';
         if (filter !== 'ALL') parts.push(filter.toLowerCase());
+      }
+
+      if (currentViewName === 'resultados') {
+        if (activeQuinzena) parts.push(activeQuinzena);
+        if (activeQuinzenaEntrega && activeQuinzenaEntrega !== 'all') parts.push(activeQuinzenaEntrega);
       }
 
       if (currentViewName === 'documentacao') {
@@ -4048,6 +4560,16 @@
           window.setFilter(trackingFilters.includes(filter) ? filter : 'ALL');
         }
 
+        if (view === 'resultados') {
+          const apresentacao = apresentacoesQuinzenais.find(a => a.id === parts[1]);
+          activeQuinzena = apresentacao
+            ? apresentacao.id
+            : (apresentacoesQuinzenais[0] ? apresentacoesQuinzenais[0].id : null);
+          const atual = getQuinzena();
+          activeQuinzenaEntrega = (atual && atual.deliveries.some(d => d.key === parts[2])) ? parts[2] : 'all';
+          renderResultados();
+        }
+
         if (view === 'documentacao') {
           const tab = docTabs.includes(parts[1]) ? parts[1] : 'discovery';
           switchTab(tab);
@@ -4082,10 +4604,11 @@
     }
     window.applyRoute = applyRoute;
 
-    // Renderiza o arquivo do Clarity e as propostas de teste A/B (ficam prontos
-    // antes de qualquer rota abri-los)
+    // Renderiza o arquivo do Clarity, as propostas de teste A/B e a apresentação
+    // quinzenal de resultados (ficam prontos antes de qualquer rota abri-los)
     renderClarity();
     renderAbTests();
+    renderResultados();
 
     window.addEventListener('hashchange', applyRoute);
     window.addEventListener('popstate', applyRoute);

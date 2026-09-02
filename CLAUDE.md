@@ -39,7 +39,7 @@ Ordem do arquivo:
   inicial (`view-presentation`).
 - `window.switchView(name)` esconde todas as views do array `views` e mostra a alvo,
   atualizando o destaque dos botões `#btn-nav-*` num laço.
-- Views atuais: `presentation`, `tracking`, `manifesto`, `documentacao`.
+- Views atuais: `presentation`, `tracking`, `resultados`, `manifesto`, `documentacao`.
 - **Para adicionar uma aba:** botão `#btn-nav-XYZ` com `onclick="window.switchView('XYZ')"`,
   um `<main id="view-XYZ" class="... view-enter hidden">`, e inclua `'XYZ'` no array
   `views` de `switchView`.
@@ -54,6 +54,9 @@ então nada de rotas com `history.pushState` puro. Formato:
 | `#/pdi` | Aba PDI |
 | `#/cronograma` | Cronograma (todas as categorias) |
 | `#/cronograma/<categoria>` | Cronograma filtrado (`ope`, `per`, `inf`, `cul`, `outros`) |
+| `#/resultados` | Resultados quinzenais (apresentação mais recente) |
+| `#/resultados/<data>` | Apresentação de uma data (ex.: `2026-09-02`) |
+| `#/resultados/<data>/<entrega>` | Apresentação da data + entrega filtrada (`key` da entrega) |
 | `#/manifesto` | Manifesto |
 | `#/documentacao/<sub-aba>` | Capa do deck (`discovery`, `executiva`, `ia`) ou o Clarity |
 | `#/documentacao/<deck>/<n>` | Deck aberto no slide `n` (1-based) |
@@ -138,6 +141,30 @@ então nada de rotas com `history.pushState` puro. Formato:
   na mão.
 - **Para propor um novo teste:** adicione um objeto em `abTests`. Filtros, contadores e
   legenda se ajustam sozinhos.
+
+### Aba Resultados Quinzenais (apresentação recorrente)
+
+- Aba do topo (`view-resultados`), no mesmo espírito do Clarity: **não é deck**, é um
+  arquivo recorrente das apresentações de resultados, marcado pela **data em que foi
+  apresentada**.
+- Dados em `apresentacoesQuinzenais` (script comum, logo acima do roteador): um objeto
+  por apresentação (`id` no formato `AAAA-MM-DD` — é o que vai para a URL —, `date`,
+  `label`, `period`, `focus`, `summary`, `deliveries[]`), do **mais recente para o mais
+  antigo**.
+- Cada entrega em `deliveries[]` tem `key`, `name`, `page`, `kind` (chip do tipo:
+  Conceituação, Atualização, Materiais, Processo, Experimento…), `stage` (chip de
+  estágio), `icon` (Font Awesome), `themeKey` (paleta de `colorThemes`), `summary`
+  (HTML inline) e as três listas obrigatórias — `what[]` (o que foi feito), `why[]`
+  (por que é um bom produto) e `revenue[]` (como pode gerar faturamento) — mais
+  `next[]` (próximos passos), opcional.
+- As listas reaproveitam `clarityListHtml`, então cada item aceita `text` com HTML
+  inline (`<strong>`, `<em>`) e `note` como anotação recuada do time.
+- Render em `renderResultados()`; estado em `activeQuinzena` / `activeQuinzenaEntrega`;
+  interações globais `switchQuinzena(id)` e `filterQuinzenaEntrega(key)`. Contadores da
+  capa e do cabeçalho saem dos dados — não edite números na mão.
+- **Para registrar uma nova quinzena:** adicione um objeto **no início** de
+  `apresentacoesQuinzenais`. Seletor de data, filtros por entrega e estatísticas se
+  ajustam sozinhos.
 
 ### Tema (dark/light)
 
