@@ -160,7 +160,7 @@ então nada de rotas com `history.pushState` puro. Formato:
   (por que é um bom produto) e `revenue[]` (como pode gerar faturamento) — mais
   `next[]` (próximos passos), opcional.
 - **A área do slide tem altura estável e não rola** (`#resultados-slide-content`:
-  `min-h-[440px]`, `md:min-h-[560px]`, sem `overflow`): o card não muda de tamanho entre
+  `min-h-[440px]`, `md:min-h-[580px]`, sem `overflow`): o card não muda de tamanho entre
   slides e tudo cabe na tela. O slide da entrega usa **três colunas** (o que foi feito /
   por que é bom produto / faturamento), com a cadeia de receita em largura total abaixo
   — é assim que o conteúdo cabe sem rolagem. Se um slide crescer além da caixa, corte

@@ -976,7 +976,7 @@
         <!-- Conteúdo do slide -->
         <!-- Altura estável: o card não muda de tamanho entre um slide e outro e
              o conteúdo cabe inteiro, sem rolagem interna. -->
-        <div id="resultados-slide-content" class="w-full flex flex-col gap-5 text-left min-h-[440px] md:min-h-[560px] relative z-10">
+        <div id="resultados-slide-content" class="w-full flex flex-col gap-5 text-left min-h-[440px] md:min-h-[580px] relative z-10">
           <!-- Injetado via JS -->
         </div>
 
@@ -4135,60 +4135,63 @@
         label: "Quinzena 01",
         period: "Quinzena encerrada em 02 de setembro de 2026",
         focus: "Primeira apresentação de resultados",
-        summary: "Quinzena de abertura de frentes: duas páginas novas conceituadas, o Giro migrado para Florianópolis, os materiais do SI, o padrão de documentação da consultoria e o quiz de ETFs.",
+        summary: "Quinzena de abertura de frentes: duas páginas novas conceituadas, o Giro migrado para Florianópolis, os materiais do SI, os modelos de relatório da consultoria e o quiz de ETFs.",
         deliveries: [
           {
             key: "auvp-partners",
             name: "AUVP Partners",
-            page: "Conceituação da página",
+            page: "Conceituação + landing page",
             kind: "Conceituação",
-            stage: "Conceito",
+            stage: "Página construída",
             icon: "fa-handshake",
             themeKey: "default",
-            summary: "Página do serviço de <strong>lobby internacional</strong> ofertado pelo Caju.",
+            summary: "Hub <strong>high-ticket</strong> de negócios e relações corporativas da AUVP Capital, para empresas privadas e family offices.",
             what: [
-              { text: "Posicionamento e narrativa da página definidos." },
-              { text: "Público recortado: ticket alto que precisa de <strong>acesso</strong>, não de conteúdo." }
+              { text: "Escopo fechado em três frentes: <strong>lobby privado</strong>, cross-border e wealth." },
+              { text: "Página publicada como <strong>funil de qualificação</strong> — aplicação e triagem, não venda direta." },
+              { text: "Feita do zero: globo WebGL sem biblioteca, em quatro idiomas." }
             ],
             why: [
-              { text: "Vende acesso — e acesso não se copia com mais anúncio." },
-              { text: "Camada acima da régua atual: não canibaliza nenhum produto." }
+              { text: "Vende acesso a uma rede já consolidada — isso não se copia com mídia." },
+              { text: "Triagem antes do contrato: só entra demanda que a rede resolve." }
             ],
-            revenueFlow: ["Base AUVP", "Página Partners", "Contrato de lobby", "Fee recorrente"],
+            revenueFlow: ["Empresa aplica", "Triagem + setup R$ 20 mil", "Negócio intermediado", "Success fee"],
             revenue: [
-              { text: "Ticket alto por contrato." },
-              { text: "Fee recorrente de manutenção do relacionamento." },
-              { text: "Upsell na base: o público qualificado já está dentro de casa." }
+              { text: "<strong>Setup de R$ 20 mil</strong> na entrada: filtra curioso e paga o diagnóstico." },
+              { text: "<strong>Success fee</strong> sobre o negócio fechado — é onde está a escala." },
+              { text: "Sinergia com a AUVP Wealth em captação, M&amp;A e liquidez." }
             ],
             next: [
-              { text: "Fechar o nome e rodar a página com tráfego da própria base." }
+              { text: "Medir quantas aplicações passam da triagem antes de abrir mídia." }
             ]
           },
           {
             key: "auvp-advisors",
             name: "AUVP Advisors",
-            page: "Conceituação da página",
+            page: "Conceituação + LP de recrutamento",
             kind: "Conceituação",
-            stage: "Conceito",
+            stage: "LP publicada",
             icon: "fa-people-arrows",
             themeKey: "blue",
-            summary: "Plataforma que conecta clientes a advisors — o cliente <strong>compara e decide</strong>.",
+            summary: "Plataforma que conecta clientes a advisors: o cliente <strong>compara perfis e decide</strong>.",
             what: [
-              { text: "Posicionamento: vitrine transparente, não indicação de balcão." },
-              { text: "Página desenhada para os dois lados: cliente e advisor." }
+              { text: "LP de recrutamento no ar, com funil de cinco etapas até a ativação." },
+              { text: "Compliance e validação técnica no meio do caminho — quem entra é validado." },
+              { text: "Simulador de repasse na página: fee de 1% a.a. e teto de 70%." }
             ],
             why: [
-              { text: "Resolve as duas dores: escolher bem e ter onde provar competência." },
-              { text: "Efeito de rede: mais advisors atraem mais clientes, e vice-versa." }
+              { text: "O advisor mantém registro na CVM e metodologia; a AUVP entra com estrutura." },
+              { text: "Sem conflito de interesses: ele não distribui produto nem é remunerado por isso." },
+              { text: "O perfil público vira autoridade sem marketing apelativo." }
             ],
-            revenueFlow: ["Advisor no perfil", "Cliente compara", "Contratação", "Assinatura + comissão"],
+            revenueFlow: ["Advisor validado", "Cliente escolhe", "Fee de 1% a.a. sobre a custódia", "30% na AUVP"],
             revenue: [
-              { text: "Assinatura do advisor pelo perfil ativo." },
-              { text: "Comissão por contratação." },
-              { text: "Planos de destaque na listagem." }
+              { text: "<strong>30% do fee</strong> fica na AUVP a cada carteira conectada." },
+              { text: "O cliente do advisor entra no ecossistema: conta, cartão e educação." },
+              { text: "Ranking e a condição dos 20 primeiros aceleram a entrada de advisors." }
             ],
             next: [
-              { text: "Definir os critérios públicos de comparação de perfis." }
+              { text: "Acompanhar quantos leads passam do compliance e da validação técnica." }
             ]
           },
           {
@@ -4241,27 +4244,28 @@
             ]
           },
           {
-            key: "documentacao-consultoria",
-            name: "Documentação da Consultoria",
-            page: "Sistema padronizado via Claude Design",
+            key: "relatorios-consultoria",
+            name: "Relatórios da Consultoria",
+            page: "24 modelos padronizados",
             kind: "Processo",
             stage: "Em uso",
-            icon: "fa-cubes",
+            icon: "fa-file-invoice",
             themeKey: "default",
-            summary: "Padrão único para documentar a consultoria, gerado de forma escalável.",
+            summary: "Modelos dos relatórios e apresentações entregues ao cliente, prontos para preencher e exportar.",
             what: [
-              { text: "Um formato só para processo padrão, iniciativa nova e material de fora." },
-              { text: "Documento deixa de ser escrito do zero: passa a ser gerado do padrão." }
+              { text: "24 modelos: 6 documentos em 4 segmentos (Consultoria, Alta Renda, Private e Assessoria)." },
+              { text: "Campos como <strong>{{token}}</strong>, com nomes estáveis entre os documentos." },
+              { text: "PDF gerado por script, com checagem de conteúdo que estoura a página." }
             ],
             why: [
-              { text: "Tira o processo da cabeça de quem executa." },
-              { text: "Documentar deixa de ser gargalo — e acelera quem chega." }
+              { text: "O time preenche em vez de redigir do zero a cada cliente." },
+              { text: "Sistema visual por segmento: tudo sai reconhecível como AUVP." }
             ],
-            revenueFlow: ["Padrão único", "Documento gerado", "Menos horas por entrega", "Margem maior"],
+            revenueFlow: ["Dado do cliente", "Modelo preenchido", "PDF entregue", "Menos horas por cliente"],
             revenue: [
-              { text: "Mais entregas com o mesmo time." },
-              { text: "Margem maior por consultoria." },
-              { text: "Proposta documentada sustenta preço melhor." }
+              { text: "Hora de produção vira hora de atendimento." },
+              { text: "Entrega padronizada sustenta o preço da consultoria." },
+              { text: "Escala sem contratar: o mesmo time cobre mais clientes." }
             ]
           },
           {
