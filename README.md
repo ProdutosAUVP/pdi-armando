@@ -80,14 +80,14 @@ A aba **Resultados** é o registro **quinzenal** das entregas, rodado como
 *Iniciar apresentação* abre o deck — abertura, um slide por entrega e o fechamento com
 os próximos passos. Cada entrega responde sempre às mesmas três perguntas — *o que foi
 feito*, *por que é um bom produto* e *como pode gerar faturamento* — em tópicos curtos,
-porque slide é apoio de fala. A área do slide tem **altura fixa**, então o card não muda de tamanho de um slide para o outro. O bloco de faturamento abre com a **cadeia até a receita**
+porque slide é apoio de fala. A área do slide tem **altura estável e não rola**: o conteúdo é distribuído em três colunas, cabe inteiro na tela e o card não muda de tamanho de um slide para o outro. O bloco de faturamento abre com a **cadeia até a receita**
 (da entrega ao que entra em caixa), e as atualizações mostram o **de → para** do que
 mudou.
 
-O deck tem **cronômetro**: a apresentação tem duração máxima de **10 minutos**, e o
-cronômetro mostra o tempo total, o tempo do slide atual contra a média (10 min ÷ nº de
-slides) e quanto ainda **resta** do limite — com as barras virando laranja perto do fim
-e vermelhas ao estourar. As setas ← → passam os slides, a **barra de espaço**
+O deck tem **cronômetro** no rodapé do slide, entre *Anterior* e *Próximo*: a
+apresentação tem duração máxima de **10 minutos**, e ele mostra o tempo total contra
+esse limite e o tempo do slide atual contra a média (10 min ÷ nº de slides) — laranja
+perto do fim, vermelho ao estourar. As setas ← → passam os slides, a **barra de espaço**
 pausa e retoma, e o cronômetro **segura sozinho** quando você sai dos slides (volta à
 capa ou troca de aba). É modular: registrar uma nova quinzena é adicionar um objeto no
 início do array `apresentacoesQuinzenais`.
