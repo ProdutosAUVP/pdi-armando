@@ -169,20 +169,23 @@ então nada de rotas com `history.pushState` puro. Formato:
   `switchQuinzena(id)`, `startResultadosDeck(slideKey?)`, `backToResultadosIntro()`,
   `resultadosNext()`, `resultadosPrev()`, `goToResultadoSlide(i)` e
   `abrirEntregaQuinzena(key)`.
-- **Cronômetro:** estado em `resultadosTimer` (`running`, `totalMs`, `slideMs`),
-  alvo total em `resultadosTarget` (opções em `resultadosTargetOptions`) e alvo por
-  slide = total ÷ nº de slides. `tickResultadosTimer()` roda a cada 250 ms e **só
-  acumula com os slides visíveis** (`resultadosSlidesVisible()`), então trocar de aba
-  ou voltar para a capa segura o tempo sozinho. Trocar de slide zera o tempo do slide,
-  não o total. Globais: `toggleResultadosTimer()`, `resetResultadosTimer()`,
-  `setResultadosTarget(min)`; desenho em `renderResultadosTimer()`.
+- **Cronômetro:** a apresentação tem **duração máxima fixa de 10 minutos**, na constante
+  `RESULTADOS_LIMITE_MIN` (é o único lugar a mudar se o limite mudar). O alvo por slide
+  é esse limite ÷ nº de slides (`resultadosSlideTargetMs()`), então muda sozinho quando
+  a quinzena tem mais ou menos entregas. Estado em `resultadosTimer` (`running`,
+  `totalMs`, `slideMs`). `tickResultadosTimer()` roda a cada 250 ms e **só acumula com
+  os slides visíveis** (`resultadosSlidesVisible()`), então trocar de aba ou voltar para
+  a capa segura o tempo sozinho. Trocar de slide zera o tempo do slide, não o total.
+  Globais: `toggleResultadosTimer()` e `resetResultadosTimer()`; desenho em
+  `renderResultadosTimer()`, que mostra total, tempo do slide e o **restante** dos 10
+  minutos (laranja no último minuto, vermelho e com `+` depois de estourar).
 - **Teclado e swipe:** os handlers globais checam `resultadosSlidesVisible()` **antes**
   do guard da Documentação — setas ← → navegam e **espaço pausa/retoma** o cronômetro
   (com `preventDefault`, então o espaço não rola a página durante a apresentação).
   Preserve essa ordem ao mexer nos handlers.
 - **Para registrar uma nova quinzena:** adicione um objeto **no início** de
-  `apresentacoesQuinzenais`. Seletor de data, roteiro, slides, contadores e alvo do
-  cronômetro se ajustam sozinhos.
+  `apresentacoesQuinzenais`. Seletor de data, roteiro, slides, contadores e o alvo por
+  slide do cronômetro se ajustam sozinhos.
 
 ### Tema (dark/light)
 

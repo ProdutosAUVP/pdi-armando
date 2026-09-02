@@ -34,7 +34,7 @@ controla as cinco abas principais:
 | --- | --- | --- |
 | **PDI** | `view-presentation` | Plano de desenvolvimento no modelo 70‑20‑10, com as 4 dimensões e TAGS de rastreamento. |
 | **Cronograma** | `view-tracking` | Roadmap por mês/semana, com checklist persistente e filtros por categoria. |
-| **Resultados** | `view-resultados` | Apresentação quinzenal de resultados em **slides, com cronômetro**, arquivada por data: cada entrega com o que foi feito, por que é um bom produto e como pode gerar faturamento. |
+| **Resultados** | `view-resultados` | Apresentação quinzenal de resultados em **slides, com cronômetro de 10 minutos**, arquivada por data: cada entrega com o que foi feito, por que é um bom produto e como pode gerar faturamento. |
 | **Manifesto** | `view-manifesto` | Manifesto de design (bom designer × mau designer), injetado via JS. |
 | **Documentação** | `view-documentacao` | Playbooks interativos de **Discovery**, **Apresentação Executiva** e **Bons Usos de IA** (decks de slides), o arquivo mensal de **Análise Clarity** e as propostas de **Testes A/B**. |
 
@@ -81,9 +81,10 @@ A aba **Resultados** é o registro **quinzenal** das entregas, rodado como
 os próximos passos. Cada entrega responde sempre às mesmas três perguntas — *o que foi
 feito*, *por que é um bom produto* e *como pode gerar faturamento*.
 
-O deck tem **cronômetro**: tempo total contra uma duração alvo (10/15/20/30 min) e tempo
-do slide atual contra a média (total ÷ nº de slides), com a barra virando laranja perto
-do limite e vermelha ao estourar. As setas ← → passam os slides, a **barra de espaço**
+O deck tem **cronômetro**: a apresentação tem duração máxima de **10 minutos**, e o
+cronômetro mostra o tempo total, o tempo do slide atual contra a média (10 min ÷ nº de
+slides) e quanto ainda **resta** do limite — com as barras virando laranja perto do fim
+e vermelhas ao estourar. As setas ← → passam os slides, a **barra de espaço**
 pausa e retoma, e o cronômetro **segura sozinho** quando você sai dos slides (volta à
 capa ou troca de aba). É modular: registrar uma nova quinzena é adicionar um objeto no
 início do array `apresentacoesQuinzenais`.

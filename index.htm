@@ -899,7 +899,8 @@
             </h1>
             <p class="text-base text-ink-light dark:text-white/70 font-medium mt-6 font-satoshi max-w-xl leading-relaxed">
               Apresentação de slides das entregas de produto e design, arquivada por <strong>data de apresentação</strong>
-              e com <strong>cronômetro</strong> para segurar o tempo. Cada entrega responde às mesmas três perguntas:
+              e com <strong>cronômetro de 10 minutos</strong> — a duração máxima de cada apresentação.
+              Cada entrega responde às mesmas três perguntas:
               <strong>o que foi feito</strong>, <strong>por que é um bom produto</strong> e
               <strong>como pode gerar faturamento</strong>.
             </p>
@@ -986,8 +987,13 @@
                 <span class="block text-[9px] uppercase tracking-widest font-bold text-ink-light dark:text-white/40">Neste slide</span>
                 <span class="flex items-baseline gap-1.5">
                   <span id="resultados-timer-slide" class="text-xl sm:text-2xl font-black tabular-nums text-ink dark:text-white leading-none">00:00</span>
-                  <span class="text-[10px] font-bold text-ink-light dark:text-white/40">/ <span id="resultados-timer-slide-target">02:00</span></span>
+                  <span class="text-[10px] font-bold text-ink-light dark:text-white/40">/ <span id="resultados-timer-slide-target">01:15</span></span>
                 </span>
+              </div>
+              <div class="w-px h-8 bg-paper-dark dark:bg-white/10"></div>
+              <div class="text-left">
+                <span id="resultados-timer-left-label" class="block text-[9px] uppercase tracking-widest font-bold text-ink-light dark:text-white/40">Restante</span>
+                <span id="resultados-timer-left" class="text-xl sm:text-2xl font-black tabular-nums text-ink dark:text-white leading-none">10:00</span>
               </div>
             </div>
 
@@ -1003,15 +1009,20 @@
           </div>
 
           <!-- Barra do tempo do slide atual -->
-          <div class="w-full h-[3px] bg-paper-dark dark:bg-white/10 relative overflow-hidden rounded-full">
-            <div id="resultados-timer-bar" class="absolute top-0 left-0 h-full bg-accent transition-[width] duration-200 ease-linear" style="width: 0%"></div>
+          <div class="flex flex-col gap-1">
+            <span class="text-[9px] uppercase tracking-widest font-bold text-ink-light dark:text-white/40">Ritmo do slide</span>
+            <div class="w-full h-[3px] bg-paper-dark dark:bg-white/10 relative overflow-hidden rounded-full">
+              <div id="resultados-timer-bar" class="absolute top-0 left-0 h-full bg-accent transition-[width] duration-200 ease-linear" style="width: 0%"></div>
+            </div>
           </div>
 
-          <!-- Duração alvo da apresentação -->
-          <div class="flex flex-wrap items-center gap-2">
-            <span class="text-[9px] uppercase tracking-widest font-bold text-ink-light dark:text-white/40 mr-1">Duração alvo</span>
-            <div id="resultados-target-nav" class="flex flex-wrap gap-1.5">
-              <!-- Injetado via JS -->
+          <!-- Barra do tempo total contra o limite de 10 minutos -->
+          <div class="flex flex-col gap-1">
+            <span class="text-[9px] uppercase tracking-widest font-bold text-ink-light dark:text-white/40">
+              Limite da apresentação <span class="opacity-60">· 10 minutos</span>
+            </span>
+            <div class="w-full h-[3px] bg-paper-dark dark:bg-white/10 relative overflow-hidden rounded-full">
+              <div id="resultados-timer-total-bar" class="absolute top-0 left-0 h-full bg-accent transition-[width] duration-200 ease-linear" style="width: 0%"></div>
             </div>
           </div>
         </div>
@@ -4152,7 +4163,7 @@
         label: "Quinzena 01",
         period: "Quinzena encerrada em 02 de setembro de 2026",
         focus: "Primeira apresentação de resultados",
-        summary: "Quinzena de abertura de frentes: duas páginas novas conceituadas do zero (AUVP Partners e AUVP Advisors), a atualização do Giro Itinerante com a virada de praça para Florianópolis, os materiais do Sistema de Indicações (SI), o sistema padronizado de documentação da consultoria e o quiz de ETFs. O fio condutor é o mesmo: cada entrega abre — ou destrava — uma porta de faturamento que já existia na base.",
+        summary: "Quinzena de abertura de frentes: duas páginas novas conceituadas do zero (AUVP Partners e AUVP Advisors), a atualização do Giro Itinerante com a virada de praça para Florianópolis, os materiais do Sistema de Indicações (SI), o sistema padronizado de documentação da consultoria e o quiz de ETFs.",
         deliveries: [
           {
             key: "auvp-partners",
@@ -4390,10 +4401,9 @@
     let activeQuinzena = apresentacoesQuinzenais.length ? apresentacoesQuinzenais[0].id : null;
     let activeQuinzenaSlide = 0;
 
-    // Duração alvo da apresentação (minutos). O alvo por slide é a divisão
-    // desse total pela quantidade de slides.
-    const resultadosTargetOptions = [10, 15, 20, 30];
-    let resultadosTarget = 15;
+    // A apresentação quinzenal tem duração máxima fixa: 10 minutos. O alvo por
+    // slide é essa duração dividida pela quantidade de slides do roteiro.
+    const RESULTADOS_LIMITE_MIN = 10;
 
     // Cronômetro: acumula em milissegundos e só corre com os slides visíveis.
     const resultadosTimer = { running: false, totalMs: 0, slideMs: 0, lastTick: null, ticker: null };
@@ -4435,10 +4445,14 @@
       return `${min}:${sec}`;
     }
 
+    function resultadosLimiteMs() {
+      return RESULTADOS_LIMITE_MIN * 60000;
+    }
+
     function resultadosSlideTargetMs() {
       const slides = getResultadoSlides();
-      if (!slides.length) return resultadosTarget * 60000;
-      return (resultadosTarget * 60000) / slides.length;
+      if (!slides.length) return resultadosLimiteMs();
+      return resultadosLimiteMs() / slides.length;
     }
 
     function resultadosSlidesVisible() {
@@ -4477,11 +4491,6 @@
       resultadosTimer.lastTick = Date.now();
     }
 
-    function setResultadosTarget(minutes) {
-      resultadosTarget = minutes;
-      renderResultadosTimer();
-    }
-
     // Acumula o tempo decorrido. Fora dos slides (outra aba, capa) o cronômetro
     // segura sozinho, para não contar tempo que não é de apresentação.
     function tickResultadosTimer() {
@@ -4505,7 +4514,7 @@
       if (!totalEl) return;
 
       const slideTarget = resultadosSlideTargetMs();
-      const totalTarget = resultadosTarget * 60000;
+      const totalTarget = resultadosLimiteMs();
 
       totalEl.innerText = formatClock(resultadosTimer.totalMs);
       totalEl.className = `text-xl sm:text-2xl font-black tabular-nums leading-none ${
@@ -4519,6 +4528,16 @@
         resultadosTimer.slideMs > slideTarget ? 'text-danger' : 'text-ink dark:text-white'
       }`;
       document.getElementById('resultados-timer-slide-target').innerText = formatClock(slideTarget);
+
+      // Quanto ainda sobra dos 10 minutos (ou quanto já passou deles)
+      const restante = totalTarget - resultadosTimer.totalMs;
+      const estourou = restante < 0;
+      const leftEl = document.getElementById('resultados-timer-left');
+      leftEl.innerText = `${estourou ? '+' : ''}${formatClock(Math.abs(restante))}`;
+      leftEl.className = `text-xl sm:text-2xl font-black tabular-nums leading-none ${
+        estourou ? 'text-danger' : (restante < 60000 ? 'text-brand-orange' : 'text-ink dark:text-white')
+      }`;
+      document.getElementById('resultados-timer-left-label').innerText = estourou ? 'Passou do limite' : 'Restante';
 
       // Barra do slide: verde até 80% do alvo, laranja no fim, vermelha ao estourar
       const ratio = slideTarget ? resultadosTimer.slideMs / slideTarget : 0;
@@ -4538,15 +4557,11 @@
           : 'bg-accent text-white'
       }`;
 
-      // Seletor de duração alvo
-      const targetNav = document.getElementById('resultados-target-nav');
-      targetNav.innerHTML = resultadosTargetOptions.map(min => `
-        <button onclick="setResultadosTarget(${min})" class="px-2.5 py-1 rounded-full text-[9px] uppercase tracking-widest font-bold transition-colors border ${
-          min === resultadosTarget
-            ? 'bg-accent/10 text-accent border-accent/30 dark:bg-white/10 dark:text-white dark:border-white/20'
-            : 'border-paper-dark dark:border-white/10 text-ink-light dark:text-white/40 hover:text-ink dark:hover:text-white'
-        }">${min} min</button>
-      `).join('');
+      // Barra do tempo total contra os 10 minutos
+      const totalRatio = totalTarget ? resultadosTimer.totalMs / totalTarget : 0;
+      const totalBar = document.getElementById('resultados-timer-total-bar');
+      totalBar.style.width = `${Math.min(100, totalRatio * 100)}%`;
+      totalBar.style.backgroundColor = totalRatio > 1 ? '#C0392B' : (totalRatio > 0.9 ? '#FF6B35' : '#38805A');
     }
 
     // =========================================================================
@@ -4880,7 +4895,7 @@
               <i class="fa-solid fa-play"></i> Iniciar apresentação
             </button>
             <span class="text-[10px] uppercase tracking-widest font-bold text-ink-light dark:text-white/40">
-              <i class="fa-regular fa-clock mr-1.5"></i> ${totalSlides} slides · cronômetro de ${resultadosTarget} min
+              <i class="fa-regular fa-clock mr-1.5"></i> ${totalSlides} slides · limite de ${RESULTADOS_LIMITE_MIN} min · ${formatClock(resultadosSlideTargetMs())} por slide
             </span>
           </div>
         </div>
