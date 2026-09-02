@@ -4290,9 +4290,6 @@
               { text: "Lead qualificado com perfil declarado." },
               { text: "Base segmentada melhora campanha sem aumentar verba." },
               { text: "Ponte direta para Escola, PRO e consultoria." }
-            ],
-            next: [
-              { text: "Rodar como teste A/B contra a versão sem quiz." }
             ]
           }
         ]
@@ -4457,6 +4454,24 @@
     // =========================================================================
     // NAVEGAÇÃO DA APRESENTAÇÃO
     // =========================================================================
+    // O assistente (Clippy) some enquanto a apresentação está aberta: em
+    // apresentação ele só atrapalha, e o balão chegaria por cima do slide.
+    function atualizarAssistenteNaApresentacao() {
+      const assistente = document.getElementById('retro-assistant');
+      if (!assistente) return;
+
+      const apresentando = resultadosSlidesVisible();
+      assistente.classList.toggle('hidden', apresentando);
+      assistente.classList.toggle('flex', !apresentando);
+
+      if (apresentando) {
+        const balao = document.getElementById('assistant-bubble');
+        if (balao) balao.classList.add('hidden');
+        const chat = document.getElementById('ai-chat-window');
+        if (chat) { chat.classList.add('hidden'); chat.classList.remove('flex'); }
+      }
+    }
+
     function switchResultadosView(view) {
       ['intro', 'slides'].forEach(v => {
         const el = document.getElementById(`resultados-view-${v}`);
@@ -4464,6 +4479,7 @@
       });
       const target = document.getElementById(`resultados-view-${view}`);
       if (target) target.classList.remove('hidden');
+      atualizarAssistenteNaApresentacao();
     }
 
     // Abre a apresentação (opcionalmente já num slide específico)
@@ -5053,6 +5069,7 @@
         const routedSwitchView = function(viewName) {
           originalSwitchView(viewName);
           currentViewName = viewName;
+          atualizarAssistenteNaApresentacao();
           syncRoute(true);
         };
         routedSwitchView.__routed = true;
