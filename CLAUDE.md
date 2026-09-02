@@ -203,6 +203,10 @@ então nada de rotas com `history.pushState` puro. Formato:
   fica laranja no último minuto e vermelho ao estourar; o tempo do slide fica vermelho
   ao passar do ritmo. A barra do tempo total mora logo abaixo da barra de progresso dos
   slides, no topo do card.
+- **O assistente (Clippy) some durante a apresentação:** `atualizarAssistenteNaApresentacao()`
+  esconde `#retro-assistant` (e fecha balão e chat) enquanto os slides estão visíveis,
+  e o traz de volta na capa ou em outra aba. É chamada por `switchResultadosView()` e
+  pelo `switchView` envolvido pelo roteador — preserve as duas chamadas.
 - **Teclado e swipe:** os handlers globais checam `resultadosSlidesVisible()` **antes**
   do guard da Documentação — setas ← → navegam e **espaço pausa/retoma** o cronômetro
   (com `preventDefault`, então o espaço não rola a página durante a apresentação).
