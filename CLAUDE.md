@@ -159,10 +159,12 @@ então nada de rotas com `history.pushState` puro. Formato:
   (HTML inline) e as três listas obrigatórias — `what[]` (o que foi feito), `why[]`
   (por que é um bom produto) e `revenue[]` (como pode gerar faturamento) — mais
   `next[]` (próximos passos), opcional.
-- **A área do slide tem altura fixa** (`#resultados-slide-content`: `h-[480px]`,
-  `md:h-[600px]`), para o card não mudar de tamanho a cada slide; o que passar disso
-  rola dentro da própria área, e `renderResultadoSlide()` zera o `scrollTop` na troca.
-  Se o conteúdo estiver rolando, o caminho é cortar texto, não crescer a altura.
+- **A área do slide tem altura estável e não rola** (`#resultados-slide-content`:
+  `min-h-[440px]`, `md:min-h-[560px]`, sem `overflow`): o card não muda de tamanho entre
+  slides e tudo cabe na tela. O slide da entrega usa **três colunas** (o que foi feito /
+  por que é bom produto / faturamento), com a cadeia de receita em largura total abaixo
+  — é assim que o conteúdo cabe sem rolagem. Se um slide crescer além da caixa, corte
+  texto; não aumente a altura.
 - **Slide é apoio de fala, não documento.** Escreva enxuto: `summary` em uma linha e
   **2–3 itens curtos** por lista (uma frase cada, sem parágrafo). Com 10 minutos e
   ~1:15 por slide, texto demais atrapalha quem apresenta. O detalhamento longo, se
@@ -195,8 +197,12 @@ então nada de rotas com `history.pushState` puro. Formato:
   os slides visíveis** (`resultadosSlidesVisible()`), então trocar de aba ou voltar para
   a capa segura o tempo sozinho. Trocar de slide zera o tempo do slide, não o total.
   Globais: `toggleResultadosTimer()` e `resetResultadosTimer()`; desenho em
-  `renderResultadosTimer()`, que mostra total, tempo do slide e o **restante** dos 10
-  minutos (laranja no último minuto, vermelho e com `+` depois de estourar).
+  `renderResultadosTimer()`. O cronômetro fica **no rodapé do slide, entre os botões
+  Anterior e Próximo**, e é deliberadamente simples: total contra os 10 min, tempo do
+  slide contra o ritmo médio e dois botões de ícone (pausar/retomar e zerar). O total
+  fica laranja no último minuto e vermelho ao estourar; o tempo do slide fica vermelho
+  ao passar do ritmo. A barra do tempo total mora logo abaixo da barra de progresso dos
+  slides, no topo do card.
 - **Teclado e swipe:** os handlers globais checam `resultadosSlidesVisible()` **antes**
   do guard da Documentação — setas ← → navegam e **espaço pausa/retoma** o cronômetro
   (com `preventDefault`, então o espaço não rola a página durante a apresentação).
