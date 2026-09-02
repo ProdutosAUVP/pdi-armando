@@ -28,12 +28,13 @@ documentação tática (playbooks de Discovery e de Defesa de Design).
 
 Toda a experiência vive em `index.htm` e é organizada como um SPA por *views*, alternadas
 via JavaScript (sem recarregar a página). O menu superior fixo (única navbar do sistema)
-controla as quatro abas principais:
+controla as cinco abas principais:
 
 | Aba (menu) | `id` da view | Conteúdo |
 | --- | --- | --- |
 | **PDI** | `view-presentation` | Plano de desenvolvimento no modelo 70‑20‑10, com as 4 dimensões e TAGS de rastreamento. |
 | **Cronograma** | `view-tracking` | Roadmap por mês/semana, com checklist persistente e filtros por categoria. |
+| **Resultados** | `view-resultados` | Apresentação quinzenal de resultados, arquivada por data: cada entrega com o que foi feito, por que é um bom produto e como pode gerar faturamento. |
 | **Manifesto** | `view-manifesto` | Manifesto de design (bom designer × mau designer), injetado via JS. |
 | **Documentação** | `view-documentacao` | Playbooks interativos de **Discovery**, **Apresentação Executiva** e **Bons Usos de IA** (decks de slides), o arquivo mensal de **Análise Clarity** e as propostas de **Testes A/B**. |
 
@@ -52,6 +53,8 @@ mostrar (o botão 🔗 na navbar copia o link da tela aberta):
 | --- | --- |
 | `.../#/pdi` | Aba PDI |
 | `.../#/cronograma/per` | Cronograma filtrado pela categoria Performance |
+| `.../#/resultados/2026-09-02` | Apresentação de resultados de 02/09/2026 |
+| `.../#/resultados/2026-09-02/quiz-etfs` | Mesma apresentação, filtrada na entrega do quiz de ETFs |
 | `.../#/manifesto` | Manifesto |
 | `.../#/documentacao/discovery/4` | Playbook de Discovery no slide 4 |
 | `.../#/documentacao/clarity/2026-07/pro` | Análise Clarity de julho, produto AUVP PRO |
@@ -71,6 +74,12 @@ porque), o **controle (A)** e a **variante (B)** com esquema de tela lado a lado
 (incluindo a linha da dobra), as mudanças propostas e como medir (métrica primária,
 secundárias, métrica de proteção e critério de sucesso). É o material de apoio da ação
 **PER.1** do cronograma.
+
+A aba **Resultados** é o registro **quinzenal** das entregas: um seletor com a data de
+cada apresentação e, dentro dela, um card por entrega respondendo sempre às mesmas três
+perguntas — *o que foi feito*, *por que é um bom produto* e *como pode gerar
+faturamento* (mais os próximos passos, quando houver). É modular: registrar uma nova
+quinzena é adicionar um objeto no início do array `apresentacoesQuinzenais`.
 
 Além das views, há um **assistente estilo Clippy** (canto inferior direito) com um chat
 de dicas sobre o PDI.
