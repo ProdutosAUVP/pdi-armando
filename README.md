@@ -1,11 +1,11 @@
-# PDI Armando — AUVP
+# PDI Armando · AUVP
 
 Página única (SPA) que apresenta o **Plano de Desenvolvimento Individual (PDI)** do
 pirata Armando, do time de Produto/Design da AUVP. Reúne, em um só lugar, o plano de
 desenvolvimento, o cronograma de acompanhamento, o manifesto de design e a
 documentação tática (playbooks de Discovery e de Defesa de Design).
 
-🔗 **Publicação:** GitHub Pages — https://produtosauvp.github.io/pdi-armando/
+🔗 **Publicação:** GitHub Pages, em https://produtosauvp.github.io/pdi-armando/
 
 ---
 
@@ -19,7 +19,7 @@ documentação tática (playbooks de Discovery e de Defesa de Design).
 | `CLAUDE.md` | Guia de arquitetura e convenções para o Claude Code / contribuintes. |
 
 > ⚠️ O site é servido a partir de `index.htm` na **raiz** do repositório. Não mova nem
-> renomeie esse arquivo (nem o PNG do favicon) sem atualizar as referências — isso
+> renomeie esse arquivo (nem o PNG do favicon) sem atualizar as referências. Isso
 > quebraria a publicação no GitHub Pages.
 
 ---
@@ -69,7 +69,7 @@ filtro por produto. Cada página analisada traz os *comportamentos do usuário*
 observados e as *principais conclusões*, com as anotações do time em destaque.
 
 A sub-aba **Testes A/B** é a continuação natural dessa leitura: cada gargalo registrado
-no Clarity vira uma proposta fechada de experimento — evidência, hipótese (se / então /
+no Clarity vira uma proposta fechada de experimento: evidência, hipótese (se / então /
 porque), o **controle (A)** e a **variante (B)** com esquema de tela lado a lado
 (incluindo a linha da dobra), as mudanças propostas e como medir (métrica primária,
 secundárias, métrica de proteção e critério de sucesso). É o material de apoio da ação
@@ -77,16 +77,16 @@ secundárias, métrica de proteção e critério de sucesso). É o material de a
 
 A aba **Resultados** é o registro **quinzenal** das entregas, rodado como
 **apresentação de slides**: a capa traz o seletor de data e o roteiro, e o botão
-*Iniciar apresentação* abre o deck — abertura, um slide por entrega e o fechamento com
-os próximos passos. Cada entrega responde sempre às mesmas três perguntas — *o que foi
-feito*, *por que é um bom produto* e *como pode gerar faturamento* — em tópicos curtos,
+*Iniciar apresentação* abre o deck: abertura, um slide por entrega e o fechamento com
+os próximos passos. Cada entrega responde sempre às mesmas três perguntas (*o que foi
+feito*, *por que é um bom produto* e *como pode gerar faturamento*), em tópicos curtos,
 porque slide é apoio de fala. A área do slide tem **altura estável e não rola**: o conteúdo é distribuído em três colunas, cabe inteiro na tela e o card não muda de tamanho de um slide para o outro. O bloco de faturamento abre com a **cadeia até a receita**
 (da entrega ao que entra em caixa), e as atualizações mostram o **de → para** do que
 mudou.
 
 O deck tem **cronômetro** no rodapé do slide, entre *Anterior* e *Próximo*: a
 apresentação tem duração máxima de **10 minutos**, e ele mostra o tempo total contra
-esse limite e o tempo do slide atual contra a média (10 min ÷ nº de slides) — laranja
+esse limite e o tempo do slide atual contra a média (10 min ÷ nº de slides): laranja
 perto do fim, vermelho ao estourar. As setas ← → passam os slides, a **barra de espaço**
 pausa e retoma, e o cronômetro **segura sozinho** quando você sai dos slides (volta à
 capa ou troca de aba). É modular: registrar uma nova quinzena é adicionar um objeto no
@@ -104,7 +104,7 @@ de dicas sobre o PDI.
   (tema `darkMode: 'class'`, paleta editorial e keyframes/animações customizadas).
 - **Font Awesome** via CDN (ícones da aba Documentação).
 - **Fonte Satoshi** via Fontshare.
-- **Firebase** (opcional) — Auth anônimo + Firestore para **persistir o progresso do
+- **Firebase** (opcional): Auth anônimo + Firestore para **persistir o progresso do
   cronograma** entre dispositivos. Sem configuração de Firebase, o progresso cai
   automaticamente para o `localStorage` (chave `pdi_armando_v9`).
 

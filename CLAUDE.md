@@ -4,18 +4,18 @@ Guia para o Claude Code (e humanos) trabalharem neste repositório.
 
 ## O que é
 
-`pdi-armando` é um **site de página única** publicado no GitHub Pages. Toda a aplicação —
-markup, estilos e lógica — vive em **um único arquivo: `index.htm`**. Não há build,
+`pdi-armando` é um **site de página única** publicado no GitHub Pages. Toda a aplicação (markup,
+estilos e lógica) vive em **um único arquivo: `index.htm`**. Não há build,
 bundler, framework, gerenciador de pacotes nem testes versionados. O que está no arquivo
 é o que vai para produção.
 
 ## Arquivos
 
-- `index.htm` — a aplicação inteira. **Único artefato de deploy.**
-- `meme_this_is_fine_dog.png` — favicon (referenciado por URL **absoluta** do GitHub raw,
+- `index.htm`: a aplicação inteira. **Único artefato de deploy.**
+- `meme_this_is_fine_dog.png`: favicon (referenciado por URL **absoluta** do GitHub raw,
   não por caminho relativo).
-- `README.md` — visão geral do produto.
-- `CLAUDE.md` — este guia.
+- `README.md`: visão geral do produto.
+- `CLAUDE.md`: este guia.
 
 ⚠️ **Não mova nem renomeie `index.htm` ou o PNG.** O GitHub Pages serve `index.htm` da
 raiz e o favicon usa URL absoluta apontando para `main`. Reestruturar pastas quebra a
@@ -25,13 +25,13 @@ publicação.
 
 Ordem do arquivo:
 
-1. `<head>` — meta, favicon, fontes (Satoshi/Fontshare), **Font Awesome** (CDN),
+1. `<head>`: meta, favicon, fontes (Satoshi/Fontshare), **Font Awesome** (CDN),
    **Tailwind** (CDN) + `tailwind.config` inline, e um `<style>` com CSS customizado.
-2. `<body>` — assistente "Clippy" (fixo), a **navbar superior única** e as `<main>` de
+2. `<body>`: assistente "Clippy" (fixo), a **navbar superior única** e as `<main>` de
    cada view.
-3. `<script type="module">` — app principal (Firebase, dados do cronograma/manifesto,
+3. `<script type="module">`: app principal (Firebase, dados do cronograma/manifesto,
    `window.switchView`, filtros, tema, assistente).
-4. `<script>` (JS comum) — **motor da aba Documentação** (decks Discovery/Executiva).
+4. `<script>` (JS comum): **motor da aba Documentação** (decks Discovery/Executiva).
 
 ### Sistema de views (abas do topo)
 
@@ -46,7 +46,7 @@ Ordem do arquivo:
 
 ### Rotas / URLs compartilháveis
 
-Cada parte do site tem a sua própria URL, via **hash** (`#/...`) — não há servidor,
+Cada parte do site tem a sua própria URL, via **hash** (`#/...`), porque não há servidor,
 então nada de rotas com `history.pushState` puro. Formato:
 
 | URL | Abre |
@@ -71,7 +71,7 @@ então nada de rotas com `history.pushState` puro. Formato:
 - **Trocar de aba** entra no histórico (`pushState`); navegar **dentro** de uma aba
   (slide, mês, produto, filtro) usa `replaceState`, para o botão voltar não ter que
   desfazer slide a slide. Chamadas do mesmo gesto são agrupadas numa entrada só.
-- `syncRoute` só age depois da primeira leitura da URL (`routerReady`) — por isso
+- `syncRoute` só age depois da primeira leitura da URL (`routerReady`), por isso
   renders de inicialização não sobrescrevem a rota recebida.
 - Quem chama o roteador na carga é o `DOMContentLoaded` do **módulo principal**
   (`window.applyRoute()` no lugar do antigo `switchView('presentation')`). Se mexer
@@ -85,11 +85,11 @@ então nada de rotas com `history.pushState` puro. Formato:
 ### Aba Documentação (integração nativa)
 
 - Conteúdo trazido do repo `documenta_pdi_armando` e **embutido nativamente** (não é
-  iframe — a versão com iframe foi removida por gerar uma segunda navbar/"puxadinho").
+  iframe; a versão com iframe foi removida por gerar uma segunda navbar/"puxadinho").
 - Vive dentro de `view-documentacao`, com um **menu lateral de sub-abas**
   (`#tab-btn-discovery`, `#tab-btn-executiva`, `#tab-btn-ia`, `#tab-btn-clarity`,
-  `#tab-btn-testes-ab`) —
-  não é uma segunda navbar fixa. Os mesmos itens aparecem no dropdown da navbar
+  `#tab-btn-testes-ab`).
+  Não é uma segunda navbar fixa. Os mesmos itens aparecem no dropdown da navbar
   (`#doc-dropdown`, via `window.openDoc('<tab>')`).
 - Três "decks" de slides: `discovery`, `executiva` e `ia`. Cada slide é um objeto em
   `discoverySlides` / `executivaSlides` / `iaSlides` (`badge`, `themeKey`, `title`,
@@ -99,7 +99,7 @@ então nada de rotas com `history.pushState` puro. Formato:
   Estado em `decks` e `activeTab`.
 - Navegação por **teclado (← →)** e **swipe** só age quando `view-documentacao` está
   visível **e** a sub-aba ativa tem um `#<tab>-view-slides` visível (há um guard
-  explícito). Preserve esse guard ao mexer nos handlers — é ele que impede a aba
+  explícito). Preserve esse guard ao mexer nos handlers, porque é ele que impede a aba
   Clarity (que não é deck) de reagir às setas.
 - **Para editar/adicionar um slide:** altere o array correspondente. Ao trocar a
   quantidade de slides, os contadores (ex.: `01/10`) se ajustam sozinhos.
@@ -117,7 +117,7 @@ então nada de rotas com `history.pushState` puro. Formato:
 - Render em `renderClarity()`; estado em `activeClarityMonth` / `activeClarityProduct`;
   interações globais `switchClarityMonth(id)` e `filterClarityProduct(key)`.
   Contadores da capa e do mês (meses, páginas, insights) são calculados a partir dos
-  dados — não edite números na mão.
+  dados, então não edite números na mão.
 - **Para registrar um novo mês:** adicione um objeto no início de `clarityReports`.
   Nada mais precisa mudar: seletor de mês, filtros por produto e estatísticas se ajustam.
 
@@ -130,14 +130,14 @@ então nada de rotas com `history.pushState` puro. Formato:
   `priority` / `effort` / `recommended`, `evidence[]`, `hypothesis` (`se`, `entao`,
   `porque`), `variants[]`, `metrics` (`primary`, `secondary[]`, `guardrail`) e `success`.
 - Cada variante tem `id` (`A` = controle, `B` = variante), `tag`, `title`, `summary`,
-  o esquema de tela `wireframe[]` e — na variante — `changes[]` (que reaproveita
+  o esquema de tela `wireframe[]` e, na variante, `changes[]` (que reaproveita
   `clarityListHtml`, então aceita `note`).
 - Cada bloco do `wireframe` aceita `label` (HTML inline), `state` (`mantido`,
-  `ajustado`, `subiu`, `desceu`, `novo`, `removido`, `destaque` — estilos em
+  `ajustado`, `subiu`, `desceu`, `novo`, `removido`, `destaque`, com estilos em
   `abBlockStates`), `size: 'lg'`, `alert` (rótulo vermelho do ponto quente) e
   `fold: true`, que desenha a linha da dobra logo abaixo do bloco.
 - Render em `renderAbTests()`; estado em `activeAbTest`; interação global
-  `switchAbTest(key)`. Contadores da capa e a legenda saem dos dados — não edite números
+  `switchAbTest(key)`. Contadores da capa e a legenda saem dos dados, então não edite números
   na mão.
 - **Para propor um novo teste:** adicione um objeto em `abTests`. Filtros, contadores e
   legenda se ajustam sozinhos.
@@ -145,45 +145,45 @@ então nada de rotas com `history.pushState` puro. Formato:
 ### Aba Resultados Quinzenais (apresentação de slides com cronômetro)
 
 - Aba do topo (`view-resultados`): arquivo recorrente das apresentações de resultados,
-  marcado pela **data em que foi apresentada** — e rodado como **deck de slides**.
+  marcado pela **data em que foi apresentada**, e rodado como **deck de slides**.
 - Dois modos, como os decks da Documentação: a **capa** (`resultados-view-intro`, com
   seletor de data, resumo e roteiro clicável) e os **slides**
   (`resultados-view-slides`). `switchResultadosView('intro' | 'slides')` alterna.
 - Dados em `apresentacoesQuinzenais` (script comum, logo acima do roteador): um objeto
-  por apresentação (`id` no formato `AAAA-MM-DD` — é o que vai para a URL —, `date`,
+  por apresentação (`id` no formato `AAAA-MM-DD`, que é o que vai para a URL, `date`,
   `label`, `period`, `focus`, `summary`, `deliveries[]`), do **mais recente para o mais
   antigo**.
 - Cada entrega em `deliveries[]` tem `key`, `name`, `page`, `kind` (chip do tipo:
   Conceituação, Atualização, Materiais, Processo, Experimento…), `stage` (chip de
   estágio), `icon` (Font Awesome), `themeKey` (paleta de `colorThemes`), `summary`
-  (HTML inline) e as três listas obrigatórias — `what[]` (o que foi feito), `why[]`
-  (por que é um bom produto) e `revenue[]` (como pode gerar faturamento) — mais
+  (HTML inline) e as três listas obrigatórias: `what[]` (o que foi feito), `why[]`
+  (por que é um bom produto) e `revenue[]` (como pode gerar faturamento), mais
   `next[]` (próximos passos), opcional.
 - **A área do slide tem altura estável e não rola** (`#resultados-slide-content`:
   `min-h-[440px]`, `md:min-h-[580px]`, sem `overflow`): o card não muda de tamanho entre
   slides e tudo cabe na tela. O slide da entrega usa **três colunas** (o que foi feito /
-  por que é bom produto / faturamento), com a cadeia de receita em largura total abaixo
-  — é assim que o conteúdo cabe sem rolagem. Se um slide crescer além da caixa, corte
+  por que é bom produto / faturamento), com a cadeia de receita em largura total abaixo.
+  É assim que o conteúdo cabe sem rolagem. Se um slide crescer além da caixa, corte
   texto; não aumente a altura.
-- **Slide é apoio de fala, não documento.** Escreva enxuto: `summary` em uma linha e
+- **Slide é apoio de fala.** Escreva enxuto: `summary` em uma linha e
   **2–3 itens curtos** por lista (uma frase cada, sem parágrafo). Com 10 minutos e
   ~1:15 por slide, texto demais atrapalha quem apresenta. O detalhamento longo, se
-  precisar, vai para a Documentação — não para o slide.
+  precisar, vai para a Documentação, fora do slide.
 - As listas são desenhadas por `resultadoListHtml` (mesmo formato do Clarity, com corpo
   maior para leitura à distância): cada item aceita `text` com HTML inline
   (`<strong>`, `<em>`) e `note` como anotação recuada do time.
 - **Visuais opcionais da entrega**, usados só quando dizem algo (sem enfeite):
-  - `revenueFlow: [...]` — a cadeia entre a entrega e o dinheiro (ex.: `["Base AUVP",
+  - `revenueFlow: [...]`: a cadeia entre a entrega e o dinheiro (ex.: `["Base AUVP",
     "Página Partners", "Contrato de lobby", "Fee recorrente"]`), desenhada por
     `resultadoFluxoHtml` no topo do bloco de faturamento; o último passo é o que entra
     em caixa e vem destacado.
-  - `change: { from, to }` — o "de → para" das atualizações (ex.: a virada de praça do
+  - `change: { from, to }`: o "de → para" das atualizações (ex.: a virada de praça do
     Giro), desenhado por `resultadoMudancaHtml` logo abaixo do resumo.
   - O slide de abertura desenha sozinho a faixa de **orçamento de tempo**: um segmento
     por slide, colorido pelo `themeKey` da entrega.
 - **Roteiro dos slides:** `getResultadoSlides()` monta `abertura` + uma entrega por
   slide + `fechamento` (que agrega os `next[]` de todas as entregas). A `key` de cada
-  slide é o que vai para a URL — não há número de slide na rota.
+  slide é o que vai para a URL; não há número de slide na rota.
 - Render: `renderResultados()` (capa) e `renderResultadoSlide()` (slide atual).
   Estado em `activeQuinzena` / `activeQuinzenaSlide`. Interações globais:
   `switchQuinzena(id)`, `startResultadosDeck(slideKey?)`, `backToResultadosIntro()`,
@@ -206,9 +206,9 @@ então nada de rotas com `history.pushState` puro. Formato:
 - **O assistente (Clippy) some durante a apresentação:** `atualizarAssistenteNaApresentacao()`
   esconde `#retro-assistant` (e fecha balão e chat) enquanto os slides estão visíveis,
   e o traz de volta na capa ou em outra aba. É chamada por `switchResultadosView()` e
-  pelo `switchView` envolvido pelo roteador — preserve as duas chamadas.
+  pelo `switchView` envolvido pelo roteador, então preserve as duas chamadas.
 - **Teclado e swipe:** os handlers globais checam `resultadosSlidesVisible()` **antes**
-  do guard da Documentação — setas ← → navegam e **espaço pausa/retoma** o cronômetro
+  do guard da Documentação: setas ← → navegam e **espaço pausa/retoma** o cronômetro
   (com `preventDefault`, então o espaço não rola a página durante a apresentação).
   Preserve essa ordem ao mexer nos handlers.
 - **Para registrar uma nova quinzena:** adicione um objeto **no início** de
@@ -220,7 +220,7 @@ então nada de rotas com `history.pushState` puro. Formato:
 - Tailwind `darkMode: 'class'`; o tema é a classe `dark` no `<html>`.
 - `window.toggleTheme` alterna o tema. **Existe apenas uma** definição de `toggleTheme`
   (a do módulo principal). O `toggleTheme` que vinha do documenta foi removido na
-  integração — não reintroduza um segundo.
+  integração, então não reintroduza um segundo.
 
 ### Persistência (cronograma)
 
@@ -233,7 +233,7 @@ então nada de rotas com `history.pushState` puro. Formato:
 
 ## Convenções
 
-- **Idioma:** **tudo em pt-BR** — conteúdo do site, comentários de código, mensagens de
+- **Idioma:** **tudo em pt-BR**, em todo lugar: conteúdo do site, comentários de código, mensagens de
   commit e, obrigatoriamente, **títulos, descrições e comentários de pull request**.
   Nenhum PR deve ser aberto (ou respondido) em inglês. Mantenha.
 - **Estilo:** classes utilitárias do Tailwind inline. Paleta do tema:
@@ -247,7 +247,7 @@ então nada de rotas com `history.pushState` puro. Formato:
 
 ## Git e Pull Requests
 
-- **Todo PR é em pt-BR** — título, corpo, checklists e respostas a revisões. Se um
+- **Todo PR é em pt-BR**, incluindo título, corpo, checklists e respostas a revisões. Se um
   template de PR vier em inglês, preencha o conteúdo em pt-BR mesmo assim.
 - Título curto e no imperativo, descrevendo o que muda para quem usa o site
   (ex.: `Adiciona sub-aba "Análise Clarity" na Documentação`).
