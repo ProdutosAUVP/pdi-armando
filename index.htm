@@ -3271,6 +3271,155 @@
     // Em qualquer item, `note` guarda a anotação/hipótese do time sobre o dado.
     const clarityReports = [
       {
+        id: "2026-08",
+        month: "Agosto",
+        year: "2026",
+        focus: "Mapas de calor — segunda rodada",
+        summary: "Segunda leitura dos mapas de calor (cliques, cliques mortos, rage clicks e profundidade de rolagem) das quatro páginas principais. Os sinais de julho se repetem — a decisão acontece no topo, a rolagem morre cedo e o usuário insiste em clicar no que não responde —, agora com números mais duros de profundidade no AUVP PRO.",
+        products: [
+          {
+            key: "capital-home",
+            name: "AUVP Capital",
+            page: "Home",
+            icon: "fa-house",
+            themeKey: "default",
+            behaviors: [
+              {
+                text: "No desktop, o <strong>primeiro e o último clique</strong> são em <strong>AUVP Escola</strong> e <strong>Início</strong> — a navegação vai e volta entre essas duas seções.",
+                note: "Repete julho: a home segue sendo usada como hub para os outros produtos, não como página de destino."
+              },
+              {
+                text: "Voltam os <strong>cliques mortos</strong> no título <em>FEITOS PARA PRESERVAR E MULTIPLICAR SEU PATRIMÔNIO EM INVESTIMENTOS</em> — o usuário tenta interagir com algo que não é clicável.",
+                note: "Segundo mês seguido com o mesmo comportamento no mesmo elemento."
+              },
+              {
+                text: "No mobile, o primeiro clique é no <strong>menu hambúrguer</strong> e o último em <strong>itens do submenu</strong>."
+              }
+            ],
+            conclusions: [
+              {
+                text: "Resolver a ambiguidade do título da hero: ou deixar claro que não é interativo, ou dar a ele o destino que o usuário procura."
+              },
+              {
+                text: "Otimizar o percurso mobile — quem chega abre o menu, então os itens mais clicados precisam estar no topo do submenu."
+              },
+              {
+                text: "Destacar (ou criar atalho para) as seções mais procuradas, <strong>AUVP Escola</strong> e <strong>Início</strong>.",
+                note: "Se a home funciona como hub, o caminho para os outros produtos deveria estar acima da dobra."
+              }
+            ]
+          },
+          {
+            key: "capital-planos",
+            name: "AUVP Capital",
+            page: "Planos",
+            icon: "fa-layer-group",
+            themeKey: "blue",
+            behaviors: [
+              {
+                text: "No desktop, os primeiros cliques se concentram nos botões <strong>SELECIONAR PLANO</strong> — a escolha do plano é a ação de entrada da página."
+              },
+              {
+                text: "Boa parte dos <strong>últimos cliques</strong> é no <strong>botão de fechar do pop-up</strong>.",
+                note: "Mesmo padrão de julho: o modal continua sendo o ponto de saída, e não o de conversão."
+              },
+              {
+                text: "No mobile, os primeiros cliques se dividem entre <strong>SELECIONAR PLANO</strong> e o <strong>menu hambúrguer</strong>."
+              },
+              {
+                text: "Poucos usuários rolam até o fim da página, e no mobile a queda é ainda mais forte."
+              }
+            ],
+            conclusions: [
+              {
+                text: "O CTA <strong>SELECIONAR PLANO</strong> concentra a atenção: ganho de visibilidade nele mexe direto na conversão."
+              },
+              {
+                text: "Revisar o pop-up — o volume de fechamentos sugere que ele interrompe a navegação em vez de conduzi-la.",
+                note: "Candidato natural a teste A/B na próxima rodada."
+              },
+              {
+                text: "Subir o conteúdo decisivo para antes da dobra média, já que a leitura completa da página é rara — principalmente no mobile."
+              }
+            ]
+          },
+          {
+            key: "escola",
+            name: "AUVP Escola",
+            page: "Página principal",
+            icon: "fa-graduation-cap",
+            themeKey: "orange",
+            metrics: [
+              { label: "Maioria não rola além de", value: "25%" }
+            ],
+            behaviors: [
+              {
+                text: "Em desktop e tablet, o <strong>primeiro e o último clique</strong> são na <strong>Área do aluno</strong> — quem chega já é aluno e está buscando acesso."
+              },
+              {
+                text: "No mobile, os primeiros cliques vão para o botão de curso <strong>Aprenda a investir…</strong> e para o CTA <strong>FAÇA SUA ANÁLISE DE PERFIL</strong>."
+              },
+              {
+                text: "A maioria dos visitantes <strong>não passa de 25%</strong> da página em nenhum dispositivo.",
+                note: "Mesmo teto de julho — o que está abaixo da dobra praticamente não é visto."
+              },
+              {
+                text: "Persistem <strong>cliques mortos e rage clicks</strong> no mobile, no botão <strong>Aprenda a investir…</strong> e na <strong>imagem principal</strong>."
+              }
+            ],
+            conclusions: [
+              {
+                text: "Levar os CTAs principais — <strong>FAÇA SUA ANÁLISE DE PERFIL</strong> e <strong>QUERO FAZER PARTE</strong> — para o topo da página."
+              },
+              {
+                text: "Corrigir os elementos que recebem clique sem responder no mobile: o botão do curso e a imagem principal.",
+                note: "Ou eles viram links de verdade, ou param de parecer clicáveis."
+              },
+              {
+                text: "Condensar e reorganizar o conteúdo abaixo da dobra para segurar quem passa dos 25% iniciais."
+              }
+            ]
+          },
+          {
+            key: "pro",
+            name: "AUVP PRO",
+            page: "Página principal",
+            icon: "fa-arrow-trend-up",
+            themeKey: "pink",
+            metrics: [
+              { label: "Dobra média desktop", value: "~833px" },
+              { label: "Dobra média mobile", value: "~710px" },
+              { label: "Chegam ao fim (desktop)", value: "~10%" },
+              { label: "Veem 100% (mobile)", value: "1,4%" }
+            ],
+            behaviors: [
+              {
+                text: "Em desktop, tablet e mobile há muita interação com <strong>INDIVIDUAL / PACOTES (EM BREVE)</strong>, mesmo com o item inativo.",
+                note: "Segundo mês seguido do mesmo sinal: existe demanda declarada por esse formato antes mesmo de ele existir."
+              },
+              {
+                text: "Muitos primeiros cliques vão para o <strong>ponto 4 da linha do tempo</strong>, seguidos de navegação até o <strong>ponto 6</strong>."
+              },
+              {
+                text: "Rolagem muito baixa: apenas <strong>~10%</strong> do desktop chega ao fim e só <strong>1,4%</strong> do mobile vê 100% da página."
+              }
+            ],
+            conclusions: [
+              {
+                text: "Tornar <strong>INDIVIDUAL / PACOTES</strong> clicável — nem que seja uma lista de espera — ou removê-lo até que exista.",
+                note: "Um <em>avise-me quando abrir</em> transforma o clique frustrado em lead."
+              },
+              {
+                text: "Concentrar o conteúdo decisivo antes da dobra média (~833px no desktop e ~710px no mobile)."
+              },
+              {
+                text: "Trabalhar o trecho da linha do tempo entre os <strong>pontos 4 e 6</strong>, onde a interação se concentra."
+              }
+            ]
+          }
+        ]
+      },
+      {
         id: "2026-07",
         month: "Julho",
         year: "2026",
@@ -3618,9 +3767,20 @@
         effort: "Esforço baixo",
         recommended: "Candidato ao 1º teste (PER.1)",
         evidence: [
-          { text: "Em desktop e tablet o <strong>primeiro clique</strong> é em <strong>Área do aluno</strong> — e é ali que se concentram cliques mortos e rage clicks." },
-          { text: "No mobile, os primeiros cliques vão para o <strong>botão aprender 1</strong> e para <strong>FAÇA SUA ANÁLISE DE PERFIL</strong>." },
-          { text: "<strong>Menos de 15%</strong> chegam a 75% da página e a maioria não passa de <strong>25%</strong> de profundidade." }
+          {
+            text: "Em desktop e tablet, a <strong>Área do aluno</strong> é o primeiro clique nas duas rodadas — e em agosto passou a ser também o <strong>último</strong> clique da sessão.",
+            note: "Julho + agosto. O aluno que volta atravessa a página de aquisição inteira só para achar o acesso."
+          },
+          {
+            text: "No mobile, o mesmo par abre a sessão nos dois meses: o <strong>botão de curso</strong> (<em>Aprenda a investir…</em>) e <strong>FAÇA SUA ANÁLISE DE PERFIL</strong>."
+          },
+          {
+            text: "<strong>Menos de 15%</strong> chegam a 75% da página (julho) e a maioria não passa de <strong>25%</strong> de profundidade — teto confirmado em agosto, em todos os dispositivos."
+          },
+          {
+            text: "Cliques mortos e rage clicks seguem em elementos que não respondem: <strong>Área do aluno</strong> no desktop e, no mobile, o <strong>botão do curso</strong> e a <strong>imagem principal</strong>.",
+            note: "Duas rodadas sem nenhuma ação no meio: o ruído se repetiu igual, então não é variação de amostra."
+          }
         ],
         hypothesis: {
           se: "separarmos os dois públicos no topo — acesso do aluno sempre visível e com resposta clara ao clique, e um único CTA de aquisição em destaque",
@@ -3683,9 +3843,20 @@
         effort: "Esforço médio",
         recommended: "Teste mais próximo da receita",
         evidence: [
-          { text: "O primeiro clique do desktop é em <strong>SELECIONAR PLANO</strong> e variantes — a intenção já chega definida." },
-          { text: "Boa parte dos <strong>cliques finais</strong> da sessão é no <strong>botão de fechar do modal</strong>: o fluxo morre logo depois do clique principal." },
-          { text: "A rolagem cai para <strong>12%</strong> no fim da página; a dobra média fica em <strong>880px</strong>." }
+          {
+            text: "Nas duas rodadas, o primeiro clique do desktop é em <strong>SELECIONAR PLANO</strong> e variantes — a intenção já chega definida."
+          },
+          {
+            text: "E nas duas rodadas boa parte dos <strong>cliques finais</strong> da sessão é no <strong>botão de fechar do modal</strong>: o fluxo morre logo depois do clique principal.",
+            note: "Julho e agosto com o mesmo ponto de saída e nenhuma alteração entre eles — o problema é o modal, não o momento."
+          },
+          {
+            text: "A rolagem cai para <strong>12%</strong> no fim da página, com dobra média em <strong>880px</strong> (julho); agosto confirma a queda, mais acentuada no <strong>mobile</strong>."
+          },
+          {
+            text: "No mobile (agosto), o primeiro clique se divide entre <strong>SELECIONAR PLANO</strong> e o <strong>menu hambúrguer</strong>.",
+            note: "Parte do tráfego mobile ainda procura navegação antes de escolher o plano."
+          }
         ],
         hypothesis: {
           se: "trocarmos o modal de seleção por uma etapa inline, com o plano escolhido resumido e uma única ação por vez",
@@ -3751,9 +3922,19 @@
         effort: "Esforço baixo",
         recommended: "Maior ganho de frustração evitada",
         evidence: [
-          { text: "Em desktop e mobile, o <strong>primeiro clique</strong> é no <strong>ponto 4 da linha do tempo</strong> — o ponto mais alto da carreira." },
-          { text: "Muitos <strong>cliques mortos</strong> em <strong>INDIVIDUAL / PACOTES (EM BREVE)</strong> em todos os dispositivos." },
-          { text: "No desktop, os <strong>cliques finais</strong> da sessão se concentram na <strong>Área do aluno</strong>." }
+          {
+            text: "Em desktop e mobile, o <strong>primeiro clique</strong> é no <strong>ponto 4 da linha do tempo</strong> nos dois meses; agosto mostrou o percurso seguinte, até o <strong>ponto 6</strong>."
+          },
+          {
+            text: "<strong>INDIVIDUAL / PACOTES (EM BREVE)</strong> continua recebendo clique morto em todos os dispositivos.",
+            note: "Segunda rodada seguida: é demanda por um formato que ainda não existe, não engano pontual."
+          },
+          {
+            text: "Agosto deu número à rolagem: só <strong>~10%</strong> do desktop chega ao fim e apenas <strong>1,4%</strong> do mobile vê 100% da página — dobra média em <strong>~833px</strong> (desktop) e <strong>~710px</strong> (mobile)."
+          },
+          {
+            text: "No desktop (julho), os <strong>cliques finais</strong> da sessão se concentram na <strong>Área do aluno</strong>."
+          }
         ],
         hypothesis: {
           se: "abrirmos a página com a linha do tempo já no ponto 4 e trocarmos o card EM BREVE por um bloco honesto de lista de espera",
@@ -3816,10 +3997,23 @@
         effort: "Esforço alto",
         recommended: "Maior reestruturação — deixar por último",
         evidence: [
-          { text: "Poucos visitantes de desktop passam de <strong>50%</strong> da página, com queda acentuada já depois dos <strong>20%</strong> de profundidade." },
-          { text: "Dobra média em <strong>~845px</strong> no desktop e <strong>~1043px</strong> no mobile." },
-          { text: "Cliques mortos concentrados no título da hero <em>FEITOS PARA PRESERVAR</em>." },
-          { text: "Os primeiros cliques vão para <strong>Início</strong> e <strong>AUVP Escola</strong>; no mobile, para o <strong>menu hambúrguer</strong> e links externos." }
+          {
+            text: "Poucos visitantes de desktop passam de <strong>50%</strong> da página, com queda acentuada já depois dos <strong>20%</strong> de profundidade (julho)."
+          },
+          {
+            text: "Dobra média em <strong>~845px</strong> no desktop e <strong>~1043px</strong> no mobile."
+          },
+          {
+            text: "Cliques mortos no título da hero <em>FEITOS PARA PRESERVAR</em> nas duas rodadas.",
+            note: "Dois meses seguidos no mesmo elemento: o título promete um destino que não existe."
+          },
+          {
+            text: "Os cliques de entrada vão para <strong>Início</strong> e <strong>AUVP Escola</strong> nos dois meses — e em agosto eles são também os <strong>últimos</strong> cliques da sessão.",
+            note: "A Home é usada como hub de navegação entre produtos, não como página de destino."
+          },
+          {
+            text: "No mobile, a sessão inteira passa pelo menu: primeiro clique no <strong>hambúrguer</strong>, último em <strong>itens do submenu</strong> ou em links externos."
+          }
         ],
         hypothesis: {
           se: "encurtarmos a Home e colocarmos a escolha de produto (Capital, Escola, PRO) como blocos clicáveis dentro da dobra média",
@@ -4086,7 +4280,7 @@
         <div class="w-full bg-white dark:bg-[#1A1A1A] border border-paper-dark dark:border-white/5 shadow-xl shadow-black/5 dark:shadow-white/5 rounded-[4px] p-6 md:p-8 flex flex-col gap-5">
           <div class="flex flex-wrap items-end justify-between gap-4">
             <div>
-              <span class="text-[9px] uppercase tracking-widest font-bold text-ink-light dark:text-white/40">Propostas derivadas da rodada de Julho/2026</span>
+              <span class="text-[9px] uppercase tracking-widest font-bold text-ink-light dark:text-white/40">Propostas derivadas das rodadas de Julho e Agosto/2026</span>
               <h2 class="text-2xl md:text-3xl font-black uppercase tracking-tighter text-ink dark:text-white leading-none mt-1">
                 Controle <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-[#72A68C] italic font-light tracking-tight">vs.</span> Variante
               </h2>
@@ -4098,8 +4292,10 @@
           </div>
 
           <p class="text-sm text-ink-light dark:text-white/70 leading-relaxed font-medium border-l-4 border-accent pl-4 py-1">
-            O padrão que se repete nas quatro páginas é o mesmo: <strong>o usuário decide no topo</strong>. Por isso toda variante
-            aqui move a decisão para dentro da dobra e tira do caminho o que rouba clique sem entregar nada.
+            Duas rodadas do Clarity — julho e agosto — sem nenhuma alteração nas páginas entre elas: os mesmos sinais voltaram.
+            O padrão que se repete nas quatro páginas é o mesmo: <strong>o usuário decide no topo</strong>. É essa repetição que dá
+            confiança às propostas, então toda variante aqui move a decisão para dentro da dobra e tira do caminho o que rouba
+            clique sem entregar nada.
           </p>
 
           <div class="flex flex-wrap gap-2 pt-1">${filters}</div>
